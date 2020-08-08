@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "210951532779",
+    "firebase_url": "https://takeeazy-f97e6.firebaseio.com",
+    "project_id": "takeeazy-f97e6",
+    "storage_bucket": "takeeazy-f97e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210951532779:android:7628ebaf60c25b466a0eae",
+        "android_client_info": {
+          "package_name": "duodev.take.eazy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210951532779-osgsrbcsm3btdlgfm6c9b93ldr2i95ut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "duodev.take.eazy",
+            "certificate_hash": "5aaf12b9664da0de173626badafa802ce0720860"
+          }
+        },
+        {
+          "client_id": "210951532779-r1940ibklts4fhetgl1fihj0kol3fkvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARiN-diUpoLxBoF3r1QjEDZRuZ3yNkZT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210951532779-r1940ibklts4fhetgl1fihj0kol3fkvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
