@@ -1,6 +1,7 @@
 package duodev.take.eazy.Utils
 
 import android.os.Handler
+import com.google.gson.Gson
 
 fun <T> convertToPojo(
     data: MutableMap<String, Any>,
