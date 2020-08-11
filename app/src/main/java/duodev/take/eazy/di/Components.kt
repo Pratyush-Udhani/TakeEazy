@@ -7,7 +7,7 @@ import duodev.take.eazy.base.BaseFragment
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [FirebaseModule::class, ApplicationModule::class])
+@Component(modules = [FirebaseModule::class, ApplicationModule::class, ViewModelModule::class])
 interface Components {
 
     fun inject(takeEasyApp: TakeEasyApp)

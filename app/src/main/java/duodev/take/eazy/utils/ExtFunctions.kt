@@ -1,4 +1,4 @@
-package duodev.take.eazy.Utils
+package duodev.take.eazy.utils
 
 import android.content.Context
 import android.content.res.Resources

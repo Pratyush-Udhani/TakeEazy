@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import duodev.take.eazy.home.ViewModel.HomeViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -12,11 +13,11 @@ abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(ViewModel::class)
-//    abstract fun ViewModel(ViewModel: ViewModel): ViewModel
-    // This is the method
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
+
 
 
 }

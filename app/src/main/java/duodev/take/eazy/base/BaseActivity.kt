@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import duodev.take.eazy.TakeEasyApp
-import duodev.take.eazy.di.ViewModelFactory
 import duodev.take.eazy.utils.PreferenceUtils
 import javax.inject.Inject
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Groceries and essentials</item>
+        <item>Medicines</item>
+        <item>Fruits and vegetables</item>
+        <item>Books and stationary</item>
+        <item>Gifts and lifestyles</item>
+        <item>Meat and fish</item>
+        <item>Pet supplies</item>
+        <item>Health and Energy supplements</item>
+        <item>Sweets</item>
+        <item>Electrical appliances </item>
+        <item>Body wash and grooming</item>
+    </string-array>
+</resources>

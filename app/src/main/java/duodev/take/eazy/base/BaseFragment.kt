@@ -17,6 +17,9 @@ abstract class BaseFragment: Fragment() {
     @Inject
     lateinit var firebaseFirestore: FirebaseFirestore
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelFactory
 
