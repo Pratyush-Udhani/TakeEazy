@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
+import duodev.take.eazy.stores.StoresItemsFragment
+import duodev.take.eazy.stores.StoresListFragment
 
 class HomeActivity : BaseActivity() {
 
@@ -34,20 +36,24 @@ class HomeActivity : BaseActivity() {
 
     override fun onBackPressed() {
         currentFragment = supportFragmentManager.findFragmentById(R.id.homeContainer)!!
-        if (currentFragment is HomeFragment) {
+        if (currentFragment is StoresItemsFragment) {
             supportFragmentManager.popBackStackImmediate()
         } else {
-            if (backPressed.plus(2000) >= System.currentTimeMillis()) {
-                super.onBackPressed()
-                finishAffinity()
+            if (currentFragment is StoresListFragment) {
+                supportFragmentManager.popBackStackImmediate()
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.press_again_to_exit),
-                    Toast.LENGTH_SHORT
-                ).show()
-                backPressed =
-                    System.currentTimeMillis()
+                if (backPressed.plus(2000) >= System.currentTimeMillis()) {
+                    super.onBackPressed()
+                    finishAffinity()
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        getString(R.string.press_again_to_exit),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    backPressed =
+                        System.currentTimeMillis()
+                }
             }
         }
     }

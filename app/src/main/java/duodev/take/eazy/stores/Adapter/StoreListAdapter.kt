@@ -1,4 +1,4 @@
-package duodev.take.eazy.home.Adapter
+package duodev.take.eazy.stores.Adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,27 +9,16 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.Store
 
-class StoreHomeAdapter(
+class StoreListAdapter(
     private val list: LinkedHashMap<Store, String>,
     private val listener: OnClick
-) : BaseRecyclerViewAdapter() {
-
+) : BaseRecyclerViewAdapter(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(getView(R.layout.card_store_home, parent))
+        return ViewHolder(getView(R.layout.card_store, parent))
     }
 
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    fun addData(data: MutableMap<Store, String>) {
-        list.putAll(data)
-        notifyDataSetChanged()
-    }
-
-    fun clearData() {
-        list.clear()
-        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -41,16 +30,20 @@ class StoreHomeAdapter(
         }
     }
 
+    fun addData(data: MutableMap<Store, String>) {
+        list.putAll(data)
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val storeName: TextView = itemView.findViewById(R.id.storeName)
         private val storeCard: CardView = itemView.findViewById(R.id.storeCard)
 
-        fun bindItems(item: Store, distance: String) {
-
-            storeName.text = item.storeName
+        fun bindItems(store: Store, distance: String) {
+            storeName.text = store.storeName
             storeCard.setOnClickListener {
-                listener.onStoreClicked(item, distance)
+                listener.onStoreClicked(store, distance)
             }
         }
     }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import duodev.take.eazy.home.ViewModel.HomeViewModel
+import duodev.take.eazy.stores.ViewModel.StoreViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -15,8 +15,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewModel::class)
-    abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
+    @ViewModelKey(StoreViewModel::class)
+    abstract fun homeViewModel(storeViewModel: StoreViewModel): ViewModel
 
 
 

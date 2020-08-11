@@ -1,20 +1,19 @@
-package duodev.take.eazy.home.Adapter
+package duodev.take.eazy.stores.Adapter
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
+import duodev.take.eazy.pojo.Item
 
-class CategoryHomeAdapter(
-    private val list: MutableList<String>,
+class StoreItemsAdapter (
+    private val list: MutableList<Item>,
     private val listener: OnClick
 ) : BaseRecyclerViewAdapter() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(getView(R.layout.card_categories_home, parent))
+        return ViewHolder(getView(R.layout.card_store_item, parent))
     }
 
     override fun getItemCount(): Int {
@@ -27,31 +26,21 @@ class CategoryHomeAdapter(
         }
     }
 
-    fun addData(data: List<String>) {
+    fun addData(data: List<Item>) {
         list.addAll(data)
-        notifyDataSetChanged()
-    }
-
-    fun clearData() {
-        list.clear()
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val categoryName: TextView = itemView.findViewById(R.id.category)
-        private val categoryCard: CardView = itemView.findViewById(R.id.categoryCard)
+        private val itemName: TextView = itemView.findViewById(R.id.itemName)
 
-        fun bindItems(category: String) {
-            categoryName.text = category
-
-            categoryCard.setOnClickListener {
-                listener.onCategoryClicked(category)
-            }
+        fun bindItems(item: Item) {
+            itemName.text = item.itemName
         }
     }
 
     interface OnClick {
-        fun onCategoryClicked(category: String)
+
     }
 }

@@ -1,44 +1,41 @@
-package duodev.take.eazy.home
+package duodev.take.eazy.stores
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import duodev.take.eazy.R
-import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.base.BaseFragment
-import duodev.take.eazy.home.Adapter.CategoryHomeAdapter
-import duodev.take.eazy.home.Adapter.StoreHomeAdapter
-import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.pojo.Store
-import duodev.take.eazy.stores.StoresListFragment
+import duodev.take.eazy.stores.Adapter.StoreListAdapter
+import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlin.collections.LinkedHashMap
+import kotlinx.android.synthetic.main.fragment_stores_list.*
 
 
-class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapter.OnClick {
+class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
 
+    private var category: String = ""
+    private val storeAdapter by lazy { StoreListAdapter(mutableMapOf<Store, String>() as LinkedHashMap<Store, String>, this) }
+    private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private var longitude: Double? = 0.0
     private var latitude: Double? = 0.0
-    private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
-    private val storeAdapter by lazy { StoreHomeAdapter(mutableMapOf<Store, String>() as LinkedHashMap<Store, String>, this) }
-    private val categoryAdapter by lazy { CategoryHomeAdapter(mutableListOf(), this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            category = it.getString(CATEGORY)!!
         }
     }
 
@@ -46,7 +43,8 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_stores_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,40 +53,22 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
     }
 
     private fun init() {
-        setUpListeners()
+        setUpUI()
         setUpRecycler()
         getLocation()
-        setUpCategories()
     }
 
-    private fun setUpCategories() {
-        val categoryArray = resources.getStringArray(R.array.categories)
-        val categoryList: MutableList<String> = mutableListOf()
-        for(element in categoryArray) {
-            categoryList.add(element.toString())
-        }
-        categoryAdapter.addData(categoryList)
-    }
-
-    private fun setUpListeners() {
-        permissionText.setOnClickListener {
-            getLocation()
-        }
-
-        viewAll.setOnClickListener {
-            changeFragment(StoresListFragment.newInstance())
+    private fun setUpUI() {
+        categoryText.text = category
+        if (category != ""){
+            categoryText.makeVisible()
         }
     }
 
     private fun setUpRecycler() {
         storesRecycler.apply {
-            adapter = this@HomeFragment.storeAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        }
-
-        categoriesRecycler.apply {
-            adapter = this@HomeFragment.categoryAdapter
-            layoutManager = GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
+            adapter = this@StoresListFragment.storeAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -135,7 +115,11 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
                     longitude = it.longitude
                     storeViewModel.fetchData().observe(viewLifecycleOwner, Observer {list ->
                         if (list.isNotEmpty()) {
-                            sortData(list)
+                            if (category == ""){
+                                sortData(list)
+                            } else {
+                                filterCategory(list, category)
+                            }
                         }
                     })
 
@@ -148,12 +132,30 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        categoryAdapter.clearData()
-        storeAdapter.clearData()
-        init()
+    private fun filterCategory(list: List<Store>, category: String) {
+        val filteredList: MutableList<Store> = mutableListOf()
+        val storeIds : MutableList<String> = mutableListOf()
+
+        for (element in list){
+            storeIds.add(element.storeId)
+        }
+
+        for (element in list) {
+            if (element.category == category){
+                filteredList.add(element)
+                storeIds.remove(element.storeId)
+                if (storeIds.size == 0) {
+                 sortData(filteredList)
+                }
+            } else {
+                storeIds.remove(element.storeId)
+                if (storeIds.size == 0) {
+                 sortData(filteredList)
+                }
+            }
+        }
     }
+
 
     private fun sortData(list: List<Store>) {
         val sortedMap: LinkedHashMap<Store, String> = mutableMapOf<Store, String>() as LinkedHashMap<Store, String>
@@ -174,26 +176,7 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
             sortedMap[element] =
                 getDistance(latitude!!, longitude!!, element.storeLocation.latitude, element.storeLocation.longitude).toString()
         }
-        loader.makeGone()
         storeAdapter.addData(sortedMap)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fetchStores()
-                permissionText.makeGone()
-            } else {
-                requireContext().toast("Please grant permissions")
-                loader.makeGone()
-                permissionText.makeVisible()
-            }
-        }
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -202,18 +185,19 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         fragmentTransaction?.commit()
         fragmentTransaction?.addToBackStack(null)
     }
-
     companion object {
 
-        fun newInstance() = HomeFragment()
+        private const val CATEGORY = "category"
+
+        fun newInstance(category: String = "") = StoresListFragment().apply {
+            arguments = Bundle().apply {
+                putString(CATEGORY, category)
+            }
+        }
     }
+
     override fun onStoreClicked(store: Store, distance: String) {
         StoreLocation.storeGeo = store.storeLocation
         changeFragment(StoresItemsFragment.newInstance(store))
     }
-
-    override fun onCategoryClicked(category: String) {
-        changeFragment(StoresListFragment.newInstance(category))
-    }
-
 }

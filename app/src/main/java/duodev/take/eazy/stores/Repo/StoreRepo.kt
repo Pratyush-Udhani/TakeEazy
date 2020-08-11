@@ -1,4 +1,4 @@
-package duodev.take.eazy.home.Repo
+package duodev.take.eazy.stores.Repo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import duodev.take.eazy.pojo.Item
 import duodev.take.eazy.pojo.Store
 import javax.inject.Inject
 
-class HomeRepo @Inject constructor(private val firestore: FirebaseFirestore) {
+class StoreRepo @Inject constructor(private val firestore: FirebaseFirestore) {
 
     private val storeList: MutableList<Store> = mutableListOf()
 
@@ -18,11 +18,12 @@ class HomeRepo @Inject constructor(private val firestore: FirebaseFirestore) {
         for (i in 0..5) {
             storeList.add(
                 Store(
+                    storeId = "",
                     storeName = "Store $i",
                     storeAddress = "",
                     storeImageUri = "",
                     storeLocation = GeoPoint(21.11 + i, 22.57),
-                    category = "",
+                    category = "Pet supplies",
                     itemsList = listOf(
                         Item(
                             itemName = "Item 1",
