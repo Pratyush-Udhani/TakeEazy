@@ -1,29 +1,27 @@
-package duodev.take.eazy.stores.ViewModel
+package duodev.take.eazy.cart.ViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import duodev.take.eazy.base.BaseViewModel
+import duodev.take.eazy.cart.Repo.CartRepo
 import duodev.take.eazy.pojo.Items
-import duodev.take.eazy.stores.Repo.StoreRepo
+import duodev.take.eazy.pojo.OrderItems
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class StoreViewModel @Inject constructor(private val storeRepo: StoreRepo) : BaseViewModel(){
+class CartViewModel @Inject constructor(private val cartRepo: CartRepo): BaseViewModel(){
 
-    private var _items = MutableLiveData<List<Items>>()
-    val items: LiveData<List<Items>>
+    private var _items = MutableLiveData<List<OrderItems>>()
+    val items: LiveData<List<OrderItems>>
         get() = _items
-
-    fun fetchData() = storeRepo.fetchStores()
 
     fun fetchItems() {
         viewModelScope.launch {
-            val response = storeRepo.fetchItems()
+            val response = cartRepo.fetchItems()
             if (response != null) {
                 _items = response
             }
         }
     }
-
 }

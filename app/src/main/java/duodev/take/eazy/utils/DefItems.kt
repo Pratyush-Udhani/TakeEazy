@@ -21,6 +21,7 @@ object DefItems {
         val list: MutableList<SingleItem> = mutableListOf()
             list.add(
                 SingleItem(
+                    itemId = "",
                     itemName = "name $i",
                     itemImageUri = "",
                     itemPrice = ""

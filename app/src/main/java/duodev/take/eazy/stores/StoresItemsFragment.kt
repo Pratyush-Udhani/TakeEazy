@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.pojo.CartItems
-import duodev.take.eazy.pojo.SingleItem
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
-import duodev.take.eazy.stores.Adapter.StoreItemSingleAdapter
+import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
-import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
@@ -24,6 +22,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private lateinit var store: Store
     private val itemsGroupAdapter by lazy { StoreItemGroupAdapter(mutableListOf(), this) }
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
+    private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,15 +77,15 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     override fun addToCart(item: CartItems) {
-        storeViewModel.setData(item, store)
+        sharedViewModel.setData(item)
     }
 
     override fun subFromCart(item: CartItems) {
-        storeViewModel.subtractData(item, store)
+        sharedViewModel.subtractData(item)
     }
 
     override fun removeFromCart(itemId: String) {
-        storeViewModel.removeFromCart(itemId)
+        sharedViewModel.removeFromCart(itemId)
     }
 
 }

@@ -3,7 +3,6 @@ package duodev.take.eazy.stores
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreListAdapter
+import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_stores_list.*

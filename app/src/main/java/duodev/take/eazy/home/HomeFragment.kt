@@ -3,7 +3,6 @@ package duodev.take.eazy.home
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +19,10 @@ import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.Adapter.CategoryHomeAdapter
 import duodev.take.eazy.home.Adapter.StoreHomeAdapter
-import duodev.take.eazy.stores.ViewModel.StoreViewModel
+import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.StoresListFragment
+import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.LinkedHashMap

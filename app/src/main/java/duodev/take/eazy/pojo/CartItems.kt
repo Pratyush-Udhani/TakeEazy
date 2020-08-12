@@ -11,4 +11,5 @@ data class CartItems (
 
     @SerializedName("quantity")
     var quantity: Int
+
 ) : Parcelable

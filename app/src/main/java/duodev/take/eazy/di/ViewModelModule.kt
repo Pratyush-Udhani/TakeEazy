@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import duodev.take.eazy.cart.ViewModel.CartViewModel
+import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 
 @Module
@@ -15,9 +17,17 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(SharedViewModel::class)
+    abstract fun sharedViewModel(sharedViewModel: SharedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(StoreViewModel::class)
-    abstract fun homeViewModel(storeViewModel: StoreViewModel): ViewModel
+    abstract fun storeViewModel(storeViewModel: StoreViewModel): ViewModel
 
-
+    @Binds
+    @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    abstract fun cartViewModel(cartViewModel: CartViewModel): ViewModel
 
 }
