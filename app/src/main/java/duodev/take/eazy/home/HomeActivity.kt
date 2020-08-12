@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
+import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.utils.toast
@@ -33,6 +34,7 @@ class HomeActivity : BaseActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigationCart -> {
+                    changeFragment(CartFragment.newInstance())
                   return@setOnNavigationItemSelectedListener true 
                 }
                 R.id.navigationSearch -> {

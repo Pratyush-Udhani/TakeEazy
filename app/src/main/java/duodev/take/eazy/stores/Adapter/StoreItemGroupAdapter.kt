@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
+import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
+import duodev.take.eazy.pojo.SingleItem
 
 class StoreItemGroupAdapter(
     private val list: MutableList<Items>,
@@ -52,11 +54,21 @@ class StoreItemGroupAdapter(
         }
     }
 
-    override fun new(some: String) {
-        listener.clickedItem(some)
+    override fun addToCart(item: CartItems) {
+        listener.addToCart(item)
+    }
+
+    override fun subFromCart(item: CartItems) {
+        listener.subFromCart(item)
+    }
+
+    override fun removeFromCart(itemId: String) {
+    listener.removeFromCart(itemId)
     }
 
     interface OnItemClicked {
-        fun clickedItem(msg: String)
+        fun addToCart(item: CartItems)
+        fun subFromCart(item: CartItems)
+        fun removeFromCart(itemId: String)
     }
 }

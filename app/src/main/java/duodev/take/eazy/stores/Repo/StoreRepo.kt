@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
+import duodev.take.eazy.pojo.SingleItem
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.utils.DefItems
 import javax.inject.Inject
@@ -40,4 +42,15 @@ class StoreRepo @Inject constructor(private val firestore: FirebaseFirestore) {
         return data
     }
 
+    suspend fun setData(item: CartItems, store: Store) {
+
+    }
+
+    suspend fun subtractData(item: CartItems, store: Store) {
+
+    }
+
+    suspend fun removeItemFromCart(itemId: String) {
+
+    }
 }

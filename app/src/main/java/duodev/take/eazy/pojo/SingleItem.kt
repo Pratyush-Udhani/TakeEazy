@@ -7,6 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SingleItem (
 
+    @SerializedName("id")
+    val itemId: String,
+
     @SerializedName("itemName")
     val itemName: String,
 

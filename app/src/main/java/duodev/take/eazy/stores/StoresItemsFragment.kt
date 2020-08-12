@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.pojo.CartItems
+import duodev.take.eazy.pojo.SingleItem
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.stores.Adapter.StoreItemSingleAdapter
@@ -75,7 +77,16 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
         }
     }
 
-    override fun clickedItem(msg: String) {
-        requireContext().toast(msg)
+    override fun addToCart(item: CartItems) {
+        storeViewModel.setData(item, store)
     }
+
+    override fun subFromCart(item: CartItems) {
+        storeViewModel.subtractData(item, store)
+    }
+
+    override fun removeFromCart(itemId: String) {
+        storeViewModel.removeFromCart(itemId)
+    }
+
 }

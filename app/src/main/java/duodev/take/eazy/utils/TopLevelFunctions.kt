@@ -20,6 +20,18 @@ fun runInHandler(time: Long, action: () -> Unit) {
     Handler().postDelayed(action,time)
 }
 
+fun getAddedInt(count: String): Int {
+    var newCount = Integer.parseInt(count)
+    newCount++
+    return newCount
+}
+
+fun getSubInt(count: String): Int {
+    var newCount = Integer.parseInt(count)
+    if (newCount > 0) newCount-- else newCount = 0
+    return newCount
+}
+
 fun getDistance(
     lat1: Double,
     lon1: Double,
