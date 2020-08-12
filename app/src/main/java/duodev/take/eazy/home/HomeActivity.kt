@@ -10,6 +10,8 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
+import duodev.take.eazy.utils.toast
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity() {
 
@@ -23,7 +25,29 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun init() {
+        setUpListeners()
         setUpFragment()
+    }
+
+    private fun setUpListeners() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigationCart -> {
+                  return@setOnNavigationItemSelectedListener true 
+                }
+                R.id.navigationSearch -> {
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigationShop -> {
+                    changeFragment(HomeFragment.newInstance())
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigationOrders -> {
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+                false
+        }
     }
 
     private fun setUpFragment() {
@@ -32,6 +56,18 @@ class HomeActivity : BaseActivity() {
         fragmentTransaction.commit()
         currentFragment = Fragment()
 
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        if (currentFragment != fragment) {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.homeContainer, fragment)
+            fragmentTransaction.commit()
+            fragmentTransaction.addToBackStack(null)
+            currentFragment = fragment
+        } else {
+            toast("here")
+        }
     }
 
     override fun onBackPressed() {

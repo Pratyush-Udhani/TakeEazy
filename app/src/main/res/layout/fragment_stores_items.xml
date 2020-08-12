@@ -28,13 +28,13 @@
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/storeItemsRecycler"
+                android:id="@+id/storeItemGroupRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:nestedScrollingEnabled="true"
                 android:overScrollMode="never"
-                tools:listitem="@layout/card_store_item" />
+                tools:listitem="@layout/card_store_item_group" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

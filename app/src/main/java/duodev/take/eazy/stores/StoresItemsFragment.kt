@@ -1,22 +1,27 @@
 package duodev.take.eazy.stores
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.pojo.Store
-import duodev.take.eazy.stores.Adapter.StoreItemsAdapter
+import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
+import duodev.take.eazy.stores.Adapter.StoreItemSingleAdapter
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
+import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
-class StoresItemsFragment : BaseFragment(), StoreItemsAdapter.OnClick {
+class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
 
     private lateinit var store: Store
-    private val itemAdapter by lazy { StoreItemsAdapter(mutableListOf(), this) }
+    private val itemsGroupAdapter by lazy { StoreItemGroupAdapter(mutableListOf(), this) }
+    private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +43,23 @@ class StoresItemsFragment : BaseFragment(), StoreItemsAdapter.OnClick {
     }
 
     private fun init() {
+        setUpObserver()
         setUpRecycler()
     }
 
+    private fun setUpObserver() {
+        storeViewModel.fetchItems()
+        storeViewModel.items.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                Log.d("ITEMS", it.toString())
+                itemsGroupAdapter.addData(it)
+            }
+        })
+    }
+
     private fun setUpRecycler() {
-        itemAdapter.addData(store.itemsList)
-        storeItemsRecycler.apply {
-            adapter = this@StoresItemsFragment.itemAdapter
+        storeItemGroupRecycler.apply {
+            adapter = this@StoresItemsFragment.itemsGroupAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -58,5 +73,9 @@ class StoresItemsFragment : BaseFragment(), StoreItemsAdapter.OnClick {
                 putParcelable(STORE, store)
             }
         }
+    }
+
+    override fun clickedItem(msg: String) {
+        requireContext().toast(msg)
     }
 }
