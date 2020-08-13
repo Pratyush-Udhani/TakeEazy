@@ -4,19 +4,22 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import duodev.take.eazy.TakeEasyApp
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule (var takeEasyApp: TakeEasyApp) {
+@InstallIn(ApplicationComponent::class)
+class ApplicationModule () {
 
     @Provides
     @Singleton
     fun provideApp(): Application {
-        return takeEasyApp
+        return TakeEasyApp.instance
     }
     @Provides
     @Singleton
-    fun getContext(): Context = takeEasyApp
+    fun getContext(): Context = TakeEasyApp.instance
 
 }
