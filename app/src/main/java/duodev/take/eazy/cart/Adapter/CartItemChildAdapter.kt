@@ -47,7 +47,6 @@ class CartItemChildAdapter (
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemName: TextView = itemView.findViewById(R.id.itemName)
-        private val itemCard: CardView = itemView.findViewById(R.id.itemCard)
         private val addQuantity: ImageView = itemView.findViewById(R.id.addQuantityButton)
         private val subQuantity: ImageView = itemView.findViewById(R.id.subQuantityButton)
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
