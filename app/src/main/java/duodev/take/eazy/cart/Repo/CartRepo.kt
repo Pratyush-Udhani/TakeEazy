@@ -1,11 +1,9 @@
 package duodev.take.eazy.cart.Repo
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import duodev.take.eazy.pojo.*
-import duodev.take.eazy.utils.DefItems
 import javax.inject.Inject
 
 class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirestore) {
@@ -22,7 +20,7 @@ class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirest
                     storeAddress = "",
                     storeImageUri = "",
                     storeLocation = GeoPoint(21.11, 22.57),
-                    category = "Pet supplies"
+                    storeCategory = "Pet supplies"
                 ),
                 itemList = listOf(
                     CartItems(

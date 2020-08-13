@@ -17,7 +17,6 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreListAdapter
-import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_stores_list.*
@@ -141,7 +140,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         }
 
         for (element in list) {
-            if (element.category == category){
+            if (element.storeCategory == category){
                 filteredList.add(element)
                 storeIds.remove(element.storeId)
                 if (storeIds.size == 0) {

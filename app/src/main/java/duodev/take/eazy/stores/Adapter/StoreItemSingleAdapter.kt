@@ -67,10 +67,11 @@ class StoreItemSingleAdapter (
             }
 
             subQuantity.setOnClickListener {
-                if (itemQuantity.text == "0"){
+                if (itemQuantity.text == "1"){
                     listener.removeFromCart(singleItem.itemId)
                     addToCart.makeVisible()
                     editQuantity.makeGone()
+                    itemQuantity.text = "0"
                 } else {
                 listener.subFromCart(CartItems(singleItem, getSubInt(itemQuantity.text.toString())))
                 itemQuantity.text = getSubInt(itemQuantity.text.toString()).toString()

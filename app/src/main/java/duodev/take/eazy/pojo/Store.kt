@@ -24,7 +24,7 @@ data class Store (
     val storeImageUri: String,
 
     @SerializedName("storeCategory")
-    val category: String,
+    val storeCategory: String,
 
     @SerializedName("storeAddress")
     val storeAddress: String

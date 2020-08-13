@@ -37,10 +37,6 @@ fun checkKeyboardState(context: Context, currentFocus: View?): Int {
         -1
 }
 
-fun showLog(tag:String, message:String){
-    Log.d(tag,message)
-}
-
 fun log(message: String) {
     Log.d("TAG!!!!", message)
 }
