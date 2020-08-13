@@ -22,9 +22,6 @@ abstract class BaseFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelFactory
-
     protected val pm = PreferenceUtils
 
 

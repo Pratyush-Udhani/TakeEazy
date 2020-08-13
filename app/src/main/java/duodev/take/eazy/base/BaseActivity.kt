@@ -21,10 +21,6 @@ abstract class BaseActivity: AppCompatActivity() {
     @Inject
     lateinit var firebaseFirestore: FirebaseFirestore
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelFactory
-
-
     val pm = PreferenceUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
