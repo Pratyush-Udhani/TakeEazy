@@ -41,7 +41,7 @@ class CartItemChildAdapter (
 
     fun removeAt(position: Int) {
         list.removeAt(position)
-        notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,7 +63,7 @@ class CartItemChildAdapter (
             }
 
             subQuantity.setOnClickListener {
-                if (itemQuantity.text == "1"){
+                if (itemQuantity.text == "1") {
                     listener.removeFromCart(item.cartItem.itemId)
                     removeAt(adapterPosition)
                 } else {

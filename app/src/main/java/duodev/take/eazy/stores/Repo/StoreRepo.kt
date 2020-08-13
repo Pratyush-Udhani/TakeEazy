@@ -25,7 +25,7 @@ class StoreRepo @Inject constructor(private val firestore: FirebaseFirestore) {
                     storeAddress = "",
                     storeImageUri = "",
                     storeLocation = GeoPoint(21.11 + i, 22.57),
-                    category = "Pet supplies"
+                    storeCategory = "Pet supplies"
                 )
             )
         }

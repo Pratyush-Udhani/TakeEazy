@@ -47,7 +47,7 @@ class StoreItemGroupAdapter(
             group.text = item.itemGroup
             itemsAdapter.addData(item.itemList)
             itemsRecycler.apply {
-                adapter = this@StoreItemGroupAdapter.itemsAdapter
+                adapter = itemsAdapter
                 layoutManager = LinearLayoutManager(itemsRecycler.context)
                 setRecycledViewPool(this@StoreItemGroupAdapter.viewPool)
             }
