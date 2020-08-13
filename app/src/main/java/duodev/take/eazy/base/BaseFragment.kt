@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 import duodev.take.eazy.TakeEasyApp
 import duodev.take.eazy.di.ViewModelFactory
 import duodev.take.eazy.utils.PreferenceUtils
 import javax.inject.Inject
 
+@AndroidEntryPoint
 abstract class BaseFragment: Fragment() {
 
     @Inject
@@ -28,6 +30,5 @@ abstract class BaseFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        TakeEasyApp.components.inject(this)
     }
 }

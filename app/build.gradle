@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 30
@@ -11,20 +13,13 @@ android {
     defaultConfig {
         applicationId "duodev.take.eazy"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 20
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true
         versionName "4.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"]
-            }
-        }
+
     }
     buildTypes {
         release {
@@ -95,4 +90,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.guava:guava:27.0.1-android'
 
+    // Hilt
+    def hilt_version = '2.28-alpha'
+
+    implementation "com.google.dagger:hilt-android:${hilt_version}"
+    kapt "com.google.dagger:hilt-android-compiler:${hilt_version}"
+
+}
+
+kapt {
+    correctErrorTypes true
 }
