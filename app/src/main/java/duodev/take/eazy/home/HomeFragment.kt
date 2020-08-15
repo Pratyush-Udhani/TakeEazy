@@ -189,7 +189,7 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
                 fetchStores()
                 permissionText.makeGone()
             } else {
-                requireContext().toast("Please grant permissions")
+                toast("Please grant permissions")
                 loader.makeGone()
                 permissionText.makeVisible()
             }

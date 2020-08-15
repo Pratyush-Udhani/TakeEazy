@@ -77,7 +77,7 @@ fun checkAuth(phone: String, password: String) {
         .addOnCompleteListener {
             if (it.isSuccessful) {
                 if (it.result!!.exists() && it.result!! != null) {
-                    if (it.result!!.get("hash") == hash) {
+                    if (it.result!!.get("userPassword") == hash) {
                         isAuth.value = true
                         pm.setUser(convertToPojo(it.result!!.data!!, Users::class.java))
                     } else {

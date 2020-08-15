@@ -28,7 +28,8 @@ import java.util.concurrent.TimeUnit
 class SignUpFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var auth: FirebaseAuth
-    private var verificationInProgress = false
+    private var verificationInProgress = true
+
     private var storedVerificationId: String? = ""
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -64,12 +65,15 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                log("called verify success")
                 verificationInProgress = false
                 signInWithPhoneAuthCredential(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
                 verificationInProgress = false
+                log("called failure")
+                toast("Verification failed")
                 if (e is FirebaseAuthInvalidCredentialsException) {
                 } else if (e is FirebaseTooManyRequestsException) {
                     activity?.toast(e.toString())
@@ -80,11 +84,11 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                log(verificationId+ "$token")
                 storedVerificationId = verificationId
                 resendToken = token
             }
         }
-        startPhoneNumberVerification(phoneNumber)
     }
 
 
@@ -134,13 +138,17 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun checkAccount() {
+        log("called check")
         firebaseFirestore.collection(USERS).document(phoneNumber).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
+                    log("success")
                     if (it.result!!.exists()) {
                         activity?.toast("Account already exists for this number")
                     } else {
                         if (verificationInProgress && validatePhoneNumber()) {
+                            log(phoneNumber)
+                            log("called here")
                             startPhoneNumberVerification(phoneNumber)
                         }
                     }
@@ -163,7 +171,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
 
     private fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.homeContainer, fragment)
+        fragmentTransaction?.replace(R.id.loginContainer, fragment)
         fragmentTransaction?.commit()
         fragmentTransaction?.addToBackStack(null)
     }
@@ -176,7 +184,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
     private fun startPhoneNumberVerification(phoneNumber: String) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
             phoneNumber,
-            60,
+            30,
             TimeUnit.SECONDS,
             requireActivity(),
             callbacks)

@@ -1,5 +1,6 @@
 package duodev.take.eazy.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import java.lang.StringBuilder
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
@@ -44,8 +46,12 @@ fun log(message: String) {
     Log.d("TAG!!!!", message)
 }
 
-fun Context.toast(message: String) {
+fun Activity.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.toast(message: String) {
+    Toast.makeText(this.requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
 fun String.capitaliseFirst() = this[0].toUpperCase().toString() + this.substring(1)

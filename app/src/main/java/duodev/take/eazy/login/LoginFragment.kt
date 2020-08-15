@@ -66,7 +66,7 @@ class LoginFragment : BaseFragment() {
         loginButton.setOnClickListener {
             if (userPhone.text.isNotEmpty()) {
                 if (userPassword.text.isNotEmpty()) {
-                    checkAuth(userPhone.text.toString(), userPassword.text.toString())
+                    checkAuth("+91${userPhone.trimString()}", userPassword.trimString())
                 } else {
                     activity?.toast("Enter password")
                 }
@@ -82,7 +82,7 @@ class LoginFragment : BaseFragment() {
 
     private fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.homeContainer, fragment)
+        fragmentTransaction?.replace(R.id.loginContainer, fragment)
         fragmentTransaction?.commit()
         fragmentTransaction?.addToBackStack(null)
     }

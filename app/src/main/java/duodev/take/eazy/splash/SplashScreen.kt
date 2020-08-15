@@ -9,6 +9,7 @@ import duodev.take.eazy.login.LoginActivity
 import duodev.take.eazy.pojo.Users
 import duodev.take.eazy.utils.USERS
 import duodev.take.eazy.utils.convertToPojo
+import duodev.take.eazy.utils.log
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashScreen : BaseActivity() {
@@ -39,7 +40,7 @@ class SplashScreen : BaseActivity() {
     }
 
     private fun handleLogin() {
-
+        log("LOGIN")
         Handler().postDelayed({
             if (pm.account) {
                 startActivity(HomeActivity.newInstance(this))

@@ -20,7 +20,7 @@ class LoginActivity : BaseActivity() {
 
     private fun setUpFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.homeContainer, LoginFragment.newInstance())
+        fragmentTransaction.add(R.id.loginContainer, LoginFragment.newInstance())
         fragmentTransaction.commit()
         fragmentTransaction.addToBackStack(null)
     }
