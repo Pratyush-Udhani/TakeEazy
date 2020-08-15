@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_stores_items.*
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
 
     private lateinit var store: Store
-    private val itemsGroupAdapter by lazy { StoreItemGroupAdapter(mutableListOf(), this) }
+    private val itemsGroupAdapter by lazy { StoreItemGroupAdapter(mutableListOf(), this, store) }
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
 
@@ -84,8 +84,8 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
         sharedViewModel.subtractData(item)
     }
 
-    override fun removeFromCart(itemId: String) {
-        sharedViewModel.removeFromCart(itemId)
+    override fun removeFromCart(itemId: String, storeId: String) {
+        sharedViewModel.removeFromCart(itemId, storeId)
     }
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -100,4 +101,14 @@ fun String.isInteger(): Boolean {
         return false
     }
     return true
+}
+
+fun getRandomString(size: Int = 20): String {
+    val generator = Random()
+    val stringBuilder = StringBuilder(size)
+
+    for (i in 0 until size) {
+        stringBuilder.append(ALLOWED_CHARS[generator.nextInt(ALLOWED_CHARS.length)])
+    }
+    return stringBuilder.toString()
 }

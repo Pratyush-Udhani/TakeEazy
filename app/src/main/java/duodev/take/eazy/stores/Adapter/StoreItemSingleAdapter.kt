@@ -19,7 +19,8 @@ import duodev.take.eazy.utils.makeVisible
 
 class StoreItemSingleAdapter (
     private val list: MutableList<SingleItem>,
-    private val listener: OnClick
+    private val listener: OnClick,
+    private val storeId: String
 ) : BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(getView(R.layout.card_store_item, parent))
@@ -57,23 +58,23 @@ class StoreItemSingleAdapter (
             addToCart.setOnClickListener {
                 editQuantity.makeVisible()
                 addToCart.makeGone()
-                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString())))
+                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             addQuantity.setOnClickListener {
-                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString())))
+                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             subQuantity.setOnClickListener {
                 if (itemQuantity.text == "1"){
-                    listener.removeFromCart(singleItem.itemId)
+                    listener.removeFromCart(singleItem.itemId, storeId)
                     addToCart.makeVisible()
                     editQuantity.makeGone()
                     itemQuantity.text = "0"
                 } else {
-                listener.subFromCart(CartItems(singleItem, getSubInt(itemQuantity.text.toString())))
+                listener.subFromCart(CartItems(singleItem, getSubInt(itemQuantity.text.toString()), storeId))
                 itemQuantity.text = getSubInt(itemQuantity.text.toString()).toString()
                 }
             }
@@ -83,6 +84,6 @@ class StoreItemSingleAdapter (
     interface OnClick {
         fun addToCart(item: CartItems)
         fun subFromCart(item: CartItems)
-        fun removeFromCart(itemId: String)
+        fun removeFromCart(itemId: String, storeId: String)
     }
 }

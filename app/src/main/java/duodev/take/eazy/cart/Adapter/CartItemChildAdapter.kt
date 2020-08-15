@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.utils.getAddedInt
 import duodev.take.eazy.utils.getSubInt
-import duodev.take.eazy.utils.makeGone
 
 class CartItemChildAdapter (
     private val list: MutableList<CartItems>,
@@ -44,6 +42,10 @@ class CartItemChildAdapter (
         notifyDataSetChanged()
     }
 
+    fun removeData() {
+        list.removeAll(list)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemName: TextView = itemView.findViewById(R.id.itemName)
@@ -53,20 +55,20 @@ class CartItemChildAdapter (
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
 
         fun bindItems(item: CartItems) {
-            itemName.text = item.cartItem.itemName
+            itemName.text = item.singleItem.itemName
             itemQuantity.text = item.quantity.toString()
 
             addQuantity.setOnClickListener {
-                listener.addToCart(CartItems(item.cartItem, getAddedInt(itemQuantity.text.toString())))
+                listener.addToCart(CartItems(item.singleItem, getAddedInt(itemQuantity.text.toString()), item.storeId))
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             subQuantity.setOnClickListener {
                 if (itemQuantity.text == "1") {
-                    listener.removeFromCart(item.cartItem.itemId)
+                    listener.removeFromCart(item.singleItem.itemId, item.storeId)
                     removeAt(adapterPosition)
                 } else {
-                    listener.subFromCart(CartItems(item.cartItem, getSubInt(itemQuantity.text.toString())))
+                    listener.subFromCart(CartItems(item.singleItem, getSubInt(itemQuantity.text.toString()), item.storeId))
                     itemQuantity.text = getSubInt(itemQuantity.text.toString()).toString()
                 }
             }
@@ -76,6 +78,6 @@ class CartItemChildAdapter (
     interface OnClick {
         fun addToCart(item: CartItems)
         fun subFromCart(item: CartItems)
-        fun removeFromCart(itemId: String)
+        fun removeFromCart(itemId: String, storeId: String)
     }
 }

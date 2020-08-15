@@ -12,16 +12,5 @@ import javax.inject.Inject
 
 class CartViewModel @Inject constructor(private val cartRepo: CartRepo): BaseViewModel(){
 
-    private var _items = MutableLiveData<List<OrderItems>>()
-    val items: LiveData<List<OrderItems>>
-        get() = _items
-
-    fun fetchItems() {
-        viewModelScope.launch {
-            val response = cartRepo.fetchItems()
-            if (response != null) {
-                _items = response
-            }
-        }
-    }
+    fun fetchItems() = cartRepo.fetchItems()
 }

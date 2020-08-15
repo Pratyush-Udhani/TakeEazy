@@ -1,4 +1,4 @@
-package duodev.take.eazy.cart.Adapter
+package duodev.take.eazy.tobedeleted
 
 import android.view.View
 import android.view.ViewGroup
@@ -7,17 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
+import duodev.take.eazy.cart.Adapter.CartItemChildAdapter
 import duodev.take.eazy.pojo.CartItems
-import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.OrderItems
 
 class CartItemParentAdapter(
     private val list: MutableList<OrderItems>,
     private val listener: OnClick
-) : BaseRecyclerViewAdapter(), CartItemChildAdapter.OnClick {
+) : BaseRecyclerViewAdapter(),
+    CartItemChildAdapter.OnClick {
 
     private val viewPool = RecyclerView.RecycledViewPool()
-    private val cartChildAdapter by lazy { CartItemChildAdapter(mutableListOf(), this) }
+    private val cartChildAdapter by lazy {
+        CartItemChildAdapter(
+            mutableListOf(),
+            this
+        )
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(getView(R.layout.card_cart_store_items, parent))
@@ -44,8 +50,8 @@ class CartItemParentAdapter(
         private val childRecycler: RecyclerView = itemView.findViewById(R.id.itemsCartChildRecycler)
 
         fun bindItems(item: OrderItems) {
-            storeName.text = item.store.storeName
-            this@CartItemParentAdapter.cartChildAdapter.addData(item.itemList)
+//            storeName.text = item.store.storeName
+//            this@CartItemParentAdapter.cartChildAdapter.addData(item.itemList)
             childRecycler.apply {
                 adapter = this@CartItemParentAdapter.cartChildAdapter
                 layoutManager = LinearLayoutManager(childRecycler.context)
@@ -62,9 +68,10 @@ class CartItemParentAdapter(
         listener.subFromCart(item)
     }
 
-    override fun removeFromCart(itemId: String) {
-        listener.removeFromCart(itemId)
+    override fun removeFromCart(itemId: String, storeId: String) {
+        TODO("Not yet implemented")
     }
+
 
     interface OnClick {
         fun addToCart(item: CartItems)

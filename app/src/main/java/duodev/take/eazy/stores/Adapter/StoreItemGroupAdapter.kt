@@ -10,14 +10,16 @@ import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.SingleItem
+import duodev.take.eazy.pojo.Store
 
 class StoreItemGroupAdapter(
     private val list: MutableList<Items>,
-    private val listener: OnItemClicked
+    private val listener: OnItemClicked,
+    private val store: Store
 ) : BaseRecyclerViewAdapter(), StoreItemSingleAdapter.OnClick {
 
     private val viewPool = RecyclerView.RecycledViewPool()
-    private val itemsAdapter by lazy { StoreItemSingleAdapter(mutableListOf(), this) }
+    private val itemsAdapter by lazy { StoreItemSingleAdapter(mutableListOf(), this, store.storeId) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(getView(R.layout.card_store_item_group, parent))
@@ -62,13 +64,13 @@ class StoreItemGroupAdapter(
         listener.subFromCart(item)
     }
 
-    override fun removeFromCart(itemId: String) {
-    listener.removeFromCart(itemId)
+    override fun removeFromCart(itemId: String, storeId: String) {
+    listener.removeFromCart(itemId, storeId)
     }
 
     interface OnItemClicked {
         fun addToCart(item: CartItems)
         fun subFromCart(item: CartItems)
-        fun removeFromCart(itemId: String)
+        fun removeFromCart(itemId: String, storeId: String)
     }
 }

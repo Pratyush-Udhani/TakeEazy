@@ -1,7 +1,6 @@
 package duodev.take.eazy.cart
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.base.BaseFragment
-import duodev.take.eazy.cart.Adapter.CartItemParentAdapter
+import duodev.take.eazy.cart.Adapter.CartItemChildAdapter
 import duodev.take.eazy.cart.ViewModel.CartViewModel
 import duodev.take.eazy.pojo.CartItems
-import duodev.take.eazy.pojo.OrderItems
 import kotlinx.android.synthetic.main.fragment_cart.*
 
-class CartFragment : BaseFragment(), CartItemParentAdapter.OnClick {
+class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
-    private val cartParentAdapter by lazy { CartItemParentAdapter(mutableListOf(), this) }
+    private val cartChildAdapter by lazy { CartItemChildAdapter(mutableListOf(), this) }
     private val cartViewModel by viewModels<CartViewModel> { viewModelFactory }
     private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
 
@@ -43,22 +41,30 @@ class CartFragment : BaseFragment(), CartItemParentAdapter.OnClick {
     }
 
     private fun init() {
+        setUpListeners()
         setUpObserver()
         setUpRecycler()
     }
 
+    private fun setUpListeners() {
+        buyItemsButton.setOnClickListener {
+            sharedViewModel.orderItems()
+            cartChildAdapter.removeData()
+            cartChildAdapter.notifyDataSetChanged()
+        }
+    }
+
     private fun setUpObserver() {
-        cartViewModel.fetchItems()
-        cartViewModel.items.observe(viewLifecycleOwner, Observer {
+        cartViewModel.fetchItems().observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
-                cartParentAdapter.addData(it)
+                cartChildAdapter.addData(it)
             }
         })
     }
 
     private fun setUpRecycler() {
         itemsCartParentRecycler.apply {
-            adapter = this@CartFragment.cartParentAdapter
+            adapter = this@CartFragment.cartChildAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -75,7 +81,7 @@ class CartFragment : BaseFragment(), CartItemParentAdapter.OnClick {
         sharedViewModel.subtractData(item)
     }
 
-    override fun removeFromCart(itemId: String) {
-        sharedViewModel.removeFromCart(itemId)
+    override fun removeFromCart(itemId: String, storeId: String) {
+        sharedViewModel.removeFromCart(itemId, storeId)
     }
 }

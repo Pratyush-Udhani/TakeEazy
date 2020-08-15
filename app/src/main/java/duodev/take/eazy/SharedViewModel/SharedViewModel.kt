@@ -25,9 +25,15 @@ class SharedViewModel @Inject constructor(private val sharedRepo: SharedRepo): B
         }
     }
 
-    fun removeFromCart(itemId: String) {
+    fun removeFromCart(itemId: String, storeId: String) {
         viewModelScope.launch {
-            sharedRepo.removeItemFromCart(itemId)
+            sharedRepo.removeItemFromCart(itemId, storeId)
+        }
+    }
+
+    fun orderItems() {
+        viewModelScope.launch {
+            sharedRepo.orderItems()
         }
     }
 }

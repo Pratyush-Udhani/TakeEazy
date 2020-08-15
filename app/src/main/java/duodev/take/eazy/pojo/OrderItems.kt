@@ -4,9 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class OrderItems (
 
-    @SerializedName("store")
-    val store: Store,
+    @SerializedName("orderId")
+    var orderId: String = "",
 
-    @SerializedName("itemList")
-    val itemList: List<CartItems>
+    @SerializedName("item")
+    val cartItem: CartItems,
+
+    @SerializedName("timestamp")
+    val timestamp: Long,
+
+    @SerializedName("status")
+    val status: String
 )

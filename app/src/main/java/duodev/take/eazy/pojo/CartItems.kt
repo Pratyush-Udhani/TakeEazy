@@ -7,9 +7,12 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CartItems (
     @SerializedName("cartItem")
-    val cartItem: SingleItem,
+    val singleItem: SingleItem,
 
     @SerializedName("quantity")
-    var quantity: Int
+    var quantity: Int,
+
+    @SerializedName("storeId")
+    var storeId: String
 
 ) : Parcelable
