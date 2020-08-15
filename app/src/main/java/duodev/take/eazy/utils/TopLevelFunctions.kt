@@ -1,10 +1,19 @@
 package duodev.take.eazy.utils
 
 import android.os.Handler
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import duodev.take.eazy.pojo.Users
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
+
+private val firebaseFirestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+val isAuth = MutableLiveData<Boolean>(false)
+val noPassword = MutableLiveData<Boolean>(false)
+val noEmail = MutableLiveData<Boolean>(false)
+val pm = PreferenceUtils
 
 fun <T> convertToPojo(
     data: MutableMap<String, Any>,
@@ -56,4 +65,27 @@ fun deg2rad(deg: Double): Double {
 
 fun rad2deg(rad: Double): Double {
     return rad * 180.0 / Math.PI
+}
+
+fun checkAuth(phone: String, password: String) {
+    isAuth.value = false
+    noPassword.value = false
+    noEmail.value = false
+    val hash = generateHash(password)
+
+    firebaseFirestore.collection(USERS).document(phone).get()
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                if (it.result!!.exists() && it.result!! != null) {
+                    if (it.result!!.get("hash") == hash) {
+                        isAuth.value = true
+                        pm.setUser(convertToPojo(it.result!!.data!!, Users::class.java))
+                    } else {
+                        noPassword.value = true
+                    }
+                } else {
+                    noEmail.value = true
+                }
+            }
+        }
 }

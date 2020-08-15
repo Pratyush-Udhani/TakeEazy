@@ -2,7 +2,6 @@ package duodev.take.eazy.SharedRepo
 
 import com.google.firebase.firestore.FirebaseFirestore
 import duodev.take.eazy.pojo.CartItems
-import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.OrderItems
 import duodev.take.eazy.utils.*
 import javax.inject.Inject
@@ -57,7 +56,5 @@ class SharedRepo @Inject constructor(private val firestore: FirebaseFirestore) {
 
                 }
             }
-
-
     }
 }

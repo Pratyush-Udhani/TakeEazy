@@ -5,9 +5,11 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import java.lang.StringBuilder
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,6 +51,8 @@ fun Context.toast(message: String) {
 fun String.capitaliseFirst() = this[0].toUpperCase().toString() + this.substring(1)
 
 fun TextView.trimString(): String = text.toString().trim()
+
+fun EditText.trimString(): String = text.toString().trim()
 
 fun String.trimString(): String = this.trim()
 
@@ -101,6 +105,13 @@ fun String.isInteger(): Boolean {
         return false
     }
     return true
+}
+
+fun generateHash(password: String): String {
+    val bytes = password.toByteArray()
+    val mb = MessageDigest.getInstance("SHA-256")
+    val digest = mb.digest(bytes)
+    return digest.fold("", { str, it -> str + "%02x".format(it) })
 }
 
 fun getRandomString(size: Int = 20): String {

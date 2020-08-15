@@ -1,11 +1,11 @@
 package duodev.take.eazy.stores
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
@@ -14,6 +14,7 @@ import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.SharedViewModel.SharedViewModel
+import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
@@ -23,6 +24,8 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private val itemsGroupAdapter by lazy { StoreItemGroupAdapter(mutableListOf(), this, store) }
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
+    private val fetchedCategories = MutableLiveData<Boolean>(false)
+    private var categoryList: List<String> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,13 +52,28 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     private fun setUpObserver() {
-        storeViewModel.fetchItems()
-        storeViewModel.items.observe(viewLifecycleOwner, Observer {
+        storeViewModel.fetchCategories(store.storeId).observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
-                Log.d("ITEMS", it.toString())
-                itemsGroupAdapter.addData(it)
+                categoryList = it
+                fetchedCategories.value = true
             }
         })
+
+        fetchedCategories.observe(viewLifecycleOwner, Observer {
+            if (fetchedCategories.value!!) {
+                fetchItems()
+            }
+        })
+    }
+
+    private fun fetchItems() {
+        categoryList.forEachIndexed { _, group ->
+            storeViewModel.fetchSingleItems(group, store.storeId).observe(viewLifecycleOwner, Observer {
+                if (it.isNotEmpty()) {
+                    itemsGroupAdapter.addData(Items(group, it))
+                }
+            })
+        }
     }
 
     private fun setUpRecycler() {
@@ -69,7 +87,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
 
         private const val STORE = "store"
 
-        fun newInstance(store:Store) = StoresItemsFragment().apply {
+        fun newInstance(store: Store) = StoresItemsFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(STORE, store)
             }

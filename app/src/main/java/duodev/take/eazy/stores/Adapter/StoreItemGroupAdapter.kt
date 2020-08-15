@@ -35,8 +35,8 @@ class StoreItemGroupAdapter(
         }
     }
 
-    fun addData(data: List<Items>) {
-        list.addAll(data)
+    fun addData(data: Items) {
+        list.add(data)
         notifyDataSetChanged()
     }
 
@@ -47,9 +47,8 @@ class StoreItemGroupAdapter(
 
         fun bindItem(item: Items) {
             group.text = item.itemGroup
-            itemsAdapter.addData(item.itemList)
             itemsRecycler.apply {
-                adapter = itemsAdapter
+                adapter = StoreItemSingleAdapter(item.itemList, this@StoreItemGroupAdapter, store.storeId)
                 layoutManager = LinearLayoutManager(itemsRecycler.context)
                 setRecycledViewPool(this@StoreItemGroupAdapter.viewPool)
             }

@@ -65,7 +65,7 @@ class CartItemChildAdapter (
 
             subQuantity.setOnClickListener {
                 if (itemQuantity.text == "1") {
-                    listener.removeFromCart(item.singleItem.itemId, item.storeId)
+                    listener.removeFromCart(item.singleItem.itemId, "")
                     removeAt(adapterPosition)
                 } else {
                     listener.subFromCart(CartItems(item.singleItem, getSubInt(itemQuantity.text.toString()), item.storeId))

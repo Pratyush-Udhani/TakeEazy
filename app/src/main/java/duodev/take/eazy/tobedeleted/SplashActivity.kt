@@ -1,4 +1,4 @@
-package duodev.take.eazy
+package duodev.take.eazy.tobedeleted
 
 import android.os.Bundle
 import android.view.View
@@ -11,9 +11,10 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import duodev.take.eazy.base.BaseActivity
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class SplashActivity : BaseActivity(), View.OnClickListener {
 
     // [START declare_auth]
     private lateinit var auth: FirebaseAuth

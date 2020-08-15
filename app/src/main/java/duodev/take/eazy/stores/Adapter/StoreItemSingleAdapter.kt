@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
@@ -18,7 +17,7 @@ import duodev.take.eazy.utils.makeGone
 import duodev.take.eazy.utils.makeVisible
 
 class StoreItemSingleAdapter (
-    private val list: MutableList<SingleItem>,
+    private val list: List<SingleItem>,
     private val listener: OnClick,
     private val storeId: String
 ) : BaseRecyclerViewAdapter() {
@@ -36,10 +35,10 @@ class StoreItemSingleAdapter (
         }
     }
 
-    fun addData(data: List<SingleItem>) {
-        list.addAll(data)
-        notifyDataSetChanged()
-    }
+//    fun addData(data: List<SingleItem>) {
+//        list.addAll(data)
+//        notifyDataSetChanged()
+//    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
