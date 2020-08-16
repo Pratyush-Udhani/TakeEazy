@@ -36,6 +36,7 @@ object PreferenceUtils {
 
     fun setUser(users: Users) {
         val pm = PreferenceUtils
+        pm.account = true
         pm.phone = users.userPhone.trimString()
         pm.hash = users.userPassword.trimString()
     }
@@ -44,5 +45,6 @@ object PreferenceUtils {
         val pm = PreferenceUtils
         pm.phone = ""
         pm.hash = ""
+        pm.account = false
     }
 }

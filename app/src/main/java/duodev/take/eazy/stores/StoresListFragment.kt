@@ -135,18 +135,18 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         val storeIds : MutableList<String> = mutableListOf()
 
         for (element in list){
-            storeIds.add(element.storeId)
+            storeIds.add(element.storePhone)
         }
 
         for (element in list) {
             if (element.storeCategory == category){
                 filteredList.add(element)
-                storeIds.remove(element.storeId)
+                storeIds.remove(element.storePhone)
                 if (storeIds.size == 0) {
                  sortData(filteredList)
                 }
             } else {
-                storeIds.remove(element.storeId)
+                storeIds.remove(element.storePhone)
                 if (storeIds.size == 0) {
                  sortData(filteredList)
                 }

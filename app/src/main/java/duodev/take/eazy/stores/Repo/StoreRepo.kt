@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
-import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.SingleItem
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.utils.CATEGORIES
-import duodev.take.eazy.utils.DefItems
 import duodev.take.eazy.utils.STORES
 import duodev.take.eazy.utils.convertToPojo
 import javax.inject.Inject
@@ -20,20 +18,12 @@ class StoreRepo @Inject constructor(private val firestore: FirebaseFirestore) {
 
     fun fetchStores(): LiveData<List<Store>> {
         val data = MutableLiveData<List<Store>>()
-
-        for (i in 0..5) {
-            storeList.add(
-                Store(
-                    storeId = "",
-                    storeName = "Store $i",
-                    storeAddress = "",
-                    storeImageUri = "",
-                    storeLocation = GeoPoint(21.11 + i, 22.57),
-                    storeCategory = "Pet supplies"
-                )
-            )
-        }
+        firestore.collection(STORES).get().addOnSuccessListener {
+            for (i in 0 until it.documents.size) {
+                storeList.add(convertToPojo(it.documents[i].data!!, Store::class.java))
+            }
         data.value = storeList
+        }
         return data
     }
 

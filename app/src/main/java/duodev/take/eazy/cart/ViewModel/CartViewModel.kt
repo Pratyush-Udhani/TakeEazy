@@ -12,5 +12,7 @@ import javax.inject.Inject
 
 class CartViewModel @Inject constructor(private val cartRepo: CartRepo): BaseViewModel(){
 
-    fun fetchItems() = cartRepo.fetchItems()
+    fun fetchItems(storeId: String) = cartRepo.fetchItems(storeId)
+
+    fun getStoreId() = cartRepo.getStoreId()
 }

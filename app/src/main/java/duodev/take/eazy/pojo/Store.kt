@@ -10,8 +10,8 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class Store (
 
-    @SerializedName("storeId")
-    val storeId : String,
+    @SerializedName("storePhone")
+    val storePhone : String,
 
     @SerializedName("storeName")
     val storeName: String,

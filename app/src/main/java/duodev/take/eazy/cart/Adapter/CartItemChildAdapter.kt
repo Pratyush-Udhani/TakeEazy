@@ -48,14 +48,14 @@ class CartItemChildAdapter (
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val itemName: TextView = itemView.findViewById(R.id.itemName)
+        private val itemNameText: TextView = itemView.findViewById(R.id.itemName)
         private val addQuantity: ImageView = itemView.findViewById(R.id.addQuantityButton)
         private val subQuantity: ImageView = itemView.findViewById(R.id.subQuantityButton)
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
 
         fun bindItems(item: CartItems) {
-            itemName.text = item.singleItem.itemName
+            itemNameText.text = item.singleItem.itemName
             itemQuantity.text = item.quantity.toString()
 
             addQuantity.setOnClickListener {

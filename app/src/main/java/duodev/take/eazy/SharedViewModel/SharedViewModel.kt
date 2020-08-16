@@ -31,9 +31,9 @@ class SharedViewModel @Inject constructor(private val sharedRepo: SharedRepo): B
         }
     }
 
-    fun orderItems() {
+    fun orderItems(storeId: String) {
         viewModelScope.launch {
-            sharedRepo.orderItems()
+            sharedRepo.orderItems(storeId)
         }
     }
 }

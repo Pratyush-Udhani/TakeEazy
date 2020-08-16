@@ -9,7 +9,6 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
-import duodev.take.eazy.pojo.SingleItem
 import duodev.take.eazy.pojo.Store
 
 class StoreItemGroupAdapter(
@@ -19,7 +18,7 @@ class StoreItemGroupAdapter(
 ) : BaseRecyclerViewAdapter(), StoreItemSingleAdapter.OnClick {
 
     private val viewPool = RecyclerView.RecycledViewPool()
-    private val itemsAdapter by lazy { StoreItemSingleAdapter(mutableListOf(), this, store.storeId) }
+    private val itemsAdapter by lazy { StoreItemSingleAdapter(mutableListOf(), this, store.storePhone) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(getView(R.layout.card_store_item_group, parent))
@@ -48,7 +47,7 @@ class StoreItemGroupAdapter(
         fun bindItem(item: Items) {
             group.text = item.itemGroup
             itemsRecycler.apply {
-                adapter = StoreItemSingleAdapter(item.itemList, this@StoreItemGroupAdapter, store.storeId)
+                adapter = StoreItemSingleAdapter(item.itemList, this@StoreItemGroupAdapter, store.storePhone)
                 layoutManager = LinearLayoutManager(itemsRecycler.context)
                 setRecycledViewPool(this@StoreItemGroupAdapter.viewPool)
             }

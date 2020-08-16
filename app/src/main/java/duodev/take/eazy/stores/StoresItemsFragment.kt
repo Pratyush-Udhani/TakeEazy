@@ -52,7 +52,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     private fun setUpObserver() {
-        storeViewModel.fetchCategories(store.storeId).observe(viewLifecycleOwner, Observer {
+        storeViewModel.fetchCategories(store.storePhone).observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 categoryList = it
                 fetchedCategories.value = true
@@ -68,7 +68,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
 
     private fun fetchItems() {
         categoryList.forEachIndexed { _, group ->
-            storeViewModel.fetchSingleItems(group, store.storeId).observe(viewLifecycleOwner, Observer {
+            storeViewModel.fetchSingleItems(group, store.storePhone).observe(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
                     itemsGroupAdapter.addData(Items(group, it))
                 }

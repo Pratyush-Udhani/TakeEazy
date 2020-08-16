@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
@@ -13,6 +14,7 @@ import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.cart.Adapter.CartItemChildAdapter
 import duodev.take.eazy.cart.ViewModel.CartViewModel
 import duodev.take.eazy.pojo.CartItems
+import duodev.take.eazy.utils.log
 import kotlinx.android.synthetic.main.fragment_cart.*
 
 class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
@@ -20,6 +22,8 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
     private val cartChildAdapter by lazy { CartItemChildAdapter(mutableListOf(), this) }
     private val cartViewModel by viewModels<CartViewModel> { viewModelFactory }
     private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
+    private var storeId: String = ""
+    private val fetched = MutableLiveData<Boolean>(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +52,32 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
     private fun setUpListeners() {
         buyItemsButton.setOnClickListener {
-            sharedViewModel.orderItems()
-            cartChildAdapter.removeData()
-            cartChildAdapter.notifyDataSetChanged()
+            if (storeId != "") {
+                sharedViewModel.orderItems(storeId)
+                cartChildAdapter.removeData()
+                cartChildAdapter.notifyDataSetChanged()
+            }
         }
     }
 
     private fun setUpObserver() {
-        cartViewModel.fetchItems().observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) {
-                cartChildAdapter.addData(it)
+
+        cartViewModel.getStoreId().observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                storeId = it.toString()
+                fetched.value = true
+            }
+        })
+
+        fetched.observe(viewLifecycleOwner, Observer {
+            if (fetched.value!!) {
+
+                cartViewModel.fetchItems(storeId).observe(viewLifecycleOwner, Observer {
+                    if (it.isNotEmpty()) {
+                        cartChildAdapter.addData(it)
+                    }
+                })
+
             }
         })
     }
