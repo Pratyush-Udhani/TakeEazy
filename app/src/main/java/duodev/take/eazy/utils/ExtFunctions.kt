@@ -129,3 +129,25 @@ fun getRandomString(size: Int = 20): String {
     }
     return stringBuilder.toString()
 }
+
+
+// This is made for when database needs to be
+// shifted from Firebase to a custom one
+
+// You can use this call like this
+// safeApiCall({suspend fun()}, {networkResult = it},{networkResult = it})
+// Where networkResult is a val of type NetworkResult
+
+suspend fun <T> safeApiCall(
+    call: suspend () -> T,
+    onSuccess: (NetworkResult.Success<T>) -> Unit,
+    onFailure: (NetworkResult.Failure) -> Unit
+) {
+    runCatching {
+        val response = call()
+        onSuccess.invoke(NetworkResult.Success(response))
+    }.onFailure {
+        it.printStackTrace()
+        onFailure.invoke(NetworkResult.Failure(it.message))
+    }
+}
