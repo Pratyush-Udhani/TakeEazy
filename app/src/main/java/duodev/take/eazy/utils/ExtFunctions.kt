@@ -42,8 +42,8 @@ fun checkKeyboardState(context: Context, currentFocus: View?): Int {
         -1
 }
 
-fun log(message: String) {
-    Log.d("TAG!!!!", message)
+fun <T> log(message: T) {
+    Log.d("TAG!!!!", message.toString())
 }
 
 fun Activity.toast(message: String) {
