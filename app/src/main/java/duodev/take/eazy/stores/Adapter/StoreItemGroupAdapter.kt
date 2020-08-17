@@ -10,6 +10,7 @@ import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.Store
+import duodev.take.eazy.utils.log
 
 class StoreItemGroupAdapter(
     private val list: MutableList<Items>,
@@ -39,6 +40,27 @@ class StoreItemGroupAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeData() {
+        list.clear()
+        notifyDataSetChanged()
+    }
+
+    fun updateItem(updateItem: CartItems) {
+                log("in adapter: ${list.size}")
+        list.forEachIndexed { indexList, items ->
+                val newItemList : MutableList<CartItems> = mutableListOf()
+                items.itemList.forEachIndexed { index, cartItems ->
+                    if (cartItems.singleItem.itemId == updateItem.singleItem.itemId) {
+                        newItemList.add(updateItem)
+                    } else {
+                        newItemList.add(cartItems)
+                    }
+                }
+                list[indexList] = Items(items.itemGroup, newItemList)
+                notifyItemChanged(indexList)
+            }
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val group: TextView = itemView.findViewById(R.id.itemGroup)
@@ -47,7 +69,7 @@ class StoreItemGroupAdapter(
         fun bindItem(item: Items) {
             group.text = item.itemGroup
             itemsRecycler.apply {
-                adapter = StoreItemSingleAdapter(item.itemList, this@StoreItemGroupAdapter, store.storePhone)
+                adapter = StoreItemSingleAdapter(item.itemList as MutableList<CartItems>, this@StoreItemGroupAdapter, store.storePhone)
                 layoutManager = LinearLayoutManager(itemsRecycler.context)
                 setRecycledViewPool(this@StoreItemGroupAdapter.viewPool)
             }

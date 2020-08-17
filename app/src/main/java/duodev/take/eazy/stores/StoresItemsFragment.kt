@@ -16,6 +16,7 @@ import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
+import duodev.take.eazy.utils.log
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
@@ -25,7 +26,11 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
     private val fetchedCategories = MutableLiveData<Boolean>(false)
+    private val sorted = MutableLiveData<Boolean>(false)
+    private val itemsFetched = MutableLiveData<Boolean>(false)
     private var categoryList: List<String> = emptyList()
+    private var cartList: MutableList<CartItems> = mutableListOf()
+    private var itemList: MutableList<CartItems> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,17 +69,43 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
                 fetchItems()
             }
         })
+
+        storeViewModel.fetchCartList(store.storePhone).observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                cartList.addAll(it)
+                sortData()
+            }
+        })
+
+        itemsFetched.observe(viewLifecycleOwner, Observer {
+            if (itemsFetched.value!!) {
+                sorted.value = true
+            }
+        })
     }
 
     private fun fetchItems() {
         categoryList.forEachIndexed { _, group ->
             storeViewModel.fetchSingleItems(group, store.storePhone).observe(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
+                    itemList.addAll(it)
                     itemsGroupAdapter.addData(Items(group, it))
+                    itemsFetched.value = true
                 }
             })
         }
     }
+
+    private fun sortData() {
+        sorted.observe(viewLifecycleOwner, Observer {
+            if (sorted.value!!) {
+                log("called update item: ${cartList.size}")
+                for (element in cartList)
+                    itemsGroupAdapter.updateItem(element)
+            }
+        })
+    }
+
 
     private fun setUpRecycler() {
         storeItemGroupRecycler.apply {

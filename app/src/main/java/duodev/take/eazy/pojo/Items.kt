@@ -8,5 +8,5 @@ data class Items (
     val itemGroup: String,
 
     @SerializedName("itemList")
-    val itemList: List<SingleItem>
+    var itemList: List<CartItems>
 )

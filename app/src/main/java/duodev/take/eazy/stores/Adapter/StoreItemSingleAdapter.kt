@@ -11,13 +11,10 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.SingleItem
-import duodev.take.eazy.utils.getAddedInt
-import duodev.take.eazy.utils.getSubInt
-import duodev.take.eazy.utils.makeGone
-import duodev.take.eazy.utils.makeVisible
+import duodev.take.eazy.utils.*
 
 class StoreItemSingleAdapter (
-    private val list: List<SingleItem>,
+    private val list: MutableList<CartItems>,
     private val listener: OnClick,
     private val storeId: String
 ) : BaseRecyclerViewAdapter() {
@@ -40,6 +37,12 @@ class StoreItemSingleAdapter (
 //        notifyDataSetChanged()
 //    }
 
+    fun updateItem(updateItem: CartItems) {
+        val index = list.indexOf(updateItem)
+        list[index] = updateItem
+        notifyItemChanged(index)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemName: TextView = itemView.findViewById(R.id.itemName)
@@ -50,30 +53,34 @@ class StoreItemSingleAdapter (
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
 
-        fun bindItems(singleItem: SingleItem) {
-            itemName.text = singleItem.itemName
-            itemQuantity.text = "0"
+        fun bindItems(cartItem: CartItems) {
+            itemName.text = cartItem.singleItem.itemName
+            itemQuantity.text = cartItem.quantity.toString()
 
             addToCart.setOnClickListener {
                 editQuantity.makeVisible()
                 addToCart.makeGone()
-                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
+                listener.addToCart(CartItems(cartItem.singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
+                cartItem.quantity = getAddedInt(itemQuantity.text.toString())
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             addQuantity.setOnClickListener {
-                listener.addToCart(CartItems(singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
+                listener.addToCart(CartItems(cartItem.singleItem, getAddedInt(itemQuantity.text.toString()), storeId))
+                cartItem.quantity = getAddedInt(itemQuantity.text.toString())
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             subQuantity.setOnClickListener {
                 if (itemQuantity.text == "1"){
-                    listener.removeFromCart(singleItem.itemId, storeId)
+                    listener.removeFromCart(cartItem.singleItem.itemId, storeId)
                     addToCart.makeVisible()
                     editQuantity.makeGone()
+                    cartItem.quantity = 0
                     itemQuantity.text = "0"
                 } else {
-                listener.subFromCart(CartItems(singleItem, getSubInt(itemQuantity.text.toString()), storeId))
+                listener.subFromCart(CartItems(cartItem.singleItem, getSubInt(itemQuantity.text.toString()), storeId))
+                cartItem.quantity = getSubInt(itemQuantity.text.toString())
                 itemQuantity.text = getSubInt(itemQuantity.text.toString()).toString()
                 }
             }

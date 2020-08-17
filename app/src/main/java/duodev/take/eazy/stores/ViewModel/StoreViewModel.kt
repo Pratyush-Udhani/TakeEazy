@@ -12,4 +12,5 @@ class StoreViewModel @Inject constructor(private val storeRepo: StoreRepo) : Bas
 
     fun fetchSingleItems(category: String, storeId: String) = storeRepo.fetchSingleItemList(category, storeId)
 
+    fun fetchCartList(storeId: String) = storeRepo.fetchCartList(storeId)
 }
