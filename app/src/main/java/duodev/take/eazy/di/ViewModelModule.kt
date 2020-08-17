@@ -9,6 +9,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.multibindings.IntoMap
 import duodev.take.eazy.cart.ViewModel.CartViewModel
 import duodev.take.eazy.SharedViewModel.SharedViewModel
+import duodev.take.eazy.orders.ViewModel.OrdersViewModel
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 
 @Module
@@ -32,5 +33,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CartViewModel::class)
     abstract fun cartViewModel(cartViewModel: CartViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OrdersViewModel::class)
+    abstract fun orderViewModel(ordersViewModel: OrdersViewModel): ViewModel
 
 }

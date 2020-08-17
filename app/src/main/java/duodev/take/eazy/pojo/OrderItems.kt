@@ -7,7 +7,7 @@ data class OrderItems (
     @SerializedName("orderId")
     var orderId: String = "",
 
-    @SerializedName("item")
+    @SerializedName("cartItem")
     val cartItem: CartItems,
 
     @SerializedName("timestamp")

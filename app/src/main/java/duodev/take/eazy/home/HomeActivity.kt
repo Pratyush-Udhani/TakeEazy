@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
+import duodev.take.eazy.orders.OrdersFragment
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.utils.toast
@@ -37,14 +38,12 @@ class HomeActivity : BaseActivity() {
                     changeFragment(CartFragment.newInstance())
                   return@setOnNavigationItemSelectedListener true 
                 }
-                R.id.navigationSearch -> {
-                    return@setOnNavigationItemSelectedListener true
-                }
                 R.id.navigationShop -> {
                     changeFragment(HomeFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigationOrders -> {
+                    changeFragment(OrdersFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
             }
