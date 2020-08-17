@@ -47,6 +47,8 @@ class SharedRepo @Inject constructor(private val firestore: FirebaseFirestore) {
                         status = ""
                     )
                     removeItemFromCart(cartItem.singleItem.itemId, storeId)
+                    firestore.collection(ORDERS).document(pm.phone).set(hashMapOf("userId" to pm.phone))
+
                     firestore.collection(ORDERS).document(pm.phone).collection(ORDERS)
                         .document(orderItems.orderId).set(orderItems)
 
