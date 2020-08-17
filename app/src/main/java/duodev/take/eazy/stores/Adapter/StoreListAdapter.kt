@@ -30,6 +30,11 @@ class StoreListAdapter(
         }
     }
 
+    fun removeData() {
+        list.clear()
+        notifyDataSetChanged()
+    }
+
     fun addData(data: MutableMap<Store, String>) {
         list.putAll(data)
         notifyDataSetChanged()

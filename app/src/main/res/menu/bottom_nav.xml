@@ -6,6 +6,7 @@
 
     <item
         android:id="@+id/navigationSearch"
+        android:visible="false"
         android:title="Search" />
 
     <item

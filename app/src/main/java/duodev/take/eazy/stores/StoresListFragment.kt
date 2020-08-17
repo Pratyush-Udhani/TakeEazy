@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,7 +30,8 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private var longitude: Double? = 0.0
     private var latitude: Double? = 0.0
-
+    private val storeList: MutableList<Store> = mutableListOf()
+    private val searchedList: MutableList<Store> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,27 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         setUpUI()
         setUpRecycler()
         getLocation()
+        setUpSearchInterface()
+    }
+
+    private fun setUpSearchInterface() {
+
+        searchBox.addTextChangedListener {
+            storeAdapter.removeData()
+            searchedList.clear()
+            for (element in storeList) {
+                if (element.storeName.toLowerCase()
+                        .contains(searchBox.trimString().toLowerCase())
+                ) {
+                    searchedList.add(element)
+                }
+            }
+
+            if (searchedList.isNotEmpty()) {
+                sortData(searchedList)
+            }
+
+        }
     }
 
     private fun setUpUI() {
@@ -114,6 +137,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
                     storeViewModel.fetchData().observe(viewLifecycleOwner, Observer {list ->
                         if (list.isNotEmpty()) {
                             if (category == ""){
+                                storeList.addAll(list)
                                 sortData(list)
                             } else {
                                 filterCategory(list, category)
@@ -134,21 +158,23 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         val filteredList: MutableList<Store> = mutableListOf()
         val storeIds : MutableList<String> = mutableListOf()
 
-        for (element in list){
+        for (element in list) {
             storeIds.add(element.storePhone)
         }
 
         for (element in list) {
-            if (element.storeCategory == category){
+            if (element.storeCategory == category) {
                 filteredList.add(element)
                 storeIds.remove(element.storePhone)
                 if (storeIds.size == 0) {
-                 sortData(filteredList)
+                    storeList.addAll(filteredList)
+                    sortData(filteredList)
                 }
             } else {
                 storeIds.remove(element.storePhone)
                 if (storeIds.size == 0) {
-                 sortData(filteredList)
+                    storeList.addAll(filteredList)
+                    sortData(filteredList)
                 }
             }
         }

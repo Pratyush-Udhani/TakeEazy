@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Items"
+                android:text="Stores"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -31,12 +31,29 @@
                 android:id="@+id/categoryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:text="Stores"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/searchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Category"
-                android:textColor="@color/color_black"
-                android:textSize="17sp" />
+                android:hint="search stores"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginStart="20dp"
+                android:text="search" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/storesRecycler"
