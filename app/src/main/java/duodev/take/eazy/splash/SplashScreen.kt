@@ -44,8 +44,10 @@ class SplashScreen : BaseActivity() {
         Handler().postDelayed({
             if (pm.account) {
                 startActivity(HomeActivity.newInstance(this))
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left)
             } else {
                 startActivity(LoginActivity.newInstance(this))
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left)
             }
         }, SPLASH_SCREEN_TIMEOUT)
     }
