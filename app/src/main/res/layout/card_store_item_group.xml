@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
 
     <TextView
@@ -12,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Burgers"
+        android:fontFamily="@font/sarabun_regular"
+        android:textSize="18sp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/color_black"/>
