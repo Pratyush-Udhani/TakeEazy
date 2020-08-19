@@ -23,9 +23,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Items"
+                android:text="Store Name"
+                android:id="@+id/storeName"
                 android:textColor="@color/color_black"
+                android:fontFamily="@font/sarabun_regular"
                 android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="Category"
+                android:id="@+id/storeCategory"
+                android:fontFamily="@font/sarabun_regular"
+                android:textColor="#60000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/storeLocality"
+                android:layout_marginHorizontal="20dp"
+                android:text="Locality"
+                android:fontFamily="@font/sarabun_regular"
+                android:textColor="#60000000"
+                android:textSize="12sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/storeItemGroupRecycler"

@@ -52,8 +52,15 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     private fun init() {
+        setupUI()
         setUpObserver()
         setUpRecycler()
+    }
+
+    private fun setupUI() {
+        storeName.text = store.storeName
+        storeCategory.text = store.storeCategory
+        storeLocality.text = store.storeAddress
     }
 
     private fun setUpObserver() {
