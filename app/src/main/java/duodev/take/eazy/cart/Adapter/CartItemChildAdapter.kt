@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
@@ -49,14 +50,17 @@ class CartItemChildAdapter (
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemNameText: TextView = itemView.findViewById(R.id.itemName)
-        private val addQuantity: ImageView = itemView.findViewById(R.id.addQuantityButton)
-        private val subQuantity: ImageView = itemView.findViewById(R.id.subQuantityButton)
+        private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
+        private val addQuantity: TextView = itemView.findViewById(R.id.addQuantityButton)
+        private val subQuantity: TextView = itemView.findViewById(R.id.subQuantityButton)
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
 
         fun bindItems(item: CartItems) {
             itemNameText.text = item.singleItem.itemName
             itemQuantity.text = item.quantity.toString()
+
+            Glide.with(getContext()).load(item.singleItem.itemImageUri).into(itemImage)
 
             addQuantity.setOnClickListener {
                 listener.addToCart(CartItems(item.singleItem, getAddedInt(itemQuantity.text.toString()), item.storeId))
@@ -65,7 +69,7 @@ class CartItemChildAdapter (
 
             subQuantity.setOnClickListener {
                 if (itemQuantity.text == "1") {
-                    listener.removeFromCart(item.singleItem.itemId, "")
+                    listener.removeFromCart(item.singleItem.itemId, item.storeId)
                     removeAt(adapterPosition)
                 } else {
                     listener.subFromCart(CartItems(item.singleItem, getSubInt(itemQuantity.text.toString()), item.storeId))

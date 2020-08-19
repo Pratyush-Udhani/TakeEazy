@@ -10,7 +10,7 @@ data class CartItems (
     val singleItem: SingleItem,
 
     @SerializedName("quantity")
-    var quantity: Int,
+    var quantity: Int = 0,
 
     @SerializedName("storeId")
     var storeId: String

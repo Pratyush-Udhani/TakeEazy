@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
@@ -46,6 +47,7 @@ class StoreItemSingleAdapter (
 
         private val itemName: TextView = itemView.findViewById(R.id.itemName)
         private val itemCard: CardView = itemView.findViewById(R.id.itemCard)
+        private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
         private val addToCart: TextView = itemView.findViewById(R.id.addToCart)
         private val addQuantity: TextView = itemView.findViewById(R.id.addQuantityButton)
         private val subQuantity: TextView = itemView.findViewById(R.id.subQuantityButton)
@@ -55,6 +57,8 @@ class StoreItemSingleAdapter (
         fun bindItems(cartItem: CartItems) {
             itemName.text = cartItem.singleItem.itemName
             itemQuantity.text = cartItem.quantity.toString()
+
+            Glide.with(getContext()).load(cartItem.singleItem.itemImageUri).into(itemImage)
 
             addToCart.setOnClickListener {
                 editQuantity.makeVisible()

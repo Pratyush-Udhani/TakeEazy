@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="true"
                 tools:itemCount="1"
-                tools:listitem="@layout/card_cart_store_items" />
+                tools:listitem="@layout/card_cart_single_item" />
 
             <LinearLayout
                 android:id="@+id/billingLayout"
