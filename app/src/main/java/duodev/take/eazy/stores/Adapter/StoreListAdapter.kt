@@ -2,12 +2,15 @@ package duodev.take.eazy.stores.Adapter
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.Store
+import org.w3c.dom.Text
 
 class StoreListAdapter(
     private val list: LinkedHashMap<Store, String>,
@@ -44,12 +47,18 @@ class StoreListAdapter(
 
         private val storeName: TextView = itemView.findViewById(R.id.storeName)
         private val storeCard: CardView = itemView.findViewById(R.id.storeCard)
+        private val storeImage: ImageView = itemView.findViewById(R.id.storeImage)
+        private val storeCategory: TextView = itemView.findViewById(R.id.storeCategory)
+        private val storeLocality: TextView = itemView.findViewById(R.id.storeLocality)
 
         fun bindItems(store: Store, distance: String) {
             storeName.text = store.storeName
             storeCard.setOnClickListener {
                 listener.onStoreClicked(store, distance)
             }
+            Glide.with(getContext()).load(store.storeImageUri).into(storeImage)
+            storeCategory.text = store.storeCategory
+            storeLocality.text = store.storeAddress
         }
     }
 

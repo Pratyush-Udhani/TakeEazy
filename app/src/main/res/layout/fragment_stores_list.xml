@@ -38,14 +38,39 @@
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/searchBox"
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:hint="search stores"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:cardBackgroundColor="#D4F0FF"
+                app:cardCornerRadius="5dp" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_zoom_in"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <EditText
+                        android:id="@+id/searchBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:background="@null"
+                        android:fontFamily="@font/sarabun_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Search stores"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <Button
                 android:id="@+id/searchButton"
