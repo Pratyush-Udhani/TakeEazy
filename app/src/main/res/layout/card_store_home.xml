@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="170dp"
-    android:layout_height="200dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:layout_marginEnd="20dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/storeCard"
         android:layout_width="match_parent"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@android:color/darker_gray"
         app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="#69000000"
             android:gravity="center"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/storeName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="ascljb"/>
+                android:maxLines="2"
+                android:text=""
+                android:textColor="#000" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
