@@ -9,7 +9,6 @@
         android:id="@+id/itemCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
         app:cardBackgroundColor="@color/color_white"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
@@ -23,7 +22,6 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 app:cardCornerRadius="7dp">
 
                 <ImageView
