@@ -47,17 +47,30 @@
                         android:textColor="@color/color_black"
                         android:textSize="17sp"
                         android:text="Subtotal" />
-
-                    <TextView
-                        android:id="@+id/itemPrice"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:fontFamily="@font/sarabun_regular"
-                        android:textSize="17sp"
-                        android:textColor="@color/color_black"
-                        android:text="Rs. 1234" />
+                        android:gravity="end">
+                        <TextView
+                            android:id="@+id/itemPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:fontFamily="@font/sarabun_regular"
+                            android:textSize="17sp"
+                            android:textColor="@color/color_black"
+                            android:text="Rs. 1234" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:fontFamily="@font/sarabun_regular"
+                            android:textSize="6sp"
+                            android:textColor="@color/color_black"
+                            android:text="*inclusive all taxes" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
