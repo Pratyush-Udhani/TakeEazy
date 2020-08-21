@@ -15,17 +15,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/itemsCartParentRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:nestedScrollingEnabled="true"
                 tools:itemCount="1"
-                android:layout_weight="1"
                 tools:listitem="@layout/card_cart_single_item" />
 
             <LinearLayout
@@ -44,32 +44,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sarabun_regular"
+                        android:text="Subtotal"
                         android:textColor="@color/color_black"
-                        android:textSize="17sp"
-                        android:text="Subtotal" />
+                        android:textSize="17sp" />
+
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end">
+                        android:gravity="end"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/itemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
                             android:fontFamily="@font/sarabun_regular"
-                            android:textSize="17sp"
+                            android:gravity="end"
+                            android:text="Rs. 1234"
                             android:textColor="@color/color_black"
-                            android:text="Rs. 1234" />
+                            android:textSize="17sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
                             android:fontFamily="@font/sarabun_regular"
-                            android:textSize="6sp"
+                            android:gravity="end"
+                            android:text="*inclusive all taxes"
                             android:textColor="@color/color_black"
-                            android:text="*inclusive all taxes" />
+                            android:textSize="6sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -81,44 +84,44 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sarabun_regular"
-                        android:textSize="17sp"
-                        android:textColor="@color/color_black"
                         android:layout_weight="1"
-                        android:text="Delivery Price" />
+                        android:fontFamily="@font/sarabun_regular"
+                        android:text="Delivery Price"
+                        android:textColor="@color/color_black"
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/deliveryPrice"
                         android:layout_width="0dp"
-                        android:fontFamily="@font/sarabun_regular"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_black"
-                        android:gravity="end"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="ON DELIVERY" />
+                        android:fontFamily="@font/sarabun_regular"
+                        android:gravity="end"
+                        android:text="ON DELIVERY"
+                        android:textColor="@color/color_black"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/buyItemsButton"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
-                app:cardCornerRadius="5dp"
-                android:layout_marginBottom="40dp"
-                app:cardElevation="0dp"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#97DFD0">
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
+                app:cardBackgroundColor="#97DFD0"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:paddingVertical="7dp"
-                    android:textColor="@color/color_black"
-                    android:gravity="center"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/sarabun_regular"
                     android:layout_height="wrap_content"
-                    android:text="Proceed To Buy" />
+                    android:fontFamily="@font/sarabun_regular"
+                    android:gravity="center"
+                    android:paddingVertical="7dp"
+                    android:text="Proceed To Buy"
+                    android:textColor="@color/color_black"
+                    android:textSize="17sp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
