@@ -28,6 +28,9 @@
         <activity android:name=".tobedeleted.SplashActivity" >
 
         </activity>
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="<API:KEY>" />
     </application>
 
 </manifest>
