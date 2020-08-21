@@ -78,6 +78,14 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         viewAll.setOnClickListener {
             changeFragment(StoresListFragment.newInstance())
         }
+
+        storesNearYouLayout.setOnClickListener {
+            viewAll.callOnClick()
+        }
+
+        storesText.setOnClickListener {
+            viewAll.callOnClick()
+        }
     }
 
     private fun setUpRecycler() {
