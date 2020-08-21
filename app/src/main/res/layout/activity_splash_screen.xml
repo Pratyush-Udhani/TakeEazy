@@ -4,8 +4,25 @@
     android:id="@+id/splashBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0"
-    android:background="@color/green_primary">
+    android:background="@color/main_bg_color">
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_top" />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_bottom" />
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -13,22 +30,14 @@
         android:layout_height="0dp"
         android:elevation="0dp"
         android:gravity="center"
-        android:src="@drawable/ic_splash_logo"
+        android:src="@drawable/ic_new_logo"
+        android:layout_marginHorizontal="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Take Eazy App"-->
-<!--        android:textColor="@color/color_black"-->
-<!--        android:textSize="24sp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/imageLogo" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
