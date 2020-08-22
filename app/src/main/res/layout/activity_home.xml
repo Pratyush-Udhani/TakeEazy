@@ -5,24 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
+    android:id="@+id/drawerLayout"
     tools:context=".home.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:visibility="visible"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_top_bar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/headingText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/sarabun_regular"
+                    android:gravity="center_vertical"
+                    android:text="Welcome User"
+                    android:textColor="@color/color_black"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/sideNavButton"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_hamburger_button"
+                    android:tint="@color/color_black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <FrameLayout
             android:id="@+id/homeContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavCard"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/topBar"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavCard"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/bottomNavCard"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:background="@null"
             android:visibility="visible"
             app:cardBackgroundColor="@android:color/transparent"
@@ -41,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_bottom_nav"
                     android:elevation="0dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="5dp"
                     app:elevation="0dp"
                     app:itemIconSize="20dp"
@@ -64,33 +106,14 @@
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        android:background="@android:color/transparent"
         android:elevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="18sp" />
-            </FrameLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="40dp"
-                android:background="#707070" />
-
-            <!-- include a layout here for the navigation !-->
+        <include layout="@layout/side_drawer"/>
         </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>

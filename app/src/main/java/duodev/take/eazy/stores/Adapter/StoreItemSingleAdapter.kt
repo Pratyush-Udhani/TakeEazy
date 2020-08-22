@@ -58,6 +58,14 @@ class StoreItemSingleAdapter (
             itemName.text = cartItem.singleItem.itemName
             itemQuantity.text = cartItem.quantity.toString()
 
+            if (cartItem.quantity == 0) {
+                editQuantity.makeGone()
+                addToCart.makeVisible()
+            } else {
+                editQuantity.makeVisible()
+                addToCart.makeGone()
+            }
+
             Glide.with(getContext()).load(cartItem.singleItem.itemImageUri).into(itemImage)
 
             addToCart.setOnClickListener {

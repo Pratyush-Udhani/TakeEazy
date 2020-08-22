@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
@@ -14,6 +15,7 @@ import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.side_drawer.*
 
 class HomeActivity : BaseActivity() {
 
@@ -48,6 +50,34 @@ class HomeActivity : BaseActivity() {
                 }
             }
                 false
+        }
+
+        sideNavButton.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+        navigationAbout.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+        }
+
+        navigationChangePass.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+
+        }
+
+        navigationLogout.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+
+        }
+
+        navigationPrivacy.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+
+        }
+
+        navigationTerms.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+
         }
     }
 

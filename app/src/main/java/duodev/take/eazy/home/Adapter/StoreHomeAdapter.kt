@@ -1,10 +1,13 @@
 package duodev.take.eazy.home.Adapter
 
+import android.media.Image
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.Store
@@ -45,8 +48,11 @@ class StoreHomeAdapter(
 
         private val storeName: TextView = itemView.findViewById(R.id.storeName)
         private val storeCard: CardView = itemView.findViewById(R.id.storeCard)
+        private val storeImage: ImageView = itemView.findViewById(R.id.storeImage)
 
         fun bindItems(item: Store, distance: String) {
+
+            Glide.with(getContext()).load(item.storeImageUri).into(storeImage)
 
             storeName.text = item.storeName
             storeCard.setOnClickListener {

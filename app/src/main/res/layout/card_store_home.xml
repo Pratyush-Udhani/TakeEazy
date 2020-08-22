@@ -9,10 +9,11 @@
         android:id="@+id/storeCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@android:color/darker_gray"
+        app:cardBackgroundColor="@color/color_white"
         app:cardCornerRadius="10dp">
 
         <ImageView
+            android:id="@+id/storeImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_launcher_background" />
@@ -33,7 +34,8 @@
                 android:gravity="center"
                 android:maxLines="2"
                 android:text=""
-                android:textColor="#000" />
+                android:fontFamily="@font/sarabun_regular"
+                android:textColor="@color/color_white" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
