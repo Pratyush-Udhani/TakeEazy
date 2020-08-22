@@ -2,6 +2,7 @@ package duodev.take.eazy.orders.Adapter
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import duodev.take.eazy.R
@@ -34,6 +35,8 @@ class OrdersAdapter(
 
         private val itemNameOrder: TextView = itemView.findViewById(R.id.itemName)
         private val itemStatus: TextView = itemView.findViewById(R.id.itemStatus)
+        private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
+        private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
 
         fun bindItems(order: OrderItems) {
 
