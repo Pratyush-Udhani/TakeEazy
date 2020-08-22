@@ -9,7 +9,6 @@
         android:id="@+id/itemCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
         app:cardBackgroundColor="@color/color_white"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
@@ -28,9 +27,9 @@
 
                 <ImageView
                     android:id="@+id/itemImage"
-                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher_background" />
             </androidx.cardview.widget.CardView>
 
@@ -68,7 +67,7 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="60dp"
+                        android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:foregroundGravity="center"
@@ -80,17 +79,18 @@
 
                         <LinearLayout
                             android:id="@+id/editQuantityLayout"
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center"
                             android:background="@drawable/ic_card_add"
-                            android:orientation="horizontal"
+                            android:visibility="gone"
                             android:gravity="center"
-                            android:visibility="gone">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/subQuantityButton"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="-"
@@ -99,7 +99,7 @@
                             <TextView
                                 android:id="@+id/quantityText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="1" />
@@ -107,7 +107,7 @@
                             <TextView
                                 android:id="@+id/addQuantityButton"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="+"
@@ -117,12 +117,14 @@
 
                         <TextView
                             android:id="@+id/addToCart"
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/ic_card_add"
                             android:elevation="1dp"
+                            android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="ADD" />
+                            android:text="ADD"
+                            android:visibility="visible" />
 
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>

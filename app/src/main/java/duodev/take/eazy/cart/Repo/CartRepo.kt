@@ -27,8 +27,10 @@ class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirest
         val data = MutableLiveData<String>()
         firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get()
             .addOnSuccessListener {
-                val id = it.documents[0].get("storeId").toString()
-                data.value = id
+                if (it.documents.size != 0) {
+                    val id = it.documents[0].get("storeId").toString()
+                    data.value = id
+                }
             }
         return data
     }
