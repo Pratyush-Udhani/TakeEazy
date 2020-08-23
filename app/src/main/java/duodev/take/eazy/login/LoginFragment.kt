@@ -45,18 +45,21 @@ class LoginFragment : BaseFragment() {
                 pm.phone = userPhone.text.toString()
                 pm.account = true
                 isAuth.value = false
+                loader.makeGone()
                 startActivity(HomeActivity.newInstance(requireContext()))
             }
         })
 
         noPassword.observe(viewLifecycleOwner, Observer {
             if (noPassword.value!!) {
+                loader.makeGone()
                 activity?.toast("Invalid password")
             }
         })
 
         noEmail.observe(viewLifecycleOwner, Observer {
             if (noEmail.value!!) {
+                loader.makeGone()
                 activity?.toast("No user found")
             }
         })
@@ -66,6 +69,7 @@ class LoginFragment : BaseFragment() {
         loginButton.setOnClickListener {
             if (userPhone.text.isNotEmpty()) {
                 if (userPassword.text.isNotEmpty()) {
+                    loader.makeVisible()
                     checkAuth("+91${userPhone.trimString()}", userPassword.trimString())
                 } else {
                     activity?.toast("Enter password")
