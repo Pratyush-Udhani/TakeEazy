@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
+import duodev.take.eazy.changePassword.ChangePasswordFragment
 import duodev.take.eazy.orders.OrdersFragment
 import duodev.take.eazy.services.ServicesFragment
 import duodev.take.eazy.services.ServicesOrders
@@ -84,6 +85,11 @@ class HomeActivity : BaseActivity() {
         navigationServices.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
             changeFragment(ServicesOrders.newInstance())
+        }
+
+        navigationChangePass.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+            changeFragment(ChangePasswordFragment.newInstance())
         }
     }
 
