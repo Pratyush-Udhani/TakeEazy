@@ -31,10 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ellipsize="end"
+                android:fontFamily="@font/sarabun_regular"
                 android:gravity="center"
                 android:maxLines="2"
                 android:text=""
-                android:fontFamily="@font/sarabun_regular"
                 android:textColor="@color/color_white" />
 
         </LinearLayout>
