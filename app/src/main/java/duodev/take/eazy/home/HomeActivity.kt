@@ -107,6 +107,10 @@ class HomeActivity : BaseActivity() {
             drawerLayout.closeDrawer(GravityCompat.END)
             changeFragment(AboutFragment.newInstance())
         }
+
+        navigationPrivacy.setOnClickListener {
+
+        }
     }
 
     private fun setUpFragment() {
