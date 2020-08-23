@@ -19,4 +19,7 @@ data class SingleItem (
     @SerializedName("itemPrice")
     val itemPrice: String
 
-) : Parcelable
+)  : Parcelable{
+    @SerializedName("prescriptionUrl")
+    lateinit var prescriptionUrl: String
+}
