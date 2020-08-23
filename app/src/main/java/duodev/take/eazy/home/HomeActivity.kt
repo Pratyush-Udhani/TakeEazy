@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import duodev.take.eazy.R
+import duodev.take.eazy.about.AboutFragment
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.changePassword.ChangePasswordFragment
@@ -100,6 +101,11 @@ class HomeActivity : BaseActivity() {
             pm.phone = ""
             pm.account = false
             changeFragment(LoginFragment.newInstance())
+        }
+
+        navigationAbout.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+            changeFragment(AboutFragment.newInstance())
         }
     }
 
