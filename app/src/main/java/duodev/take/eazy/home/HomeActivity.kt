@@ -11,13 +11,16 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.changePassword.ChangePasswordFragment
+import duodev.take.eazy.login.LoginFragment
 import duodev.take.eazy.orders.OrdersFragment
 import duodev.take.eazy.services.ServicesFragment
 import duodev.take.eazy.services.ServicesOrders
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
+import duodev.take.eazy.utils.isAuth
 import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.side_drawer.*
 
 class HomeActivity : BaseActivity() {
@@ -90,6 +93,13 @@ class HomeActivity : BaseActivity() {
         navigationChangePass.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
             changeFragment(ChangePasswordFragment.newInstance())
+        }
+
+        navigationLogout.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.END)
+            pm.phone = ""
+            pm.account = false
+            changeFragment(LoginFragment.newInstance())
         }
     }
 
