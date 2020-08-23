@@ -57,6 +57,27 @@
                 android:nestedScrollingEnabled="true"
                 android:overScrollMode="never"
                 tools:listitem="@layout/card_store_item_group" />
+            <TextView
+                android:id="@+id/noItemsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="No Items Available"
+                android:textColor="@color/color_black"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/loader"
+        layout="@layout/layout_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.SharedRepo.SharedRepo
+import duodev.take.eazy.pojo.Service
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,4 +37,12 @@ class SharedViewModel @Inject constructor(private val sharedRepo: SharedRepo): B
             sharedRepo.orderItems(storeId)
         }
     }
+
+    fun confirmServiceBooking(service: Service) {
+        viewModelScope.launch {
+            sharedRepo.orderService(service)
+        }
+    }
+
+    fun fetchServices() = sharedRepo.fetchServices()
 }

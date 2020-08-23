@@ -21,9 +21,11 @@ import duodev.take.eazy.home.Adapter.CategoryHomeAdapter
 import duodev.take.eazy.home.Adapter.StoreHomeAdapter
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Store
+import duodev.take.eazy.services.ServicesFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.LinkedHashMap
 
@@ -55,6 +57,7 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
     }
 
     private fun init() {
+        (activity as HomeActivity).headingText.text = "Welcome User"
         setUpListeners()
         setUpRecycler()
         getLocation()
@@ -86,6 +89,11 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         storesText.setOnClickListener {
             viewAll.callOnClick()
         }
+
+        serviceCard.setOnClickListener {
+            changeFragment(ServicesFragment.newInstance())
+        }
+
     }
 
     private fun setUpRecycler() {

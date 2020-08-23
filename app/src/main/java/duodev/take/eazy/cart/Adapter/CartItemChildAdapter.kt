@@ -12,6 +12,8 @@ import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.utils.getAddedInt
 import duodev.take.eazy.utils.getSubInt
+import duodev.take.eazy.utils.log
+import duodev.take.eazy.utils.multiplyStrings
 
 class CartItemChildAdapter (
     private val list: MutableList<CartItems>,
@@ -43,6 +45,14 @@ class CartItemChildAdapter (
         notifyDataSetChanged()
     }
 
+    fun getTotal(): Int {
+        var total: Int = 0
+        list.forEachIndexed { _, cartItems ->
+            total += multiplyStrings(cartItems.quantity.toString(), cartItems.singleItem.itemPrice)
+        }
+        return total
+    }
+
     fun removeData() {
         list.removeAll(list)
     }
@@ -55,12 +65,15 @@ class CartItemChildAdapter (
         private val subQuantity: TextView = itemView.findViewById(R.id.subQuantityButton)
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
+        private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
 
         fun bindItems(item: CartItems) {
             itemNameText.text = item.singleItem.itemName
             itemQuantity.text = item.quantity.toString()
 
             Glide.with(getContext()).load(item.singleItem.itemImageUri).into(itemImage)
+
+            itemPrice.text = "Rs. ${item.singleItem.itemPrice}"
 
             addQuantity.setOnClickListener {
                 listener.addToCart(CartItems(item.singleItem, getAddedInt(itemQuantity.text.toString()), item.storeId))

@@ -200,6 +200,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
             sortedMap[element] =
                 getDistance(latitude!!, longitude!!, element.storeLocation.latitude, element.storeLocation.longitude).toString()
         }
+        loader.makeGone()
         storeAdapter.addData(sortedMap)
     }
 

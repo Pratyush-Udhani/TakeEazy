@@ -68,12 +68,14 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 log("called verify success")
                 verificationInProgress = false
                 signInWithPhoneAuthCredential(credential)
+                loader.makeGone()
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
                 verificationInProgress = false
+                loader.makeGone()
                 log("called failure")
-                toast("Verification failed")
+                toast("Verification failed. Please enter this device's phone number.")
                 if (e is FirebaseAuthInvalidCredentialsException) {
                 } else if (e is FirebaseTooManyRequestsException) {
                     activity?.toast(e.toString())
@@ -133,6 +135,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
         }
 
         signUpButton.setOnClickListener {
+            loader.makeVisible()
             setUpAccount()
         }
     }
@@ -144,6 +147,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 if (it.isSuccessful) {
                     log("success")
                     if (it.result!!.exists()) {
+                        loader.makeGone()
                         activity?.toast("Account already exists for this number")
                     } else {
                         if (verificationInProgress && validatePhoneNumber()) {

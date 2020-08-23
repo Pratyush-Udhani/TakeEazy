@@ -30,6 +30,8 @@ class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirest
                 if (it.documents.size != 0) {
                     val id = it.documents[0].get("storeId").toString()
                     data.value = id
+                } else {
+                    data.value = ""
                 }
             }
         return data

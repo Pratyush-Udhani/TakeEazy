@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Avail Services"
                 android:textColor="@color/color_black"
                 android:textSize="17sp" />
@@ -101,7 +101,6 @@
                 android:layout_height="90dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 app:cardElevation="0dp">
 
                 <ImageView
@@ -116,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Categories"
                 android:textColor="@color/color_black"
                 android:textSize="17sp" />
@@ -126,7 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
                 android:nestedScrollingEnabled="true"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

@@ -17,6 +17,8 @@ import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.log
+import duodev.take.eazy.utils.makeGone
+import duodev.take.eazy.utils.makeVisible
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
@@ -68,6 +70,9 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
             if (it.isNotEmpty()) {
                 categoryList = it
                 fetchedCategories.value = true
+            } else {
+                loader.makeGone()
+                noItemsText.makeVisible()
             }
         })
 
@@ -96,6 +101,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
             storeViewModel.fetchSingleItems(group, store.storePhone).observe(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
                     itemList.addAll(it)
+                    loader.makeGone()
                     itemsGroupAdapter.addData(Items(group, it))
                     itemsFetched.value = true
                 }

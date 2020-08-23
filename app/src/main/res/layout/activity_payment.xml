@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".payment.PaymentActivity">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_top_bar"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/headingText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sarabun_regular"
+                android:gravity="center_vertical"
+                android:text="Payment"
+                android:textColor="@color/color_black"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <LinearLayout
+        android:id="@+id/payment_body_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <TextView
+            android:id="@+id/heading_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="@font/sarabun_regular"
+            android:text="Payment"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:visibility="gone" />
+
+        <RadioGroup
+            android:id="@+id/payment_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp">
+
+            <RadioButton
+                android:id="@+id/payment_debit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sarabun_regular"
+                android:text="Debit Card" />
+
+            <LinearLayout
+                android:id="@+id/layout_debit_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:textAlignment="viewStart">
+
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_visa" />
+
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_maestro" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/rupay" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/payment_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sarabun_regular"
+                android:text="Credit Card" />
+
+            <LinearLayout
+                android:id="@+id/layout_credit_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:textAlignment="viewStart">
+
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_visa" />
+
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_maestro" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/rupay" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/payment_paytm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sarabun_regular"
+                android:text="UPI" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buyItemsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
+        app:cardBackgroundColor="#97DFD0"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sarabun_regular"
+            android:gravity="center"
+            android:paddingVertical="7dp"
+            android:text="Proceed To Payment"
+            android:textColor="@color/color_black"
+            android:textSize="17sp" />
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

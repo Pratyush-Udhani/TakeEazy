@@ -131,6 +131,16 @@ fun getRandomString(size: Int = 20): String {
 }
 
 
+fun multiplyStrings(string1: String, string2: String): Int {
+    return if (string1.isInteger() && string2.isInteger()) {
+        val int1 = Integer.parseInt(string1)
+        val int2 = Integer.parseInt(string2)
+        int1 * int2
+    } else {
+        0
+    }
+}
+
 // This is made for when database needs to be
 // shifted from Firebase to a custom one
 

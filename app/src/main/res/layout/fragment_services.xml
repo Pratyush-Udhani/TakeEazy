@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".services.ServicesFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sarabun_regular"
+        android:textColor="@color/color_black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:textSize="17sp"
+        android:text="Please select categories and enter at most 10 items to be delivered to you."/>
+
+    <AutoCompleteTextView
+        android:id="@+id/storeCategoryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
+        android:hint="Select Category"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"
+        android:textSize="17sp"
+        android:textColor="@color/color_black"
+        android:fontFamily="@font/sarabun_regular"
+        android:padding="8dp"/>
+
+
+    <EditText
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
+        android:hint="Enter up to 10 items"
+        android:lines="2"
+        android:inputType="textMultiLine"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="17sp"
+        android:textColor="@color/color_black"
+        android:fontFamily="@font/sarabun_regular"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/storeAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
+        android:hint="Select store address"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:lines="2"
+        android:textSize="17sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_black"
+        android:fontFamily="@font/sarabun_regular"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/deliveryAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
+        android:lines="2"
+        android:gravity="center_vertical"
+        android:hint="Select delivery address"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="17sp"
+        android:textColor="@color/color_black"
+        android:fontFamily="@font/sarabun_regular"
+        android:padding="8dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buyServiceButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
+        app:cardBackgroundColor="#97DFD0"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sarabun_regular"
+            android:gravity="center"
+            android:paddingVertical="7dp"
+            android:text="Buy Service"
+            android:textColor="@color/color_black"
+            android:textSize="17sp" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

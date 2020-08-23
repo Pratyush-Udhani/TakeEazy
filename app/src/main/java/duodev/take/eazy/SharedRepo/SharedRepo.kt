@@ -1,8 +1,10 @@
 package duodev.take.eazy.SharedRepo
 
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.OrderItems
+import duodev.take.eazy.pojo.Service
 import duodev.take.eazy.utils.*
 import javax.inject.Inject
 
@@ -58,5 +60,24 @@ class SharedRepo @Inject constructor(private val firestore: FirebaseFirestore) {
                     }
                 }
             }
+    }
+
+    fun orderService(service: Service) {
+        firestore.collection(SERVICES).document(pm.phone).set(hashMapOf("userId" to pm.phone))
+
+        firestore.collection(SERVICES).document(pm.phone).collection(ORDERS)
+            .document(service.orderId).set(service)
+    }
+
+    fun fetchServices(): MutableLiveData<List<Service>> {
+        val serviceList: MutableList<Service> = mutableListOf()
+        val data = MutableLiveData<List<Service>>()
+        firestore.collection(SERVICES).document(pm.phone).collection(ORDERS).get().addOnSuccessListener {
+            for (i in 0 until it.documents.size) {
+                serviceList.add(convertToPojo(it.documents[i].data!!, Service::class.java))
+            }
+            data.value = serviceList
+        }
+        return data
     }
 }

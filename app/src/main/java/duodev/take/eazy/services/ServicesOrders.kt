@@ -1,34 +1,29 @@
-package duodev.take.eazy.orders
+package duodev.take.eazy.services
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
+import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.base.BaseFragment
-import duodev.take.eazy.home.HomeActivity
-import duodev.take.eazy.orders.Adapter.OrdersAdapter
-import duodev.take.eazy.orders.ViewModel.OrdersViewModel
-import duodev.take.eazy.utils.log
 import duodev.take.eazy.utils.makeGone
 import duodev.take.eazy.utils.makeVisible
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_orders.*
+import kotlinx.android.synthetic.main.fragment_services_orders.*
 
+class ServicesOrders : BaseFragment() {
 
-class OrdersFragment : BaseFragment() {
-
-    private val ordersAdapter by lazy { OrdersAdapter(mutableListOf()) }
-    private val orderViewModel by viewModels<OrdersViewModel> { viewModelFactory }
+    private val serviceAdapter by lazy { ServicesAdapter(mutableListOf()) }
+    private val sharedViewModel by viewModels<SharedViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -36,7 +31,7 @@ class OrdersFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        return inflater.inflate(R.layout.fragment_services_orders, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,24 +40,15 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun init() {
-        (activity as HomeActivity).headingText.text = "Orders"
         setUpObserver()
         setUpRecycler()
     }
 
-    private fun setUpRecycler() {
-        orderRecycler.apply {
-            adapter = this@OrdersFragment.ordersAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-    }
-
     private fun setUpObserver() {
-        orderViewModel.fetchOrders().observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+        sharedViewModel.fetchServices().observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
                 loader.makeGone()
-                ordersAdapter.addData(it)
-                log("orders: ${it.size}")
+                serviceAdapter.addData(it)
             } else {
                 loader.makeGone()
                 noOrdersText.makeVisible()
@@ -70,7 +56,14 @@ class OrdersFragment : BaseFragment() {
         })
     }
 
+    private fun setUpRecycler() {
+        serviceRecycler.apply {
+            adapter = this@ServicesOrders.serviceAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
     companion object {
-        fun newInstance() = OrdersFragment()
+        fun newInstance() = ServicesOrders()
     }
 }

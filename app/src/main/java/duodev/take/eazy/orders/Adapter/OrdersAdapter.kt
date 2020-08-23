@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.OrderItems
@@ -41,12 +42,14 @@ class OrdersAdapter(
         fun bindItems(order: OrderItems) {
 
             itemNameOrder.text = order.cartItem.singleItem.itemName
-            if (order.status == "") {
+            if (order.status == "" || order.status == "Assigned to store") {
                 itemStatus.text = "Waiting for approval"
             } else {
                 itemStatus.text = order.status
             }
 
+            itemPrice.text = "Rs. ${order.cartItem.singleItem.itemPrice}"
+            Glide.with(getContext()).load(order.cartItem.singleItem.itemImageUri).into(itemImage)
         }
     }
 }

@@ -7,6 +7,7 @@ const val CART = "Cart"
 const val ITEMS = "Items"
 const val STORES = "Stores"
 const val STORE = "Store"
+const val SERVICES = "Services"
 const val CATEGORIES = "categories"
 const val PICK_ITEM_IMAGE = 3
 const val ALLOWED_CHARS = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
