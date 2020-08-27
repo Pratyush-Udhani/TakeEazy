@@ -1,18 +1,31 @@
 package duodev.take.eazy.login
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.util.concurrent.TimeUnit
 
 class LoginFragment : BaseFragment() {
+
+    private var phoneNumber = ""
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private var storedVerificationId: String? = ""
+    private var verificationInProgress = true
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +47,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun init() {
+        setCallbacks()
         setUpObserver()
         setUpListeners()
     }
@@ -68,11 +82,12 @@ class LoginFragment : BaseFragment() {
     private fun setUpListeners() {
         loginButton.setOnClickListener {
             if (userPhone.text.isNotEmpty()) {
-                if (userPassword.text.isNotEmpty()) {
+                if (userPhone.text.length == 10) {
+                    phoneNumber = "+91${userPhone.trimString()}"
                     loader.makeVisible()
-                    checkAuth("+91${userPhone.trimString()}", userPassword.trimString())
+                    startPhoneNumberVerification(phoneNumber)
                 } else {
-                    activity?.toast("Enter password")
+                    activity?.toast("Enter a valid phone number")
                 }
             } else {
                 activity?.toast("Enter phone number")
@@ -84,11 +99,59 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phoneNumber,
+            30,
+            TimeUnit.SECONDS,
+            requireActivity(),
+            callbacks)
+    }
+
     private fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
         fragmentTransaction?.replace(R.id.loginContainer, fragment)
         fragmentTransaction?.commit()
         fragmentTransaction?.addToBackStack(null)
+    }
+
+    private fun setCallbacks() {
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                log("called verify success")
+                verificationInProgress = false
+                signInWithPhoneAuthCredential(credential)
+                loader.makeGone()
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                verificationInProgress = false
+                loader.makeGone()
+                log("called failure")
+                toast("Verification failed. Please enter this device's phone number.")
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                } else if (e is FirebaseTooManyRequestsException) {
+                    activity?.toast(e.toString())
+                }
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                log(verificationId+ "$token")
+                storedVerificationId = verificationId
+                resendToken = token
+            }
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        pm.account = true
+        pm.phone = phoneNumber
+        loader.makeGone()
+        startActivity(Intent(requireContext(), HomeActivity::class.java))
     }
 
     companion object {
