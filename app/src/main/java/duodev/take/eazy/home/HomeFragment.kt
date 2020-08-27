@@ -3,11 +3,11 @@ package duodev.take.eazy.home
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,19 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import duodev.take.eazy.R
-import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.Adapter.CategoryHomeAdapter
 import duodev.take.eazy.home.Adapter.StoreHomeAdapter
-import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.services.ServicesFragment
+import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlin.collections.LinkedHashMap
 
 
 class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapter.OnClick {
@@ -139,13 +137,12 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
             requestPermissions(
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE), 1)
         } else {
-//            val location =  lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             val locationRequest = LocationRequest()
             locationRequest.interval = 10000
             locationRequest.fastestInterval = 3000
             locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener {
-                log("success")
+                log("fetched")
                 if (it != null) {
                     log("not null")
                     latitude = it.latitude
@@ -155,8 +152,9 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
                             sortData(list)
                         }
                     })
-
                 }
+            }.addOnFailureListener {
+                log(it.toString())
             }
 
 //            longitude = location?.longitude!!
