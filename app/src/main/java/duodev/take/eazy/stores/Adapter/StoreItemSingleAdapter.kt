@@ -53,10 +53,14 @@ class StoreItemSingleAdapter (
         private val subQuantity: TextView = itemView.findViewById(R.id.subQuantityButton)
         private val editQuantity: LinearLayout = itemView.findViewById(R.id.editQuantityLayout)
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
+        private val itemDiscountedPrice: TextView = itemView.findViewById(R.id.itemDiscountedPrice)
+        private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
 
         fun bindItems(cartItem: CartItems) {
             itemName.text = cartItem.singleItem.itemName
             itemQuantity.text = cartItem.quantity.toString()
+            itemPrice.text = cartItem.singleItem.itemPrice
+            itemDiscountedPrice.text = cartItem.singleItem.itemDiscountedPrice
 
             if (cartItem.quantity == 0) {
                 editQuantity.makeGone()

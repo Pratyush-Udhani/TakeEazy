@@ -17,7 +17,10 @@ data class SingleItem (
     val itemImageUri: String,
 
     @SerializedName("itemPrice")
-    val itemPrice: String
+    val itemPrice: String,
+
+    @SerializedName("itemDiscountedPrice")
+    val itemDiscountedPrice: String
 
 )  : Parcelable{
     @SerializedName("prescriptionUrl")

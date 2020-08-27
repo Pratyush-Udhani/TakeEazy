@@ -48,7 +48,7 @@ class CartItemChildAdapter (
     fun getTotal(): Int {
         var total: Int = 0
         list.forEachIndexed { _, cartItems ->
-            total += multiplyStrings(cartItems.quantity.toString(), cartItems.singleItem.itemPrice)
+            total += multiplyStrings(cartItems.quantity.toString(), cartItems.singleItem.itemDiscountedPrice)
         }
         return total
     }
