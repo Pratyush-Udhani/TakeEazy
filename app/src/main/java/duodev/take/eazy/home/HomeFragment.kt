@@ -156,9 +156,6 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
             }.addOnFailureListener {
                 log(it.toString())
             }
-
-//            longitude = location?.longitude!!
-//            latitude = location?.latitude
         }
 
     }
