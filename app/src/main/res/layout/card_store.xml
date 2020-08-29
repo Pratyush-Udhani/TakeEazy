@@ -58,7 +58,8 @@
                     android:layout_weight="2"
                     android:fontFamily="@font/sarabun_regular"
                     android:text="Category"
-                    android:textColor="#60000000" />
+                    android:alpha=".8"
+                    android:textColor="@color/color_black"/>
 
                 <TextView
                     android:id="@+id/storeLocality"

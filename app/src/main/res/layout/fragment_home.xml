@@ -19,6 +19,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchCard"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="#E4F9F4"
+                app:cardCornerRadius="5dp" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_zoom_in"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:background="@null"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/sarabun_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Search stores"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

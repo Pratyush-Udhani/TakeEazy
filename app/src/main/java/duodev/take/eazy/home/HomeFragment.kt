@@ -20,6 +20,7 @@ import duodev.take.eazy.home.Adapter.CategoryHomeAdapter
 import duodev.take.eazy.home.Adapter.StoreHomeAdapter
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.services.ServicesFragment
+import duodev.take.eazy.stores.Adapter.StoreListAdapter
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
@@ -91,7 +92,9 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         serviceCard.setOnClickListener {
             changeFragment(ServicesFragment.newInstance())
         }
-
+        searchCard.setOnClickListener {
+            changeFragment(StoresListFragment.newInstance("", true))
+        }
     }
 
     private fun setUpRecycler() {

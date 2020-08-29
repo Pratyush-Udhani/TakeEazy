@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_stores_list.*
 class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
 
     private var category: String = ""
+    private var search: Boolean = false
     private val storeAdapter by lazy { StoreListAdapter(mutableMapOf<Store, String>() as LinkedHashMap<Store, String>, this) }
     private val storeViewModel by viewModels<StoreViewModel> { viewModelFactory }
     private var longitude: Double? = 0.0
@@ -37,6 +38,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         super.onCreate(savedInstanceState)
         arguments?.let {
             category = it.getString(CATEGORY)!!
+            search = it.getBoolean(SEARCH)
         }
     }
 
@@ -83,6 +85,11 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         categoryText.text = category
         if (category != ""){
             categoryText.makeVisible()
+        }
+        if (search) {
+            log("here+")
+            searchBox.requestFocus()
+            searchBox.showSoftInputOnFocus = true
         }
     }
 
@@ -213,10 +220,12 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     companion object {
 
         private const val CATEGORY = "category"
+        private const val SEARCH = "search"
 
-        fun newInstance(category: String = "") = StoresListFragment().apply {
+        fun newInstance(category: String = "", search: Boolean = false) = StoresListFragment().apply {
             arguments = Bundle().apply {
                 putString(CATEGORY, category)
+                putBoolean(SEARCH, search)
             }
         }
     }

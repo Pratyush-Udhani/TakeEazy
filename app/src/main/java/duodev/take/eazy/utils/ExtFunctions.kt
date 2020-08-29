@@ -35,6 +35,12 @@ fun closeKeyboard(context: Context, currentFocus: View?) {
     }
 }
 
+fun openKeyboard(context: Context) {
+    val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//    imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
+}
+
 fun checkKeyboardState(context: Context, currentFocus: View?): Int {
     return if (currentFocus != null)
         0
