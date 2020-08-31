@@ -109,6 +109,8 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                             }
                             return@launch
                         }
+                        pm.phone = phoneNumber
+                        pm.address = userAddress.trimString()
                         activity?.toast("Account added")
                         loader.makeGone()
                         changeFragment(LoginFragment.newInstance())

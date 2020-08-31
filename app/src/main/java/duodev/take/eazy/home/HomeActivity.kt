@@ -111,6 +111,10 @@ class HomeActivity : BaseActivity() {
         navigationPrivacy.setOnClickListener {
 
         }
+
+        navigationProfile.setOnClickListener {
+
+        }
     }
 
     private fun setUpFragment() {

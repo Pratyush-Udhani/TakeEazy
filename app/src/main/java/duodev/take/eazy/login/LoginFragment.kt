@@ -151,7 +151,10 @@ class LoginFragment : BaseFragment() {
         pm.account = true
         pm.phone = phoneNumber
         loader.makeGone()
-        startActivity(Intent(requireContext(), HomeActivity::class.java))
+        firebaseFirestore.collection(USERS).document(pm.phone).get().addOnSuccessListener {
+            pm.address = it["userAddress"].toString()
+            startActivity(Intent(requireContext(), HomeActivity::class.java))
+        }
     }
 
     companion object {

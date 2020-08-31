@@ -11,6 +11,7 @@ object PreferenceUtils {
     private const val PHONE = "phone"
     private const val HASH = "hash"
     private const val ACCOUNT = "account"
+    private const val ADDRESS = "address"
 
     var phone: String
         get() = pm.getString(PHONE, "") ?: ""
@@ -28,6 +29,12 @@ object PreferenceUtils {
         get() = pm.getBoolean(ACCOUNT, false)
         set(value) {
             pm.edit().putBoolean(ACCOUNT, value).apply()
+        }
+
+    var address: String
+        get() = pm.getString(ADDRESS, "")!!
+        set(value) {
+            pm.edit().putString(ADDRESS, value).apply()
         }
 
     fun getUser(): Users {
