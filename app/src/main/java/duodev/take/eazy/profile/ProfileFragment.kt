@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import duodev.take.eazy.R
+import duodev.take.eazy.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun init() {
-
+        phoneNumber.text = pm.phone
+        address.text = pm.address
     }
 
     companion object {
