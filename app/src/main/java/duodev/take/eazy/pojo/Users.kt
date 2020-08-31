@@ -11,6 +11,9 @@ data class Users (
     val userPhone: String = pm.phone,
 
     @SerializedName("hash")
-    val userPassword: String = pm.hash
+    val userPassword: String = pm.hash,
+
+    @SerializedName("userAddress")
+    val userAddress: String = ""
 
 )

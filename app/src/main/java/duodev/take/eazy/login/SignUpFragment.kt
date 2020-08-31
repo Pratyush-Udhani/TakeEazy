@@ -68,7 +68,6 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 log("called verify success")
                 verificationInProgress = false
                 signInWithPhoneAuthCredential(credential)
-                loader.makeGone()
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -100,7 +99,8 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 if (task.isSuccessful) {
                     Users(
                         userPhone = phoneNumber,
-                        userPassword = generateHash(userPassword.trimString())
+                        userPassword = generateHash(userPassword.trimString()),
+                        userAddress = userAddress.trimString()
                     ).also {
                         lifecycleScope.launch {
                             withContext(Dispatchers.Default) {
@@ -110,11 +110,13 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                             return@launch
                         }
                         activity?.toast("Account added")
+                        loader.makeGone()
                         changeFragment(LoginFragment.newInstance())
                     }
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         activity?.toast(task.exception.toString())
+                        loader.makeGone()
                     }
                 }
             }
@@ -136,6 +138,13 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
 
         signUpButton.setOnClickListener {
             loader.makeVisible()
+            if (userPhone.hasFocus()) {
+                closeKeyboard(requireContext(), userPhone)
+            } else {
+                if (userAddress.hasFocus()) {
+                    closeKeyboard(requireContext(), userAddress)
+                }
+            }
             setUpAccount()
         }
     }
@@ -161,15 +170,17 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setUpAccount() {
-        if (userPhone.text.isNotEmpty() && userPassword.text.isNotEmpty()) {
+        if (userPhone.text.isNotEmpty() && userAddress.text.isNotEmpty()) {
             if (userPhone.text.length == 10) {
                 phoneNumber = "+91${userPhone.trimString()}"
                 checkAccount()
             } else {
                 activity?.toast("Enter a valid phone number")
+                loader.makeGone()
             }
         } else {
             activity?.toast("Enter all details")
+            loader.makeGone()
         }
     }
 
