@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.utils.USERS
+import duodev.take.eazy.utils.log
+import duodev.take.eazy.utils.trimString
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -29,6 +32,28 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun init() {
+        setupUI()
+        setListeners()
+    }
+
+    private fun setListeners() {
+
+        // Add the edit buttons and uncomment the code below to make it happen
+
+//        phoneNumberEdit.setOnClickListener {
+//            firebaseFirestore.collection(USERS).document(phoneNumber.trimString()).update("userPhone", "<new number>").addOnSuccessListener {
+//                log("Updated successfully")
+//            }
+//        }
+//
+//        addressEdit.setOnClickListener {
+//            firebaseFirestore.collection(USERS).document(phoneNumber.trimString()).update("userAddress", "<new address>").addOnSuccessListener {
+//                log("Updated successfully")
+//            }
+//        }
+    }
+
+    private fun setupUI() {
         phoneNumber.text = pm.phone
         address.text = pm.address
     }

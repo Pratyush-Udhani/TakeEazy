@@ -95,6 +95,7 @@ class LoginFragment : BaseFragment() {
         }
 
         signUpButton.setOnClickListener {
+            closeKeyboard(requireContext(), it)
             changeFragment(SignUpFragment.newInstance())
         }
     }
@@ -148,12 +149,18 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        pm.account = true
-        pm.phone = phoneNumber
-        loader.makeGone()
-        firebaseFirestore.collection(USERS).document(pm.phone).get().addOnSuccessListener {
-            pm.address = it["userAddress"].toString()
-            startActivity(Intent(requireContext(), HomeActivity::class.java))
+        firebaseFirestore.collection(USERS).document(phoneNumber).get().addOnSuccessListener {
+            if (it.exists()) {
+                pm.account = true
+                pm.phone = phoneNumber
+                loader.makeGone()
+                firebaseFirestore.collection(USERS).document(pm.phone).get().addOnSuccessListener {
+                    pm.address = it["userAddress"].toString()
+                    startActivity(Intent(requireContext(), HomeActivity::class.java))
+                }
+            } else {
+                toast("No such phone number exists. Please register")
+            }
         }
     }
 
