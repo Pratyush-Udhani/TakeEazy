@@ -96,7 +96,8 @@ class LoginFragment : BaseFragment() {
 
         signUpButton.setOnClickListener {
             closeKeyboard(requireContext(), it)
-            changeFragment(SignUpFragment.newInstance())
+//            changeFragment(SignUpFragment.newInstance())
+            startActivity(SignUpActivity.newInstance(requireContext()))
         }
     }
 

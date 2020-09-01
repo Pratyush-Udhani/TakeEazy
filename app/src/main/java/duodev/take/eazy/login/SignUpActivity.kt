@@ -1,14 +1,14 @@
 package duodev.take.eazy.login
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.FirebaseException
@@ -20,17 +20,17 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import duodev.take.eazy.R
-import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.pojo.Users
 import duodev.take.eazy.utils.*
-import kotlinx.android.synthetic.main.fragment_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up2.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 
-class SignUpFragment : BaseFragment(), View.OnClickListener {
+class SignUpActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var auth: FirebaseAuth
     private var verificationInProgress = true
@@ -43,20 +43,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        setContentView(R.layout.activity_sign_up2)
         init()
     }
 
@@ -65,14 +52,23 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
         setUpUI()
         setUpListeners()
         setCallbacks()
-
+        initPlaces()
         val apiKey = getString(R.string.api_key)
 
         if (!Places.isInitialized()) {
-            activity?.applicationContext?.let { Places.initialize(it, apiKey) }
+            applicationContext?.let { Places.initialize(it, apiKey) }
         }
-//        val autocompleteFragment = activity?.supportFragmentManager?.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-        (autocomplete_fragment as AutocompleteSupportFragment).setOnPlaceSelectedListener(object : PlaceSelectionListener{
+
+        val placesClient = Places.createClient(this)
+    }
+
+    private fun initPlaces() {
+
+
+        (autocomplete_fragment as AutocompleteSupportFragment).setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID))
+
+        (autocomplete_fragment as AutocompleteSupportFragment).setOnPlaceSelectedListener(object :
+            PlaceSelectionListener {
             override fun onPlaceSelected(p0: com.google.android.libraries.places.api.model.Place) {
                 log(p0.address)
             }
@@ -100,7 +96,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 toast("Verification failed. Please enter this device's phone number.")
                 if (e is FirebaseAuthInvalidCredentialsException) {
                 } else if (e is FirebaseTooManyRequestsException) {
-                    activity?.toast(e.toString())
+                    toast(e.toString())
                 }
             }
 
@@ -118,7 +114,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Users(
                         userPhone = phoneNumber,
@@ -134,13 +130,13 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                         }
                         pm.phone = phoneNumber
                         pm.address = userAddress.trimString()
-                        activity?.toast("Account added")
+                        toast("Account added")
                         loader.makeGone()
-                        changeFragment(LoginFragment.newInstance())
+                        startActivity(LoginActivity.newInstance(this))
                     }
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        activity?.toast(task.exception.toString())
+                        toast(task.exception.toString())
                         loader.makeGone()
                     }
                 }
@@ -151,23 +147,25 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
     private fun setUpUI() {
         userPhone.addTextChangedListener {
             if (userPhone.text.length == 10) {
-                closeKeyboard(requireContext(), userPhone)
+                closeKeyboard(this, userPhone)
             }
         }
     }
 
     private fun setUpListeners() {
         loginButton.setOnClickListener {
-            changeFragment(LoginFragment.newInstance())
+            startActivity(LoginActivity.newInstance(this))
         }
+
+        userAddress.setOnClickListener { initPlaces() }
 
         signUpButton.setOnClickListener {
             loader.makeVisible()
             if (userPhone.hasFocus()) {
-                closeKeyboard(requireContext(), userPhone)
+                closeKeyboard(this, userPhone)
             } else {
                 if (userAddress.hasFocus()) {
-                    closeKeyboard(requireContext(), userAddress)
+                    closeKeyboard(this, userAddress)
                 }
             }
             setUpAccount()
@@ -182,7 +180,7 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                     log("success")
                     if (it.result!!.exists()) {
                         loader.makeGone()
-                        activity?.toast("Account already exists for this number")
+                        toast("Account already exists for this number")
                     } else {
                         if (verificationInProgress && validatePhoneNumber()) {
                             log(phoneNumber)
@@ -200,21 +198,21 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
                 phoneNumber = "+91${userPhone.trimString()}"
                 checkAccount()
             } else {
-                activity?.toast("Enter a valid phone number")
+                toast("Enter a valid phone number")
                 loader.makeGone()
             }
         } else {
-            activity?.toast("Enter all details")
+            toast("Enter all details")
             loader.makeGone()
         }
     }
 
-    private fun changeFragment(fragment: Fragment) {
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.loginContainer, fragment)
-        fragmentTransaction?.commit()
-        fragmentTransaction?.addToBackStack(null)
-    }
+//    private fun changeFragment(fragment: Fragment) {
+//        val fragmentTransaction = supportFragmentManager?.beginTransaction()
+//        fragmentTransaction?.replace(R.id.loginContainer, fragment)
+//        fragmentTransaction?.commit()
+//        fragmentTransaction?.addToBackStack(null)
+//    }
 
     private fun validatePhoneNumber(): Boolean {
 
@@ -226,12 +224,13 @@ class SignUpFragment : BaseFragment(), View.OnClickListener {
             phoneNumber,
             30,
             TimeUnit.SECONDS,
-            requireActivity(),
+            this,
             callbacks)
     }
 
     companion object {
-        fun newInstance() = SignUpFragment()
+        fun newInstance(context: Context) = Intent(context, SignUpActivity::class.java)
+
     }
 
     override fun onClick(p0: View?) {
