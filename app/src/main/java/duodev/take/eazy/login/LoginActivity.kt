@@ -2,7 +2,6 @@ package duodev.take.eazy.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
