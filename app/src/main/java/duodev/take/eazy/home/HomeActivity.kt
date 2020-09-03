@@ -14,6 +14,7 @@ import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.changePassword.ChangePasswordFragment
 import duodev.take.eazy.login.LoginFragment
 import duodev.take.eazy.orders.OrdersFragment
+import duodev.take.eazy.profile.ProfileFragment
 import duodev.take.eazy.services.ServicesFragment
 import duodev.take.eazy.services.ServicesOrders
 import duodev.take.eazy.stores.StoresItemsFragment
@@ -99,6 +100,7 @@ class HomeActivity : BaseActivity() {
         navigationLogout.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
             pm.phone = ""
+            pm.address = ""
             pm.account = false
             changeFragment(LoginFragment.newInstance())
         }
@@ -113,7 +115,8 @@ class HomeActivity : BaseActivity() {
         }
 
         navigationProfile.setOnClickListener {
-
+            drawerLayout.closeDrawer(GravityCompat.END)
+            changeFragment(ProfileFragment.newInstance())
         }
     }
 
@@ -148,17 +151,21 @@ class HomeActivity : BaseActivity() {
                 if (currentFragment is ServicesFragment) {
                     supportFragmentManager.popBackStackImmediate()
                 } else {
-                    if (backPressed.plus(2000) >= System.currentTimeMillis()) {
-                        super.onBackPressed()
-                        finishAffinity()
+                    if (currentFragment is ProfileFragment) {
+                        supportFragmentManager.popBackStackImmediate()
                     } else {
-                        Toast.makeText(
-                            applicationContext,
-                            getString(R.string.press_again_to_exit),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        backPressed =
-                            System.currentTimeMillis()
+                        if (backPressed.plus(2000) >= System.currentTimeMillis()) {
+                            super.onBackPressed()
+                            finishAffinity()
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                getString(R.string.press_again_to_exit),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            backPressed =
+                                System.currentTimeMillis()
+                        }
                     }
                 }
             }

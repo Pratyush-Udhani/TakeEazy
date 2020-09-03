@@ -21,6 +21,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
+import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.pojo.Users
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.activity_sign_up2.*
@@ -160,15 +161,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         userAddress.setOnClickListener { initPlaces() }
 
         signUpButton.setOnClickListener {
-            loader.makeVisible()
-            if (userPhone.hasFocus()) {
-                closeKeyboard(this, userPhone)
-            } else {
-                if (userAddress.hasFocus()) {
-                    closeKeyboard(this, userAddress)
+            if (userAddress.text.isNotEmpty()) {
+
+                loader.makeVisible()
+                if (userPhone.hasFocus()) {
+                    closeKeyboard(this, userPhone)
+                } else {
+                    if (userAddress.hasFocus()) {
+                        closeKeyboard(this, userAddress)
+                    }
                 }
+                pm.address = userAddress.trimString()
+                finish()
+//            setUpAccount()
+            } else {
+                toast("Please select address")
             }
-            setUpAccount()
         }
     }
 
@@ -229,6 +237,9 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     }
 
     companion object {
+
+        const val ADDRESS = "address"
+
         fun newInstance(context: Context) = Intent(context, SignUpActivity::class.java)
 
     }

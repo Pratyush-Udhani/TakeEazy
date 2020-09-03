@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class OrderItems (
 
+    @SerializedName("userAddress")
+    var address: String,
+
     @SerializedName("orderId")
     var orderId: String = "",
 

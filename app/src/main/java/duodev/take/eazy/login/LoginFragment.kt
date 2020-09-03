@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -15,8 +16,15 @@ import com.google.firebase.auth.PhoneAuthProvider
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.HomeActivity
+import duodev.take.eazy.pojo.Users
 import duodev.take.eazy.utils.*
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.loader
+import kotlinx.android.synthetic.main.fragment_login.loginButton
+import kotlinx.android.synthetic.main.fragment_login.signUpButton
+import kotlinx.android.synthetic.main.fragment_login.userPhone
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class LoginFragment : BaseFragment() {
@@ -84,6 +92,7 @@ class LoginFragment : BaseFragment() {
             if (userPhone.text.isNotEmpty()) {
                 if (userPhone.text.length == 10) {
                     phoneNumber = "+91${userPhone.trimString()}"
+                    closeKeyboard(requireContext(), it)
                     loader.makeVisible()
                     startPhoneNumberVerification(phoneNumber)
                 } else {
@@ -160,7 +169,22 @@ class LoginFragment : BaseFragment() {
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                 }
             } else {
-                toast("No such phone number exists. Please register")
+                Users(
+                    userPhone = phoneNumber
+                ).also {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.Default) {
+                            firebaseFirestore.collection(USERS).document(it.userPhone).set(it)
+                            return@withContext
+                        }
+                        return@launch
+                    }
+                    pm.phone = phoneNumber
+                    pm.account = true
+                    toast("Account added")
+                    startActivity(HomeActivity.newInstance(requireContext()))
+                    loader.makeGone()
+                }
             }
         }
     }

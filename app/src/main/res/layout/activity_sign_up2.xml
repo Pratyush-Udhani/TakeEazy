@@ -15,7 +15,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/sarabun_regular"
             android:gravity="center"
-            android:text="Sign up"
+            android:text="Enter address"
             android:textColor="@color/color_black"
             android:textSize="24sp" />
 
@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:visibility="gone"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_white_soft_box"
             android:elevation="5dp"

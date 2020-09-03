@@ -11,6 +11,9 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.3'
 
+        //crashlytics
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.1'
+
         // hilt
         def hilt_version = '2.28-alpha'
         classpath "com.google.dagger:hilt-android-gradle-plugin:${hilt_version}"

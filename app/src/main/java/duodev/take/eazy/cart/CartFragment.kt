@@ -16,6 +16,7 @@ import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.cart.Adapter.CartItemChildAdapter
 import duodev.take.eazy.cart.ViewModel.CartViewModel
 import duodev.take.eazy.home.HomeActivity
+import duodev.take.eazy.login.SignUpActivity
 import duodev.take.eazy.payment.PaymentActivity
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.utils.log
@@ -68,7 +69,11 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
     private fun setUpListeners() {
         buyItemsButton.setOnClickListener {
             if (storeId != "") {
+                if (pm.address != "") {
                 startActivityForResult(PaymentActivity.newInstance(requireContext(), totalPrice),  PAYMENT)
+                } else {
+                    startActivityForResult(SignUpActivity.newInstance(requireContext()), ADDRESS)
+                }
             }
         }
     }
@@ -80,6 +85,9 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
             cartChildAdapter.removeData()
             cartChildAdapter.notifyDataSetChanged()
             toast("Items bought")
+        }
+        if (requestCode == ADDRESS) {
+            startActivityForResult(PaymentActivity.newInstance(requireContext(), totalPrice), PAYMENT)
         }
     }
 
@@ -122,6 +130,7 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
     companion object {
 
         const val PAYMENT = 13
+        const val ADDRESS = 11
 
         fun newInstance() = CartFragment()
     }
