@@ -24,5 +24,5 @@ data class SingleItem (
 
 )  : Parcelable{
     @SerializedName("prescriptionUrl")
-    lateinit var prescriptionUrl: String
+    var prescriptionUrl: String = ""
 }

@@ -66,12 +66,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     private fun initPlaces() {
 
 
-        (autocomplete_fragment as AutocompleteSupportFragment).setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID))
+        (autocomplete_fragment as AutocompleteSupportFragment).setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID, Place.Field.ADDRESS))
 
         (autocomplete_fragment as AutocompleteSupportFragment).setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
-            override fun onPlaceSelected(p0: com.google.android.libraries.places.api.model.Place) {
-                log(p0.address)
+            override fun onPlaceSelected(p0: Place) {
+                log(p0.toString())
             }
 
             override fun onError(p0: Status) {
