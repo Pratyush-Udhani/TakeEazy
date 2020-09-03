@@ -89,8 +89,8 @@ class LoginFragment : BaseFragment() {
 
     private fun setUpListeners() {
         loginButton.setOnClickListener {
-            if (userPhone.text.isNotEmpty()) {
-                if (userPhone.text.length == 10) {
+            if (userPhone.text?.isNotEmpty()!!) {
+                if (userPhone.text?.length == 10) {
                     phoneNumber = "+91${userPhone.trimString()}"
                     closeKeyboard(requireContext(), it)
                     loader.makeVisible()

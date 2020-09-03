@@ -88,6 +88,17 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.guava:guava:27.0.1-android'
 
+
+//    implementation 'com.google.android.material:material:1.2.0'
+//    implementation 'com.google.android.material:material:1.0.0-beta01'
+//    implementation 'com.google.android.material:material:1.1.0-alpha09'
+
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'com.google.android.material:material:1.0.0-alpha1'
+
+
+
+
     // Hilt
     def hilt_version = '2.28-alpha'
 
