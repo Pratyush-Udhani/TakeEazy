@@ -41,6 +41,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var phoneNumber = ""
     private val AUTOCOMPLETE_REQUEST_CODE = 1
+    private var address: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +72,9 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         (autocomplete_fragment as AutocompleteSupportFragment).setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(p0: Place) {
-                log(p0.toString())
+                address = p0.address.toString()
+                userAddress.setText(address)
+                log("${p0.address}")
             }
 
             override fun onError(p0: Status) {
@@ -171,7 +174,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                         closeKeyboard(this, userAddress)
                     }
                 }
-                pm.address = userAddress.trimString()
+                pm.address = address
+
+                firebaseFirestore.collection(USERS).document(pm.phone).update("userAddress",pm.address)
+                setResult(ADDRESS_ADDED)
                 finish()
 //            setUpAccount()
             } else {
@@ -239,6 +245,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     companion object {
 
         const val ADDRESS = "address"
+        const val ADDRESS_ADDED = 21
 
         fun newInstance(context: Context) = Intent(context, SignUpActivity::class.java)
 

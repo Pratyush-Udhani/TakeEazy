@@ -17,7 +17,6 @@ data class Store (
     val storeName: String,
 
     @SerializedName("storeLocation")
-    @IgnoredOnParcel
     val storeLocation: @RawValue GeoPoint,
 
     @SerializedName("storeImageUri")

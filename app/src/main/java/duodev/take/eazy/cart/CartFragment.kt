@@ -17,7 +17,9 @@ import duodev.take.eazy.cart.Adapter.CartItemChildAdapter
 import duodev.take.eazy.cart.ViewModel.CartViewModel
 import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.login.SignUpActivity
+import duodev.take.eazy.login.SignUpActivity.Companion.ADDRESS_ADDED
 import duodev.take.eazy.payment.PaymentActivity
+import duodev.take.eazy.payment.PaymentActivity.Companion.PAYMENT_SUCCESS
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.utils.log
 import duodev.take.eazy.utils.makeGone
@@ -80,13 +82,13 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PAYMENT) {
+        if (requestCode == PAYMENT && resultCode == PAYMENT_SUCCESS) {
             sharedViewModel.orderItems(storeId)
             cartChildAdapter.removeData()
             cartChildAdapter.notifyDataSetChanged()
             toast("Items bought")
         }
-        if (requestCode == ADDRESS) {
+        if (requestCode == ADDRESS && resultCode == ADDRESS_ADDED) {
             startActivityForResult(PaymentActivity.newInstance(requireContext(), totalPrice), PAYMENT)
         }
     }

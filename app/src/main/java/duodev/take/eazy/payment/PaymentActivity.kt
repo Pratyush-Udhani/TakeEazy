@@ -91,6 +91,7 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
     companion object {
 
         private const val PRICE = "price"
+        const val PAYMENT_SUCCESS = 1
 
         fun newInstance(context: Context, price: Int) = Intent(context, PaymentActivity::class.java).apply {
             putExtra(PRICE, price)
@@ -100,6 +101,7 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
     override fun onPaymentSuccess(p0: String?) {
         setResult(CartFragment.PAYMENT)
         finish()
+        setResult(PAYMENT_SUCCESS)
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
     }
 
