@@ -10,6 +10,7 @@ import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.utils.makeVisible
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_terms.*
 
 class TermsFragment : BaseFragment() {
 
@@ -24,7 +25,6 @@ class TermsFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_terms, container, false)
     }
 
@@ -39,6 +39,8 @@ class TermsFragment : BaseFragment() {
 
     private fun setUpUI() {
         (activity as HomeActivity).backButton.makeVisible()
+        privacyPolicy.settings.javaScriptEnabled = true
+        privacyPolicy.loadUrl("https://takeeazy-0.flycricket.io/privacy.html")
     }
 
     companion object {
