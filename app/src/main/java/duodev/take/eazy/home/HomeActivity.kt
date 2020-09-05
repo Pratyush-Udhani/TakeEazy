@@ -19,7 +19,9 @@ import duodev.take.eazy.services.ServicesFragment
 import duodev.take.eazy.services.ServicesOrders
 import duodev.take.eazy.stores.StoresItemsFragment
 import duodev.take.eazy.stores.StoresListFragment
+import duodev.take.eazy.tAndC.TermsFragment
 import duodev.take.eazy.utils.isAuth
+import duodev.take.eazy.utils.makeGone
 import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -64,28 +66,13 @@ class HomeActivity : BaseActivity() {
             drawerLayout.openDrawer(GravityCompat.END)
         }
 
-        navigationAbout.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.END)
-        }
-
-        navigationChangePass.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.END)
-
-        }
-
-        navigationLogout.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.END)
-
-        }
-
-        navigationPrivacy.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.END)
-
+        backButton.setOnClickListener {
+            onBackPressed()
         }
 
         navigationTerms.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
-
+            changeFragment(TermsFragment.newInstance())
         }
         navigationServices.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
@@ -108,10 +95,6 @@ class HomeActivity : BaseActivity() {
         navigationAbout.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
             changeFragment(AboutFragment.newInstance())
-        }
-
-        navigationPrivacy.setOnClickListener {
-
         }
 
         navigationProfile.setOnClickListener {
@@ -146,25 +129,46 @@ class HomeActivity : BaseActivity() {
             supportFragmentManager.popBackStackImmediate()
         } else {
             if (currentFragment is StoresListFragment) {
+                backButton.makeGone()
                 supportFragmentManager.popBackStackImmediate()
             } else {
                 if (currentFragment is ServicesFragment) {
                     supportFragmentManager.popBackStackImmediate()
                 } else {
                     if (currentFragment is ProfileFragment) {
+                        backButton.makeGone()
+                        setUpFragment()
                         supportFragmentManager.popBackStackImmediate()
                     } else {
-                        if (backPressed.plus(2000) >= System.currentTimeMillis()) {
-                            super.onBackPressed()
-                            finishAffinity()
+                        if (currentFragment is ServicesOrders) {
+                            supportFragmentManager.popBackStackImmediate()
+                            setUpFragment()
+                            backButton.makeGone()
                         } else {
-                            Toast.makeText(
-                                applicationContext,
-                                getString(R.string.press_again_to_exit),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            backPressed =
-                                System.currentTimeMillis()
+                            if (currentFragment is TermsFragment) {
+                                supportFragmentManager.popBackStackImmediate()
+                                setUpFragment()
+                                backButton.makeGone()
+                            } else {
+                                if (currentFragment is AboutFragment) {
+                                    supportFragmentManager.popBackStackImmediate()
+                                    setUpFragment()
+                                    backButton.makeGone()
+                                } else {
+                                    if (backPressed.plus(2000) >= System.currentTimeMillis()) {
+                                        super.onBackPressed()
+                                        finishAffinity()
+                                    } else {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            getString(R.string.press_again_to_exit),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        backPressed =
+                                            System.currentTimeMillis()
+                                    }
+                                }
+                            }
                         }
                     }
                 }

@@ -28,7 +28,15 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_top_bar"
                 android:orientation="horizontal">
-
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                    android:tint="@color/color_black" />
                 <TextView
                     android:id="@+id/headingText"
                     android:layout_width="0dp"

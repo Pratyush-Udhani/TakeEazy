@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.utils.makeGone
 import duodev.take.eazy.utils.makeVisible
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_services_orders.*
 
 class ServicesOrders : BaseFragment() {
@@ -42,6 +44,11 @@ class ServicesOrders : BaseFragment() {
     private fun init() {
         setUpObserver()
         setUpRecycler()
+        setUpUI()
+    }
+
+    private fun setUpUI() {
+        (activity as HomeActivity).backButton.makeVisible()
     }
 
     private fun setUpObserver() {

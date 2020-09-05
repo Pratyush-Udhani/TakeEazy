@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.utils.USERS
 import duodev.take.eazy.utils.log
+import duodev.take.eazy.utils.makeVisible
 import duodev.take.eazy.utils.trimString
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -54,6 +57,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun setupUI() {
+        (activity as HomeActivity).backButton.makeVisible()
         phoneNumber.text = pm.phone
         address.text = pm.address
     }

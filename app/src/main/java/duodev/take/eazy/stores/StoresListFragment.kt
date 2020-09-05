@@ -16,10 +16,12 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreListAdapter
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_stores_list.*
 
 
@@ -82,6 +84,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     }
 
     private fun setUpUI() {
+        (activity as HomeActivity).backButton.makeVisible()
         categoryText.text = category
         if (category != ""){
             categoryText.makeVisible()
