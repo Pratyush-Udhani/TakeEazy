@@ -16,9 +16,7 @@ import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
-import duodev.take.eazy.utils.log
-import duodev.take.eazy.utils.makeGone
-import duodev.take.eazy.utils.makeVisible
+import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
@@ -139,7 +137,16 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     override fun addToCart(item: CartItems) {
-        sharedViewModel.setData(item)
+        firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get().addOnSuccessListener {
+            if (it.isEmpty.not()) {
+                if (convertToPojo(it.documents[0].data!!, CartItems::class.java).storeId != item.storeId) {
+                    toast("You cannot order from multiple stores at once")
+                    return@addOnSuccessListener
+                } else {
+                    sharedViewModel.setData(item)
+                }
+            }
+        }
     }
 
     override fun subFromCart(item: CartItems) {
