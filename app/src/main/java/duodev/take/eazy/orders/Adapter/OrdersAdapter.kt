@@ -48,7 +48,7 @@ class OrdersAdapter(
                 itemStatus.text = order.status
             }
 
-            itemPrice.text = "Rs. ${order.cartItem.singleItem.itemPrice}"
+            itemPrice.text = "Rs. ${order.cartItem.singleItem.itemDiscountedPrice}"
             Glide.with(getContext()).load(order.cartItem.singleItem.itemImageUri).into(itemImage)
         }
     }

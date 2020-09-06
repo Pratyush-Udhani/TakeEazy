@@ -48,6 +48,7 @@ class ServicesOrders : BaseFragment() {
     }
 
     private fun setUpUI() {
+        (activity as HomeActivity).headingText.text = "Ordered Services"
         (activity as HomeActivity).backButton.makeVisible()
     }
 

@@ -59,8 +59,8 @@ class StoreItemSingleAdapter (
         fun bindItems(cartItem: CartItems) {
             itemName.text = cartItem.singleItem.itemName
             itemQuantity.text = cartItem.quantity.toString()
-            itemPrice.text = cartItem.singleItem.itemPrice
-            itemDiscountedPrice.text = cartItem.singleItem.itemDiscountedPrice
+            itemPrice.text = "Price: Rs.${cartItem.singleItem.itemPrice}"
+            itemDiscountedPrice.text = "Discounted Price: Rs.${cartItem.singleItem.itemDiscountedPrice}"
 
             if (cartItem.quantity == 0) {
                 editQuantity.makeGone()

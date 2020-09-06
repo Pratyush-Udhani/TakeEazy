@@ -35,6 +35,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setUpUI() {
+        (activity as HomeActivity).headingText.text = "About Us"
         (activity as HomeActivity).backButton.makeVisible()
     }
 

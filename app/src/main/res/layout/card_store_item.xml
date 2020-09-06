@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Some discounted price"
-                    android:textColor="#60000000"
+                    android:textColor="#2191F3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/itemName" />
 

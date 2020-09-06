@@ -39,6 +39,7 @@ class TermsFragment : BaseFragment() {
 
     private fun setUpUI() {
         (activity as HomeActivity).backButton.makeVisible()
+        (activity as HomeActivity).headingText.text = "Terms and Conditions"
         privacyPolicy.settings.javaScriptEnabled = true
         privacyPolicy.loadUrl("https://takeeazy-0.flycricket.io/privacy.html")
     }

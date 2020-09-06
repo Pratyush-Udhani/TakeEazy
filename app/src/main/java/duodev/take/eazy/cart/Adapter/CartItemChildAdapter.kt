@@ -73,7 +73,7 @@ class CartItemChildAdapter (
 
             Glide.with(getContext()).load(item.singleItem.itemImageUri).into(itemImage)
 
-            itemPrice.text = "Rs. ${item.singleItem.itemPrice}"
+            itemPrice.text = "Rs. ${item.singleItem.itemDiscountedPrice}"
 
             addQuantity.setOnClickListener {
                 listener.addToCart(CartItems(item.singleItem, getAddedInt(itemQuantity.text.toString()), item.storeId))
