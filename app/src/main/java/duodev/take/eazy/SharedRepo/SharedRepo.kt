@@ -30,55 +30,68 @@ class SharedRepo @Inject constructor(private val firestore: FirebaseFirestore) {
     }
 
     fun removeItemFromCart(itemId: String, storeId: String) {
+
         firestore.collection(USERS).document(pm.phone).collection(CART)
-            .document(storeId).collection(ITEMS).document(itemId).delete()
+            .document(storeId).collection(ITEMS).document(itemId).delete().addOnSuccessListener {
+                firestore.collection(USERS).document(pm.phone).collection(CART)
+                    .document(storeId).collection(ITEMS).get().addOnSuccessListener {
+                        if (it.isEmpty) {
+                            log("called remove docs")
+                            firestore.collection(USERS).document(pm.phone).collection(CART).get()
+                                .addOnSuccessListener { itTwo ->
+                                    itTwo.documents.removeAll { true }
+                                }
+                        }
+                    }
+            }
     }
+        fun orderItems(storeId: String) {
 
-    fun orderItems(storeId: String) {
+            firestore.collection(USERS).document(pm.phone).collection(CART).document(storeId)
+                .collection(ITEMS).get().addOnSuccessListener {
+                    log("called order, storeId: $storeId, it.size: ${it.documents.size}")
+                    for (i in 0 until it.documents.size) {
+                        val cartItem = convertToPojo(it.documents[i].data!!, CartItems::class.java)
 
-        firestore.collection(USERS).document(pm.phone).collection(CART).document(storeId)
-            .collection(ITEMS).get().addOnSuccessListener {
-                log("called order, storeId: $storeId, it.size: ${it.documents.size}")
-                for (i in 0 until it.documents.size) {
-                    val cartItem = convertToPojo(it.documents[i].data!!, CartItems::class.java)
+                        val orderItems = OrderItems(
+                            cartItem = cartItem,
+                            timestamp = System.currentTimeMillis(),
+                            orderId = getRandomString(),
+                            status = "",
+                            address = pm.address
+                        )
+                        removeItemFromCart(cartItem.singleItem.itemId, storeId)
+                        firestore.collection(ORDERS).document(pm.phone)
+                            .set(hashMapOf("userId" to pm.phone))
 
-                    val orderItems = OrderItems(
-                        cartItem = cartItem,
-                        timestamp = System.currentTimeMillis(),
-                        orderId = getRandomString(),
-                        status = "",
-                        address = pm.address
-                    )
-                    removeItemFromCart(cartItem.singleItem.itemId, storeId)
-                    firestore.collection(ORDERS).document(pm.phone).set(hashMapOf("userId" to pm.phone))
+                        firestore.collection(ORDERS).document(pm.phone).collection(ORDERS)
+                            .document(orderItems.orderId).set(orderItems)
 
-                    firestore.collection(ORDERS).document(pm.phone).collection(ORDERS)
-                        .document(orderItems.orderId).set(orderItems)
-
-                    if (i == it.documents.size - 1) {
-                        firestore.collection(USERS).document(pm.phone).collection(CART)
-                            .document(storeId).delete()
+                        if (i == it.documents.size - 1) {
+                            firestore.collection(USERS).document(pm.phone).collection(CART)
+                                .document(storeId).delete()
+                        }
                     }
                 }
-            }
-    }
-
-    fun orderService(service: Service) {
-        firestore.collection(SERVICES).document(pm.phone).set(hashMapOf("userId" to pm.phone))
-
-        firestore.collection(SERVICES).document(pm.phone).collection(ORDERS)
-            .document(service.orderId).set(service)
-    }
-
-    fun fetchServices(): MutableLiveData<List<Service>> {
-        val serviceList: MutableList<Service> = mutableListOf()
-        val data = MutableLiveData<List<Service>>()
-        firestore.collection(SERVICES).document(pm.phone).collection(ORDERS).get().addOnSuccessListener {
-            for (i in 0 until it.documents.size) {
-                serviceList.add(convertToPojo(it.documents[i].data!!, Service::class.java))
-            }
-            data.value = serviceList
         }
-        return data
+
+        fun orderService(service: Service) {
+            firestore.collection(SERVICES).document(pm.phone).set(hashMapOf("userId" to pm.phone))
+
+            firestore.collection(SERVICES).document(pm.phone).collection(ORDERS)
+                .document(service.orderId).set(service)
+        }
+
+        fun fetchServices(): MutableLiveData<List<Service>> {
+            val serviceList: MutableList<Service> = mutableListOf()
+            val data = MutableLiveData<List<Service>>()
+            firestore.collection(SERVICES).document(pm.phone).collection(ORDERS).get()
+                .addOnSuccessListener {
+                    for (i in 0 until it.documents.size) {
+                        serviceList.add(convertToPojo(it.documents[i].data!!, Service::class.java))
+                    }
+                    data.value = serviceList
+                }
+            return data
+        }
     }
-}
