@@ -126,7 +126,8 @@ class HomeActivity : BaseActivity() {
     override fun onBackPressed() {
         currentFragment = supportFragmentManager.findFragmentById(R.id.homeContainer)!!
         if (currentFragment is StoresItemsFragment) {
-            supportFragmentManager.popBackStackImmediate()
+            backButton.makeGone()
+            setUpFragment()
         } else {
             if (currentFragment is StoresListFragment) {
                 backButton.makeGone()

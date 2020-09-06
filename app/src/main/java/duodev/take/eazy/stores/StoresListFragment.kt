@@ -91,8 +91,14 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         }
         if (search) {
             log("here+")
+            openKeyboard(requireContext(), searchBox)
             searchBox.requestFocus()
-            searchBox.showSoftInputOnFocus = true
+        }
+
+        searchBox.setOnFocusChangeListener { view, b ->
+            if (!b) {
+                closeKeyboard(requireContext(), view)
+            }
         }
     }
 

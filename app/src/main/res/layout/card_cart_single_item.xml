@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:textSize="15sp"
                     android:fontFamily="@font/sarabun_regular"
                     android:text="Some name"
                     android:textColor="#000" />
@@ -51,6 +52,7 @@
                 <TextView
                     android:id="@+id/itemPrice"
                     android:layout_width="match_parent"
+                    android:textSize="12sp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Some price"

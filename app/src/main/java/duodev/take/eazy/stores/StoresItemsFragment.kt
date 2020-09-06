@@ -14,9 +14,11 @@ import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.pojo.Store
 import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.SharedViewModel.SharedViewModel
+import duodev.take.eazy.home.HomeActivity
 import duodev.take.eazy.pojo.Items
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 
 class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked {
@@ -58,6 +60,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     private fun setupUI() {
+        (activity as HomeActivity).backButton.makeVisible()
         storeName.text = store.storeName
         storeCategory.text = store.storeCategory
         storeLocality.text = store.storeAddress
@@ -137,6 +140,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     }
 
     override fun addToCart(item: CartItems) {
+        log("add to cart called+")
         firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get().addOnSuccessListener {
             if (it.isEmpty.not()) {
                 if (convertToPojo(it.documents[0].data!!, CartItems::class.java).storeId != item.storeId) {

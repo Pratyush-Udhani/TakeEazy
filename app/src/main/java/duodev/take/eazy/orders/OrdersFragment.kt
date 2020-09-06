@@ -59,7 +59,7 @@ class OrdersFragment : BaseFragment() {
 
     private fun setUpObserver() {
         orderViewModel.fetchOrders().observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+            if (it.isNotEmpty()) {
                 loader.makeGone()
                 ordersAdapter.addData(it)
                 log("orders: ${it.size}")
