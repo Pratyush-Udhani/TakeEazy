@@ -142,13 +142,17 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     override fun addToCart(item: CartItems) {
         log("add to cart called+")
         firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get().addOnSuccessListener {
-            if (it.isEmpty.not()) {
+            log(it.documents.isEmpty().toString())
+            if (it.documents.isEmpty().not()) {
                 if (convertToPojo(it.documents[0].data!!, CartItems::class.java).storeId != item.storeId) {
                     toast("You cannot order from multiple stores at once")
                     return@addOnSuccessListener
                 } else {
+                    log("called else")
                     sharedViewModel.setData(item)
                 }
+            } else {
+                sharedViewModel.setData(item)
             }
         }
     }
