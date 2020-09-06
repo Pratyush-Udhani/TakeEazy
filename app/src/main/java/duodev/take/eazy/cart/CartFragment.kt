@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import duodev.take.eazy.R
 import duodev.take.eazy.SharedViewModel.SharedViewModel
@@ -151,7 +152,12 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
     }
 
     override fun removeFromCart(itemId: String, storeId: String) {
-        sharedViewModel.removeFromCart(itemId, storeId)
+        sharedViewModel.removeFromCart(itemId, storeId).observe(viewLifecycleOwner) {
+            noItemsText.makeVisible()
+            buyItemsButton.isClickable = false
+            buyItemsButton.setCardBackgroundColor(Color.parseColor("#71AA9E"))
+            itemPrice.text = "-"
+        }
         totalPrice = cartChildAdapter.getTotal()
         itemPrice.text = "Rs. $totalPrice"
     }

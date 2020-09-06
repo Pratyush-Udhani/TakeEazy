@@ -29,21 +29,19 @@ class SharedRepo @Inject constructor(private val firestore: FirebaseFirestore) {
         }
     }
 
-    fun removeItemFromCart(itemId: String, storeId: String) {
-
+    fun removeItemFromCart(itemId: String, storeId: String): MutableLiveData<Boolean> {
+        val data = MutableLiveData<Boolean>()
         firestore.collection(USERS).document(pm.phone).collection(CART)
             .document(storeId).collection(ITEMS).document(itemId).delete().addOnSuccessListener {
                 firestore.collection(USERS).document(pm.phone).collection(CART)
                     .document(storeId).collection(ITEMS).get().addOnSuccessListener {
                         if (it.isEmpty) {
-                            log("called remove docs")
-                            firestore.collection(USERS).document(pm.phone).collection(CART).get()
-                                .addOnSuccessListener { itTwo ->
-                                    itTwo.documents.removeAll { true }
-                                }
+                            firestore.collection(USERS).document(pm.phone).collection(CART).document(storeId).delete()
+                            data.value = false
                         }
                     }
             }
+        return data
     }
         fun orderItems(storeId: String) {
 
