@@ -12,6 +12,7 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.CartItems
 import duodev.take.eazy.utils.*
+import kotlin.math.roundToInt
 
 class StoreItemSingleAdapter (
     private val list: MutableList<CartItems>,
@@ -63,7 +64,7 @@ class StoreItemSingleAdapter (
             itemPrice.text = "\u20B9 ${cartItem.singleItem.itemPrice}"
             itemDiscountedPrice.text = "\u20B9 ${cartItem.singleItem.itemDiscountedPrice}"
 
-            discountPercentage.text = ((1 - (cartItem.singleItem.itemDiscountedPrice.toInt()/cartItem.singleItem.itemPrice.toInt()))*100).toString()
+            discountPercentage.text = "${((1 - (cartItem.singleItem.itemDiscountedPrice.toFloat()/cartItem.singleItem.itemPrice.toFloat()))*100).roundToInt()}% OFF"
 
             if (cartItem.quantity == 0) {
                 editQuantity.makeGone()

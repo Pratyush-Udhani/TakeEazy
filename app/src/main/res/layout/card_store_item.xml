@@ -124,7 +124,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:foregroundGravity="center"
@@ -142,7 +142,7 @@
                             android:background="@drawable/ic_card_add"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <TextView
                                 android:id="@+id/subQuantityButton"
@@ -150,6 +150,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
+                                android:layout_gravity="center"
                                 android:text="-"
                                 android:textColor="#8A8A8A" />
 
@@ -181,7 +182,7 @@
                             android:elevation="1dp"
                             android:gravity="center"
                             android:text="ADD"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
 
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
