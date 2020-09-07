@@ -137,6 +137,7 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
             } else {
                 toast("Please enable location services and try again!")
                 loader.makeGone()
+                permissionText.text = "Please enable location services and try again!"
                 permissionText.makeVisible()
             }
     }
