@@ -143,7 +143,6 @@
 
     <include
         android:id="@+id/loader"
-        android:visibility="gone"
         layout="@layout/layout_loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
