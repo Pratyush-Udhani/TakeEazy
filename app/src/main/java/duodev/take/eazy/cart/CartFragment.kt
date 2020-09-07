@@ -66,11 +66,11 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
     private fun setUpUI() {
         (activity as HomeActivity).headingText.text = "Cart"
-        itemPrice.text = cartChildAdapter.getTotal().toString()
     }
 
     private fun setUpListeners() {
         buyItemsButton.setOnClickListener {
+            totalPrice = CartItemChildAdapter.getTotal()
             if (storeId != "") {
                 if (pm.address != "") {
                 startActivityForResult(PaymentActivity.newInstance(requireContext(), totalPrice),  PAYMENT)
@@ -99,15 +99,13 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
             if (it != "") {
                 storeId = it.toString()
                 fetched.value = true
-                log("Store Id not null: $it")
                 loader.makeGone()
             } else {
                 loader.makeGone()
-                log("Store Id null")
                 noItemsText.makeVisible()
                 buyItemsButton.isClickable = false
                 buyItemsButton.setCardBackgroundColor(Color.parseColor("#71AA9E"))
-                itemPrice.text = "-"
+                totalPriceText.text = "-"
             }
         })
 
@@ -128,6 +126,7 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
             adapter = this@CartFragment.cartChildAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
     }
 
     companion object {
@@ -140,15 +139,17 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
     override fun addToCart(item: CartItems) {
         sharedViewModel.setData(item)
-        totalPrice = cartChildAdapter.getTotal()
-        itemPrice.text = "Rs. $totalPrice"
+        totalPrice = CartItemChildAdapter.getTotal()
+        totalPriceText.text = "Rs. $totalPrice"
+        log("called add $totalPrice")
 
     }
 
     override fun subFromCart(item: CartItems) {
         sharedViewModel.subtractData(item)
-        totalPrice = cartChildAdapter.getTotal()
-        itemPrice.text = "Rs. $totalPrice"
+        totalPrice = CartItemChildAdapter.getTotal()
+        totalPriceText.text = "Rs. $totalPrice"
+        log("called subtract $totalPrice")
     }
 
     override fun removeFromCart(itemId: String, storeId: String) {
@@ -156,9 +157,16 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
             noItemsText.makeVisible()
             buyItemsButton.isClickable = false
             buyItemsButton.setCardBackgroundColor(Color.parseColor("#71AA9E"))
-            itemPrice.text = "-"
+            totalPriceText.text = "-"
         }
-        totalPrice = cartChildAdapter.getTotal()
-        itemPrice.text = "Rs. $totalPrice"
+        totalPrice = CartItemChildAdapter.getTotal()
+        totalPriceText.text = "Rs. $totalPrice"
+        log("called remove $totalPrice")
+    }
+
+    override fun updatePrice(totalPrice: Int) {
+        log("called interface $totalPrice")
+        totalPriceText.text = "Rs. $totalPrice"
+        log("called again value $totalPrice textview value is ${totalPriceText.text}")
     }
 }

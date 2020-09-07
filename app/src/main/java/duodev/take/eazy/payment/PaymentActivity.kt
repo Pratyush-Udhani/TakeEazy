@@ -9,6 +9,7 @@ import com.razorpay.PaymentResultListener
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
+import duodev.take.eazy.utils.log
 import duodev.take.eazy.utils.toast
 import kotlinx.android.synthetic.main.activity_payment.*
 import org.json.JSONObject
@@ -57,6 +58,7 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
     }
 
     private fun checkDetails() {
+        log(totalPrice)
         razorPayPayment(mode, (totalPrice * 100).toString())
     }
 
@@ -101,12 +103,11 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
     override fun onPaymentSuccess(p0: String?) {
         setResult(CartFragment.PAYMENT)
         finish()
-        setResult(PAYMENT_SUCCESS)
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
-        toast("Payment error. Please try again")
+        toast("Payment error. Please try again $p1")
         finish()
     }
 

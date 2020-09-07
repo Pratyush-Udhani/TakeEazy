@@ -55,12 +55,15 @@ class StoreItemSingleAdapter (
         private val itemQuantity: TextView = itemView.findViewById(R.id.quantityText)
         private val itemDiscountedPrice: TextView = itemView.findViewById(R.id.itemDiscountedPrice)
         private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
+        private val discountPercentage: TextView = itemView.findViewById(R.id.discountPercentage)
 
         fun bindItems(cartItem: CartItems) {
             itemName.text = cartItem.singleItem.itemName
             itemQuantity.text = cartItem.quantity.toString()
-            itemPrice.text = "Price: Rs.${cartItem.singleItem.itemPrice}"
-            itemDiscountedPrice.text = "Discounted Price: Rs.${cartItem.singleItem.itemDiscountedPrice}"
+            itemPrice.text = "\u20B9 ${cartItem.singleItem.itemPrice}"
+            itemDiscountedPrice.text = "\u20B9 ${cartItem.singleItem.itemDiscountedPrice}"
+
+            discountPercentage.text = ((1 - (cartItem.singleItem.itemDiscountedPrice.toInt()/cartItem.singleItem.itemPrice.toInt()))*100).toString()
 
             if (cartItem.quantity == 0) {
                 editQuantity.makeGone()

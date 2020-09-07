@@ -19,6 +19,7 @@ class CartItemChildAdapter (
     private val list: MutableList<CartItems>,
     private val listener: OnClick
 ) : BaseRecyclerViewAdapter(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(getView(R.layout.card_cart_single_item, parent))
     }
@@ -75,12 +76,23 @@ class CartItemChildAdapter (
 
             itemPrice.text = "Rs. ${item.singleItem.itemDiscountedPrice}"
 
+            log("called adapter")
+            totalPrice += item.singleItem.itemDiscountedPrice.toInt() * item.quantity
+            counter += 1
+
+            if (counter == list.size) {
+                listener.updatePrice(totalPrice)
+                log("$counter ${list.size}")
+            }
+
             addQuantity.setOnClickListener {
+                totalPrice += item.singleItem.itemDiscountedPrice.toInt()
                 listener.addToCart(CartItems(item.singleItem, getAddedInt(itemQuantity.text.toString()), item.storeId))
                 itemQuantity.text = getAddedInt(itemQuantity.text.toString()).toString()
             }
 
             subQuantity.setOnClickListener {
+                totalPrice -= item.singleItem.itemDiscountedPrice.toInt()
                 if (itemQuantity.text == "1") {
                     listener.removeFromCart(item.singleItem.itemId, item.storeId)
                     removeAt(adapterPosition)
@@ -88,6 +100,7 @@ class CartItemChildAdapter (
                     listener.subFromCart(CartItems(item.singleItem, getSubInt(itemQuantity.text.toString()), item.storeId))
                     itemQuantity.text = getSubInt(itemQuantity.text.toString()).toString()
                 }
+
             }
         }
     }
@@ -96,5 +109,18 @@ class CartItemChildAdapter (
         fun addToCart(item: CartItems)
         fun subFromCart(item: CartItems)
         fun removeFromCart(itemId: String, storeId: String)
+        fun updatePrice(totalPrice: Int)
     }
+
+    companion object {
+        private var totalPrice: Int = 0
+
+        private var counter = 0
+
+        fun getTotal(): Int {
+            return totalPrice
+        }
+    }
+
+
 }
