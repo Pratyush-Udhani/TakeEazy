@@ -23,11 +23,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:text="Stores"
                 android:textColor="@color/color_black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -35,28 +35,30 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 app:cardBackgroundColor="#E4F9F4"
-                app:cardCornerRadius="5dp" >
+                app:cardCornerRadius="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_zoom_in"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:src="@drawable/ic_zoom_in" />
 
                     <EditText
                         android:id="@+id/searchBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="50dp"
-                        android:textSize="16sp"
                         android:background="@null"
                         android:fontFamily="@font/sarabun_regular"
                         android:gravity="center_vertical"
                         android:hint="Search stores"
+                        android:textSize="16sp"
                         app:layout_constraintTop_toTopOf="parent" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -66,9 +68,10 @@
                 android:id="@+id/searchButton"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginStart="20dp"
-                android:text="search" />
+                android:text="search"
+                android:visibility="gone" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/storesRecycler"
@@ -77,15 +80,30 @@
                 android:layout_marginTop="10dp"
                 android:nestedScrollingEnabled="true"
                 android:overScrollMode="never"
+                android:visibility="visible"
                 tools:listitem="@layout/card_store" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/noItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No items to show"
+        android:textColor="#000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <include
         android:id="@+id/loader"
         layout="@layout/layout_loader"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

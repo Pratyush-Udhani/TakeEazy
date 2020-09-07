@@ -217,7 +217,14 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
                 getDistance(latitude!!, longitude!!, element.storeLocation.latitude, element.storeLocation.longitude).toString()
         }
         loader.makeGone()
-        storeAdapter.addData(sortedMap)
+        if (sortedMap.isEmpty()) {
+            noItemsText.makeVisible()
+            log("called if")
+        }
+        else {
+            storeAdapter.addData(sortedMap)
+            log("called else $sortedMap")
+        }
     }
 
     private fun changeFragment(fragment: Fragment) {
