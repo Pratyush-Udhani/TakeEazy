@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".services.ServicesFragment">
 
@@ -11,75 +11,84 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sarabun_regular"
-        android:textColor="@color/color_black"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
-        android:textSize="17sp"
-        android:text="Please select categories and enter at most 10 items to be delivered to you."/>
+        android:fontFamily="@font/sarabun_regular"
+        android:text="Please select categories and enter at most 10 items to be delivered to you."
+        android:textColor="@color/color_black"
+        android:textSize="17sp" />
 
     <AutoCompleteTextView
         android:id="@+id/storeCategoryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_soft_box"
-        android:elevation="5dp"
-        android:hint="Select Category"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="40dp"
-        android:textSize="17sp"
-        android:textColor="@color/color_black"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
         android:fontFamily="@font/sarabun_regular"
-        android:padding="8dp"/>
+        android:hint="Select Category"
+        android:padding="8dp"
+        android:textColor="@color/color_black"
+        android:textSize="17sp" />
 
 
     <EditText
         android:id="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_soft_box"
-        android:elevation="5dp"
-        android:hint="Enter up to 10 items"
-        android:lines="2"
-        android:inputType="textMultiLine"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="17sp"
-        android:textColor="@color/color_black"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
         android:fontFamily="@font/sarabun_regular"
-        android:padding="8dp"/>
+        android:hint="Enter up to 10 items"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:padding="8dp"
+        android:textColor="@color/color_black"
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/storeAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_soft_box"
-        android:elevation="5dp"
-        android:hint="Select store address"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:lines="2"
-        android:textSize="17sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_black"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
         android:fontFamily="@font/sarabun_regular"
-        android:padding="8dp"/>
+        android:gravity="center_vertical"
+        android:hint="Select store address"
+        android:lines="2"
+        android:padding="8dp"
+        android:textColor="@color/color_black"
+        android:textSize="17sp" />
+
+    <fragment
+        android:id="@+id/autocomplete_fragment"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/deliveryAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_soft_box"
-        android:elevation="5dp"
-        android:lines="2"
-        android:gravity="center_vertical"
-        android:hint="Select delivery address"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="17sp"
-        android:textColor="@color/color_black"
+        android:background="@drawable/bg_white_soft_box"
+        android:elevation="5dp"
         android:fontFamily="@font/sarabun_regular"
-        android:padding="8dp"/>
+        android:gravity="center_vertical"
+        android:hint="Select delivery address"
+        android:lines="2"
+        android:padding="8dp"
+        android:textColor="@color/color_black"
+        android:textSize="17sp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/buyServiceButton"

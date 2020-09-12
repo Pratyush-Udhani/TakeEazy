@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import com.google.android.gms.common.api.Status
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import duodev.take.eazy.R
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.base.BaseFragment
@@ -87,6 +91,25 @@ class ServicesFragment : BaseFragment() {
         )
         setDefs()
         toast("The service has been successfully booked.")
+    }
+
+    private fun initPlaces() {
+
+
+        (autocomplete_fragment as AutocompleteSupportFragment).setPlaceFields(listOf(Place.Field.NAME, Place.Field.ID, Place.Field.ADDRESS))
+
+        (autocomplete_fragment as AutocompleteSupportFragment).setOnPlaceSelectedListener(object :
+            PlaceSelectionListener {
+            override fun onPlaceSelected(p0: Place) {
+                storeAddress.text = p0.address.toString()
+                log("${p0.address}")
+            }
+
+            override fun onError(p0: Status) {
+                log(p0.toString())
+            }
+
+        })
     }
 
     private fun setDefs() {
