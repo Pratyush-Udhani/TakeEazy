@@ -362,12 +362,8 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
 
     override fun onStoreClicked(store: Store, distance: String) {
         if (category == MEDICINES) {
-            if (pm.prescription == "") {
-                toast("Please upload a prescription first")
-            } else {
-                StoreLocation.storeGeo = store.storeLocation
-                changeFragment(StoresItemsFragment.newInstance(store))
-            }
+            StoreLocation.storeGeo = store.storeLocation
+            changeFragment(StoresItemsFragment.newInstance(store))
         } else {
             StoreLocation.storeGeo = store.storeLocation
             changeFragment(StoresItemsFragment.newInstance(store))
