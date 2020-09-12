@@ -17,7 +17,7 @@ data class CartItems (
     var storeId: String,
 
     @SerializedName("prescriptionUrl")
-    var prescriptionUrl: Uri = Uri.parse(pm.prescription)
+    var prescriptionUrl: String = pm.prescription
 
 ) : Parcelable {
 
