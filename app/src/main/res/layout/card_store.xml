@@ -28,9 +28,9 @@
 
                 <ImageView
                     android:id="@+id/storeImage"
-                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher_background" />
             </androidx.cardview.widget.CardView>
 
@@ -41,35 +41,41 @@
 
                 <TextView
                     android:id="@+id/storeName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:ellipsize="end"
                     android:fontFamily="@font/sarabun_regular"
-                    android:ellipsize="marquee"
-                    android:text="Store name"
+                    android:text="Store name fghgfhgfhgfgfhhgghgfhfghfghfghgfhfgh"
+                    android:singleLine="true"
                     android:textColor="@color/color_black" />
 
                 <TextView
                     android:id="@+id/storeCategory"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="2"
-                    android:ellipsize="marquee"
+                    android:alpha=".8"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:fontFamily="@font/sarabun_regular"
                     android:text="Category"
-                    android:alpha=".8"
-                    android:textColor="@color/color_black"/>
+                    android:textColor="@color/color_black" />
 
                 <TextView
                     android:id="@+id/storeLocality"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="marquee"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="2"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:fontFamily="@font/sarabun_regular"
                     android:text="Locality"
                     android:textColor="#60000000" />
