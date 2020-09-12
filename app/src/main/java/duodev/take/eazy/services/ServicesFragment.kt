@@ -86,6 +86,7 @@ class ServicesFragment : BaseFragment() {
             )
         )
         setDefs()
+        toast("The service has been successfully booked.")
     }
 
     private fun setDefs() {

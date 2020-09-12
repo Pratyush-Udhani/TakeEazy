@@ -22,7 +22,4 @@ data class SingleItem (
     @SerializedName("itemDiscountedPrice")
     val itemDiscountedPrice: String
 
-)  : Parcelable{
-    @SerializedName("prescriptionUrl")
-    var prescriptionUrl: String = ""
-}
+)  : Parcelable

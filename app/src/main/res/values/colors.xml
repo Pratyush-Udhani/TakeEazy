@@ -7,5 +7,6 @@
     <color name="color_white">#fff</color>
     <color name="green_primary">#00C462</color>
     <color name="main_bg_color">#E5E5E5</color>
+    <color name="new_blue">#6F86D6</color>
     <color name="main_blue">#95DED0</color>
 </resources>

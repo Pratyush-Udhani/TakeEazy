@@ -1,5 +1,6 @@
 package duodev.take.eazy.pojo
 
+import android.net.Uri
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -13,6 +14,11 @@ data class CartItems (
     var quantity: Int = 0,
 
     @SerializedName("storeId")
-    var storeId: String
+    var storeId: String,
 
-) : Parcelable
+    @SerializedName("prescriptionUrl")
+    var prescriptionUrl: Uri = Uri.parse(pm.prescription)
+
+) : Parcelable {
+
+}

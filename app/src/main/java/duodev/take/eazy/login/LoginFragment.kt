@@ -141,6 +141,7 @@ class LoginFragment : BaseFragment() {
                 loader.makeGone()
                 log("called failure")
                 toast("Verification failed. Please enter this device's phone number.")
+                log(e.toString())
                 if (e is FirebaseAuthInvalidCredentialsException) {
                 } else if (e is FirebaseTooManyRequestsException) {
                     activity?.toast(e.toString())

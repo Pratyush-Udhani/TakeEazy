@@ -1,19 +1,27 @@
 package duodev.take.eazy.stores
 
 import android.Manifest
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.storage.FirebaseStorage
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseFragment
 import duodev.take.eazy.home.HomeActivity
@@ -23,6 +31,9 @@ import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_stores_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
@@ -35,6 +46,11 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     private var latitude: Double? = 0.0
     private val storeList: MutableList<Store> = mutableListOf()
     private val searchedList: MutableList<Store> = mutableListOf()
+    private var imageUrl: Uri = Uri.EMPTY
+    private var image_url: Uri = Uri.EMPTY
+    private var storageReference = FirebaseStorage.getInstance().reference
+    private lateinit var snackBar: Snackbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +77,104 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         setUpRecycler()
         getLocation()
         setUpSearchInterface()
+        checkPrescription()
+    }
+
+    private fun checkPrescription() {
+        if (category == MEDICINES) {
+            if (pm.prescription == "") {
+                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",Snackbar.LENGTH_INDEFINITE)
+                    .setAction("UPLOAD") {
+                        openFilePicker(12)
+                    }
+                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+                snackBar.show()
+            } else {
+                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.",Snackbar.LENGTH_SHORT)
+                    .setAction("UPLOAD NEW") {
+
+                    }
+                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+                snackBar.show()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        log("called destroy view")
+        if (::snackBar.isInitialized)
+            snackBar.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        log("called destroy")
+        if (::snackBar.isInitialized)
+            snackBar.dismiss()
+    }
+
+    private fun openFilePicker(request: Int) {
+        val intent: Intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        startActivityForResult(intent, request)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 12 && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                image_url = data.data!!
+                uploadFile()
+                log(imageUrl.toString())
+            }
+        }
+    }
+
+    private fun uploadFile() {
+        val progress = ProgressDialog(requireContext())
+        progress.setMessage("Uploading prescription")
+        progress.max = 100
+        progress.show()
+
+            if (Uri.EMPTY != image_url) {
+              //  progressBar.makeVisible()
+                val mStorageReference = storageReference.child(ITEM_IMAGE).child(
+                    pm.phone + "." + getFileExtension(image_url)
+                )
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Default) {
+                        var uploadTask = mStorageReference.putFile(image_url)
+                        val urlTask = uploadTask.continueWithTask { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    throw it
+                                }
+                            }
+                            mStorageReference.downloadUrl
+                        }.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                pm.prescription = task.result.toString()
+                                toast("Prescription Uploaded")
+                                progress.dismiss()
+                                checkPrescription()
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            } else {
+                toast("Please select an image")
+            }
+    }
+
+    private fun getFileExtension(uri: Uri): String? {
+        val cr = context?.contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(cr?.getType(uri))
     }
 
     private fun setUpSearchInterface() {
@@ -247,7 +361,16 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     }
 
     override fun onStoreClicked(store: Store, distance: String) {
-        StoreLocation.storeGeo = store.storeLocation
-        changeFragment(StoresItemsFragment.newInstance(store))
+        if (category == MEDICINES) {
+            if (pm.prescription == "") {
+                toast("Please upload a prescription first")
+            } else {
+                StoreLocation.storeGeo = store.storeLocation
+                changeFragment(StoresItemsFragment.newInstance(store))
+            }
+        } else {
+            StoreLocation.storeGeo = store.storeLocation
+            changeFragment(StoresItemsFragment.newInstance(store))
+        }
     }
 }

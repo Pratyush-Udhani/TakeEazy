@@ -12,6 +12,7 @@ import duodev.take.eazy.about.AboutFragment
 import duodev.take.eazy.base.BaseActivity
 import duodev.take.eazy.cart.CartFragment
 import duodev.take.eazy.changePassword.ChangePasswordFragment
+import duodev.take.eazy.login.LoginActivity
 import duodev.take.eazy.login.LoginFragment
 import duodev.take.eazy.orders.OrdersFragment
 import duodev.take.eazy.profile.ProfileFragment
@@ -89,7 +90,7 @@ class HomeActivity : BaseActivity() {
             pm.phone = ""
             pm.address = ""
             pm.account = false
-            changeFragment(LoginFragment.newInstance())
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         navigationAbout.setOnClickListener {
@@ -127,11 +128,12 @@ class HomeActivity : BaseActivity() {
         currentFragment = supportFragmentManager.findFragmentById(R.id.homeContainer)!!
         if (currentFragment is StoresItemsFragment) {
             backButton.makeGone()
-            setUpFragment()
+            supportFragmentManager.popBackStackImmediate()
         } else {
             if (currentFragment is StoresListFragment) {
                 backButton.makeGone()
                 supportFragmentManager.popBackStackImmediate()
+                setUpFragment()
             } else {
                 if (currentFragment is ServicesFragment) {
                     supportFragmentManager.popBackStackImmediate()

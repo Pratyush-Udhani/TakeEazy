@@ -12,8 +12,7 @@ const val CATEGORIES = "categories"
 const val PICK_ITEM_IMAGE = 3
 const val ALLOWED_CHARS = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
 const val ITEM_IMAGES = "itemimages"
-
-
+const val ITEM_IMAGE = "itemimage"
 const val GROCERIES = "Groceries and essentials"
 const val MEDICINES = "Medicines"
 const val FRUITS = "Fruits and vegetables"

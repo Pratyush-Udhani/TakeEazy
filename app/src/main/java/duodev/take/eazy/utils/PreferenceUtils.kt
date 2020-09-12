@@ -12,6 +12,7 @@ object PreferenceUtils {
     private const val HASH = "hash"
     private const val ACCOUNT = "account"
     private const val ADDRESS = "address"
+    private const val PRESCRIPTION = "prescription"
 
     var phone: String
         get() = pm.getString(PHONE, "") ?: ""
@@ -35,6 +36,12 @@ object PreferenceUtils {
         get() = pm.getString(ADDRESS, "")!!
         set(value) {
             pm.edit().putString(ADDRESS, value).apply()
+        }
+
+    var prescription: String
+        get() = pm.getString(PRESCRIPTION, "")!!
+        set(value) {
+            pm.edit().putString(PRESCRIPTION, value).apply()
         }
 
     fun getUser(): Users {
