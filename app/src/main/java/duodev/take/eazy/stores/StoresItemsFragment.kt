@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import duodev.take.eazy.R
@@ -28,6 +29,7 @@ import duodev.take.eazy.stores.Adapter.StoreItemGroupAdapter
 import duodev.take.eazy.stores.ViewModel.StoreViewModel
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.custom_snackbar.*
 import kotlinx.android.synthetic.main.fragment_stores_items.*
 import kotlinx.android.synthetic.main.fragment_stores_items.loader
 import kotlinx.android.synthetic.main.fragment_stores_items.noItemsText
@@ -51,6 +53,7 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private var image_url: Uri = Uri.EMPTY
     private var storageReference = FirebaseStorage.getInstance().reference
     private lateinit var snackBar: Snackbar
+    private val dialog by lazy { BottomSheetDialog(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,25 +79,61 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
         setupUI()
         setUpObserver()
         setUpRecycler()
+        customSnackbar()
+    }
+
+    private fun customSnackbar() {
+
     }
 
     private fun checkPrescription() {
         if (store.storeCategory == MEDICINES) {
             if (pm.prescription == "") {
-                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction("UPLOAD") {
+//                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
+//                    Snackbar.LENGTH_INDEFINITE)
+//                    .setAction("UPLOAD") {
+//                        openFilePicker(12)
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//
+//                snackBar.show()
+                customSnackbar()
+                dialog.setContentView(this.layoutInflater.inflate(R.layout.custom_snackbar,null))
+                dialog.dismissWithAnimation = true
+
+                dialog.apply {
+                    upload.setOnClickListener {
                         openFilePicker(12)
                     }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-                snackBar.show()
-            } else {
-                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
-                    .setAction("UPLOAD NEW") {
-
+                    dismiss.setOnClickListener {
+                        dialog.dismiss()
                     }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-                snackBar.show()
+                    appCompatTextView.text = "You have not uploaded a prescription"
+                    log(appCompatTextView.text.toString())
+                }
+                dialog.show()
+            } else {
+//                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
+//                    .setAction("UPLOAD NEW") {
+//
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//                snackBar.show()
+                customSnackbar()
+                dialog.setContentView(this.layoutInflater.inflate(R.layout.custom_snackbar,null))
+                dialog.dismissWithAnimation = true
+                dialog.apply {
+                    upload.text = "UPLOAD NEW"
+                    upload.setOnClickListener {
+                        openFilePicker(12)
+                    }
+                    dismiss.setOnClickListener {
+                        dialog.dismiss()
+                    }
+                    appCompatTextView.text = "You have uploaded a prescription."
+                    log(appCompatTextView.text.toString())
+                }
+                dialog.show()
             }
         }
     }
