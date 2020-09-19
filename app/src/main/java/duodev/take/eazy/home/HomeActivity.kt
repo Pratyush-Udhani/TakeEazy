@@ -129,6 +129,7 @@ class HomeActivity : BaseActivity() {
         if (currentFragment is StoresItemsFragment) {
             backButton.makeGone()
             supportFragmentManager.popBackStackImmediate()
+            setUpFragment()
         } else {
             if (currentFragment is StoresListFragment) {
                 backButton.makeGone()

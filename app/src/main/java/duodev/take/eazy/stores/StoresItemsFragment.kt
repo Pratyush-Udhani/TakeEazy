@@ -89,65 +89,34 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private fun checkPrescription() {
         if (store.storeCategory == MEDICINES) {
             if (pm.prescription == "") {
-//                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
-//                    Snackbar.LENGTH_INDEFINITE)
-//                    .setAction("UPLOAD") {
-//                        openFilePicker(12)
-//                    }
-//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-//
-//                snackBar.show()
-                customSnackbar()
-                dialog.setContentView(this.layoutInflater.inflate(R.layout.custom_snackbar,null))
-                dialog.dismissWithAnimation = true
+                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("UPLOAD") {
+                        openFilePicker(12)
+                    }
+                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
 
-                dialog.apply {
-                    upload.setOnClickListener {
-                        openFilePicker(12)
-                    }
-                    dismiss.setOnClickListener {
-                        dialog.dismiss()
-                    }
-                    appCompatTextView.text = "You have not uploaded a prescription"
-                    log(appCompatTextView.text.toString())
-                }
-                dialog.show()
+                snackBar.show()
+
             } else {
-//                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
-//                    .setAction("UPLOAD NEW") {
-//
-//                    }
-//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-//                snackBar.show()
-                customSnackbar()
-                dialog.setContentView(this.layoutInflater.inflate(R.layout.custom_snackbar,null))
-                dialog.dismissWithAnimation = true
-                dialog.apply {
-                    upload.text = "UPLOAD NEW"
-                    upload.setOnClickListener {
-                        openFilePicker(12)
+                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
+                    .setAction("UPLOAD NEW") {
+
                     }
-                    dismiss.setOnClickListener {
-                        dialog.dismiss()
-                    }
-                    appCompatTextView.text = "You have uploaded a prescription."
-                    log(appCompatTextView.text.toString())
-                }
-                dialog.show()
+                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+                snackBar.show()
             }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        log("called destroy view")
         if (::snackBar.isInitialized)
             snackBar.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        log("called destroy")
         if (::snackBar.isInitialized)
             snackBar.dismiss()
     }

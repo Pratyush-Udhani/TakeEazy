@@ -88,6 +88,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
                         openFilePicker(12)
                     }
                 snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+
                 snackBar.show()
             } else {
                 snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.",Snackbar.LENGTH_SHORT)
