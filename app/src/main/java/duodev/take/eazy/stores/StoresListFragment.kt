@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.fragment_stores_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 
 class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
@@ -81,24 +82,24 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     }
 
     private fun checkPrescription() {
-        if (category == MEDICINES) {
-            if (pm.prescription == "") {
-                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",Snackbar.LENGTH_INDEFINITE)
-                    .setAction("UPLOAD") {
-                        openFilePicker(12)
-                    }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-
-                snackBar.show()
-            } else {
-                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.",Snackbar.LENGTH_SHORT)
-                    .setAction("UPLOAD NEW") {
-
-                    }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-                snackBar.show()
-            }
-        }
+//        if (category == MEDICINES) {
+//            if (pm.prescription == "") {
+//                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",Snackbar.LENGTH_INDEFINITE)
+//                    .setAction("UPLOAD") {
+//                        openFilePicker(12)
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//
+//                snackBar.show()
+//            } else {
+//                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.",Snackbar.LENGTH_SHORT)
+//                    .setAction("UPLOAD NEW") {
+//
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//                snackBar.show()
+//            }
+//        }
     }
 
     override fun onDestroyView() {
@@ -201,6 +202,14 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
     private fun setUpUI() {
         (activity as HomeActivity).backButton.makeVisible()
         categoryText.text = category
+
+        if (category == MEDICINES) {
+            uploadPrescriptionText.makeVisible()
+            uploadPrescriptionText.setOnClickListener {
+                openFilePicker(12)
+            }
+        }
+
         if (category != ""){
             categoryText.makeVisible()
         }

@@ -26,38 +26,40 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 app:cardBackgroundColor="#E4F9F4"
-                app:cardCornerRadius="5dp" >
+                app:cardCornerRadius="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_zoom_in"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:src="@drawable/ic_zoom_in" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="50dp"
                         android:background="@null"
-                        android:textSize="16sp"
                         android:fontFamily="@font/sarabun_regular"
                         android:gravity="center_vertical"
                         android:hint="Search stores"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
 
             <LinearLayout
+                android:id="@+id/storesNearYouLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:id="@+id/storesNearYouLayout"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
@@ -120,31 +122,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/servicesText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
-                android:text="Avail Services"
-                android:textColor="@color/color_black"
-                android:textSize="17sp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/serviceCard"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginStart="20dp"
-                app:cardElevation="0dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_services" />
-            </androidx.cardview.widget.CardView>
-
-
-            <TextView
                 android:id="@+id/categoriesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,6 +141,31 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="4"
                 tools:listitem="@layout/card_categories_home" />
+
+            <TextView
+                android:id="@+id/servicesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:text="Avail Services"
+                android:textColor="@color/color_black"
+                android:textSize="17sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/serviceCard"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_services" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

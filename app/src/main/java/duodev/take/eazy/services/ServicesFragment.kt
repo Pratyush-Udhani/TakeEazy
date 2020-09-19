@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -17,6 +18,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import duodev.take.eazy.R
 import duodev.take.eazy.SharedViewModel.SharedViewModel
 import duodev.take.eazy.base.BaseFragment
+import duodev.take.eazy.home.HomeFragment
 import duodev.take.eazy.pojo.Service
 import duodev.take.eazy.utils.*
 import kotlinx.android.synthetic.main.fragment_services.*
@@ -91,7 +93,15 @@ class ServicesFragment : BaseFragment() {
             )
         )
         setDefs()
+        changeFragment(HomeFragment.newInstance())
         toast("The service has been successfully booked.")
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.homeContainer, fragment)
+        fragmentTransaction?.commit()
+        fragmentTransaction?.addToBackStack(null)
     }
 
     private fun setDefs() {
