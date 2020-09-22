@@ -11,6 +11,8 @@ import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.Store
 import org.w3c.dom.Text
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class StoreListAdapter(
     private val list: LinkedHashMap<Store, String>,
@@ -60,7 +62,7 @@ class StoreListAdapter(
             Glide.with(getContext()).load(store.storeImageUri).into(storeImage)
             storeCategory.text = store.storeCategory
             storeLocality.text = store.storeAddress
-            storeDistance.text = "$distance km"
+            storeDistance.text = "${BigDecimal(distance.toDouble()).setScale(2,RoundingMode.HALF_EVEN)} km"
         }
     }
 
