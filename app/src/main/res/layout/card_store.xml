@@ -49,23 +49,47 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:fontFamily="@font/sarabun_regular"
-                    android:text="Store name fghgfhgfhgfgfhhgghgfhfghfghfghgfhfgh"
                     android:singleLine="true"
+                    android:text="Store name fghgfhgfhgfgfhhgghgfhfghfghfghgfhfgh"
                     android:textColor="@color/color_black" />
 
-                <TextView
-                    android:id="@+id/storeCategory"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="2"
-                    android:alpha=".8"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:fontFamily="@font/sarabun_regular"
-                    android:text="Category"
-                    android:textColor="@color/color_black" />
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/storeCategory"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="3"
+                        android:alpha=".8"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sarabun_regular"
+                        android:singleLine="true"
+                        android:text="Category"
+                        android:textColor="@color/color_black" />
+
+                    <TextView
+                        android:id="@+id/storeDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha=".8"
+                        android:background="@drawable/distance_background"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sarabun_regular"
+                        android:gravity="center"
+                        android:paddingHorizontal="15dp"
+                        android:singleLine="true"
+                        android:text="100 km"
+                        android:textColor="@color/color_black" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/storeLocality"
@@ -75,8 +99,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_weight="2"
                     android:ellipsize="end"
-                    android:singleLine="true"
                     android:fontFamily="@font/sarabun_regular"
+                    android:singleLine="true"
                     android:text="Locality"
                     android:textColor="#60000000" />
             </LinearLayout>

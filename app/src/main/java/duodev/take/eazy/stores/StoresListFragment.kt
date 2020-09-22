@@ -269,7 +269,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
             locationRequest.fastestInterval = 3000
             locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener {
-                log("success")
+                log("success $it")
                 if (it != null) {
                     log("not null")
                     latitude = it.latitude
@@ -277,14 +277,18 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
                     storeViewModel.fetchData().observe(viewLifecycleOwner, Observer {list ->
                         if (list.isNotEmpty()) {
                             if (category == ""){
+                                log("Sorting list")
                                 storeList.addAll(list)
                                 sortData(list)
                             } else {
+                                log("filtering list")
                                 filterCategory(list, category)
                             }
                         }
                     })
 
+                } else {
+                    log("location null")
                 }
             }
 
@@ -292,6 +296,11 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
 //            latitude = location?.latitude
         }
 
+    }
+
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun filterCategory(list: List<Store>, category: String) {
@@ -344,8 +353,7 @@ class StoresListFragment : BaseFragment(), StoreListAdapter.OnClick {
         if (sortedMap.isEmpty()) {
             noItemsText.makeVisible()
             log("called if")
-        }
-        else {
+        } else {
             storeAdapter.addData(sortedMap)
             log("called else $sortedMap")
         }

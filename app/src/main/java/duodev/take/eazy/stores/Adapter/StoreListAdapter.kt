@@ -50,6 +50,7 @@ class StoreListAdapter(
         private val storeImage: ImageView = itemView.findViewById(R.id.storeImage)
         private val storeCategory: TextView = itemView.findViewById(R.id.storeCategory)
         private val storeLocality: TextView = itemView.findViewById(R.id.storeLocality)
+        private val storeDistance: TextView = itemView.findViewById(R.id.storeDistance)
 
         fun bindItems(store: Store, distance: String) {
             storeName.text = store.storeName
@@ -59,6 +60,7 @@ class StoreListAdapter(
             Glide.with(getContext()).load(store.storeImageUri).into(storeImage)
             storeCategory.text = store.storeCategory
             storeLocality.text = store.storeAddress
+            storeDistance.text = "$distance km"
         }
     }
 
