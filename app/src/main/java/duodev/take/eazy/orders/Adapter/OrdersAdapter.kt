@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import duodev.take.eazy.R
 import duodev.take.eazy.base.BaseRecyclerViewAdapter
 import duodev.take.eazy.pojo.OrderItems
+import duodev.take.eazy.utils.ASSIGNED_TO_STORE
 
 class OrdersAdapter(
     private val list: MutableList<OrderItems>
@@ -42,7 +43,7 @@ class OrdersAdapter(
         fun bindItems(order: OrderItems) {
 
             itemNameOrder.text = order.cartItem.singleItem.itemName
-            if (order.status == "" || order.status == "Assigned to store") {
+            if (order.status == "" || order.status == ASSIGNED_TO_STORE) {
                 itemStatus.text = "Waiting for approval"
             } else {
                 itemStatus.text = order.status
