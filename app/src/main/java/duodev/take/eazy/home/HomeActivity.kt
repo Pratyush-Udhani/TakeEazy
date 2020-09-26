@@ -136,40 +136,52 @@ class HomeActivity : BaseActivity() {
                 supportFragmentManager.popBackStackImmediate()
                 setUpFragment()
             } else {
-                if (currentFragment is ServicesFragment) {
+                if (currentFragment is CartFragment) {
+                    backButton.makeGone()
+                    setUpFragment()
                     supportFragmentManager.popBackStackImmediate()
                 } else {
-                    if (currentFragment is ProfileFragment) {
+                    if (currentFragment is OrdersFragment) {
                         backButton.makeGone()
                         setUpFragment()
                         supportFragmentManager.popBackStackImmediate()
                     } else {
-                        if (currentFragment is ServicesOrders) {
+                        if (currentFragment is ServicesFragment) {
                             supportFragmentManager.popBackStackImmediate()
-                            setUpFragment()
-                            backButton.makeGone()
                         } else {
-                            if (currentFragment is TermsFragment) {
-                                supportFragmentManager.popBackStackImmediate()
-                                setUpFragment()
+                            if (currentFragment is ProfileFragment) {
                                 backButton.makeGone()
+                                setUpFragment()
+                                supportFragmentManager.popBackStackImmediate()
                             } else {
-                                if (currentFragment is AboutFragment) {
+                                if (currentFragment is ServicesOrders) {
                                     supportFragmentManager.popBackStackImmediate()
                                     setUpFragment()
                                     backButton.makeGone()
                                 } else {
-                                    if (backPressed.plus(2000) >= System.currentTimeMillis()) {
-                                        super.onBackPressed()
-                                        finishAffinity()
+                                    if (currentFragment is TermsFragment) {
+                                        supportFragmentManager.popBackStackImmediate()
+                                        setUpFragment()
+                                        backButton.makeGone()
                                     } else {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            getString(R.string.press_again_to_exit),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        backPressed =
-                                            System.currentTimeMillis()
+                                        if (currentFragment is AboutFragment) {
+                                            supportFragmentManager.popBackStackImmediate()
+                                            setUpFragment()
+                                            backButton.makeGone()
+                                        } else {
+                                            if (backPressed.plus(2000) >= System.currentTimeMillis()) {
+                                                super.onBackPressed()
+                                                finishAffinity()
+                                            } else {
+                                                Toast.makeText(
+                                                    applicationContext,
+                                                    getString(R.string.press_again_to_exit),
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                backPressed =
+                                                    System.currentTimeMillis()
+                                            }
+                                        }
                                     }
                                 }
                             }
