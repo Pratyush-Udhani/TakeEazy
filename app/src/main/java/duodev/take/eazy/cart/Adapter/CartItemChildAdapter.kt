@@ -46,6 +46,11 @@ class CartItemChildAdapter (
         notifyDataSetChanged()
     }
 
+    fun clearCart() {
+        list.clear()
+        notifyDataSetChanged()
+    }
+
     fun getTotal(): Int {
         var total: Int = 0
         list.forEachIndexed { _, cartItems ->

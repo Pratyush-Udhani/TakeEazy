@@ -77,30 +77,37 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
     private fun init() {
         checkPrescription()
         setupUI()
+        setListenters()
         setUpObserver()
         setUpRecycler()
     }
 
+    private fun setListenters() {
+        uploadPrescriptionText.setOnClickListener {
+            openFilePicker(12);
+        }
+    }
+
     private fun checkPrescription() {
         if (store.storeCategory == MEDICINES) {
-            if (pm.prescription == "") {
-                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction("UPLOAD") {
-                        openFilePicker(12)
-                    }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-
-                snackBar.show()
-
-            } else {
-                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
-                    .setAction("UPLOAD NEW") {
-
-                    }
-                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
-                snackBar.show()
-            }
+//            if (pm.prescription == "") {
+//                snackBar = Snackbar.make(parentLayout,"You have not uploaded a prescription",
+//                    Snackbar.LENGTH_INDEFINITE)
+//                    .setAction("UPLOAD") {
+//                        openFilePicker(12)
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//
+//                snackBar.show()
+//
+//            } else {
+//                snackBar = Snackbar.make(parentLayout,"You have uploaded a prescription.", Snackbar.LENGTH_SHORT)
+//                    .setAction("UPLOAD NEW") {
+//
+//                    }
+//                snackBar.setActionTextColor(ActivityCompat.getColor(requireContext(),R.color.new_blue))
+//                snackBar.show()
+//            }
         }
     }
 
@@ -184,6 +191,10 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
         storeName.text = store.storeName
         storeCategory.text = store.storeCategory
         storeLocality.text = store.storeAddress
+
+        if (store.storeCategory == MEDICINES) {
+            uploadPrescriptionText.makeVisible()
+        }
     }
 
     private fun setUpObserver() {

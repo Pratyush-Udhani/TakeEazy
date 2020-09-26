@@ -79,6 +79,17 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
                 }
             }
         }
+
+        clearCartButton.setOnClickListener {
+            clearCart()
+        }
+    }
+
+    private fun clearCart() {
+        cartViewModel.clearCart()
+        noItemsText.makeVisible()
+        clearCartButton.makeGone()
+        cartChildAdapter.clearCart()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -100,6 +111,7 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
                 storeId = it.toString()
                 fetched.value = true
                 loader.makeGone()
+                clearCartButton.makeVisible()
             } else {
                 loader.makeGone()
                 noItemsText.makeVisible()

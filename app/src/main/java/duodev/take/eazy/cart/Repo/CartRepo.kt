@@ -36,4 +36,11 @@ class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirest
             }
         return data
     }
+
+    fun clearCart() {
+        firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get().addOnSuccessListener {
+            for (element in it.documents)
+                element.reference.delete()
+        }
+    }
 }

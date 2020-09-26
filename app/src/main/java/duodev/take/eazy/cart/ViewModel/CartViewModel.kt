@@ -15,4 +15,6 @@ class CartViewModel @Inject constructor(private val cartRepo: CartRepo): BaseVie
     fun fetchItems(storeId: String) = cartRepo.fetchItems(storeId)
 
     fun getStoreId() = cartRepo.getStoreId()
+
+    fun clearCart() = cartRepo.clearCart()
 }
