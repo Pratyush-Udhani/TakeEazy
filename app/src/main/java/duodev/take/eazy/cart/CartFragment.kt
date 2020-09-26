@@ -94,10 +94,12 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PAYMENT && resultCode == PAYMENT_SUCCESS) {
+        if (requestCode == PAYMENT && resultCode == PAYMENT) {
             sharedViewModel.orderItems(storeId)
             cartChildAdapter.removeData()
             cartChildAdapter.notifyDataSetChanged()
+            clearCartButton.makeGone()
+            totalPriceText.text = "-"
             toast("Items bought")
         }
         if (requestCode == ADDRESS && resultCode == ADDRESS_ADDED) {
