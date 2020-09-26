@@ -1,8 +1,8 @@
 package duodev.take.eazy.cart.Repo
 
 import androidx.lifecycle.MutableLiveData
+import com.google.android.libraries.places.internal.it
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import duodev.take.eazy.pojo.*
 import duodev.take.eazy.pojo.pm
 import duodev.take.eazy.utils.*
@@ -37,9 +37,10 @@ class CartRepo @Inject constructor(private val firebaseFirestore: FirebaseFirest
         return data
     }
 
-    fun clearCart() {
-        firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).get().addOnSuccessListener {
-            for (element in it.documents)
+    fun clearCart(storeId: String) {
+        firebaseFirestore.collection(USERS).document(pm.phone).collection(CART).document(storeId).collection(
+            ITEMS).get().addOnSuccessListener {
+            for (element in it)
                 element.reference.delete()
         }
     }

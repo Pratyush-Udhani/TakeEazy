@@ -81,12 +81,12 @@ class CartFragment : BaseFragment(), CartItemChildAdapter.OnClick {
         }
 
         clearCartButton.setOnClickListener {
-            clearCart()
+            clearCart(storeId)
         }
     }
 
-    private fun clearCart() {
-        cartViewModel.clearCart()
+    private fun clearCart(storeId: String) {
+        cartViewModel.clearCart(storeId)
         noItemsText.makeVisible()
         clearCartButton.makeGone()
         cartChildAdapter.clearCart()
