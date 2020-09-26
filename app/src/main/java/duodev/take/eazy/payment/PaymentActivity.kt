@@ -36,7 +36,13 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
     private fun setUpListeners() {
         buyItemsButton.setOnClickListener {
             if (mode != "") {
-                checkDetails()
+                if (mode != "cod") {
+                    checkDetails()
+                } else {
+                    setResult(CartFragment.PAYMENT)
+                    finish()
+                    overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
+                }
             } else {
                 toast("Select a method")
             }
@@ -52,6 +58,9 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
                 }
                 (R.id.payment_paytm) -> {
                     mode = "upi"
+                }
+                (R.id.cashOnDelivery) -> {
+                    mode = "cod"
                 }
             }
         }

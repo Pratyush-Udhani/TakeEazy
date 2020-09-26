@@ -75,6 +75,7 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
         categoryAdapter.addData(categoryList)
     }
 
+
     private fun setUpListeners() {
         permissionText.setOnClickListener {
             getLocation()
@@ -186,9 +187,9 @@ class HomeFragment : BaseFragment(), StoreHomeAdapter.OnClick, CategoryHomeAdapt
 
     override fun onResume() {
         super.onResume()
-//        categoryAdapter.clearData()
-//        storeAdapter.clearData()
-//        init()
+        categoryAdapter.clearData()
+        storeAdapter.clearData()
+        init()
     }
 
     private fun sortData(list: List<Store>) {

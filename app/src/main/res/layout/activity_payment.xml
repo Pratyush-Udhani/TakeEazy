@@ -163,6 +163,15 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/sarabun_regular"
                 android:text="UPI" />
+
+            <RadioButton
+                android:id="@+id/cashOnDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/sarabun_regular"
+                android:text="Cash on Delivery" />
         </RadioGroup>
     </LinearLayout>
 

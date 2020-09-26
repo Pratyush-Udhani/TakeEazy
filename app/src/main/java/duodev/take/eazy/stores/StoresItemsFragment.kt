@@ -79,11 +79,6 @@ class StoresItemsFragment : BaseFragment(), StoreItemGroupAdapter.OnItemClicked 
         setupUI()
         setUpObserver()
         setUpRecycler()
-        customSnackbar()
-    }
-
-    private fun customSnackbar() {
-
     }
 
     private fun checkPrescription() {
